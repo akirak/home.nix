@@ -3,8 +3,8 @@ jobs:
   build:
     environment:
       TERM: dumb
-      NIX_PATH: ~/.nix-defexpr/channels
-      HOME_MANAGER_CONFIG: ~/nix/home.nix
+      NIX_PATH: /root/.nix-defexpr/channels
+      HOME_MANAGER_CONFIG: /root/nix/home.nix
     docker:
       - image: akirak/nixmacs-bootstrap
     working_directory:
