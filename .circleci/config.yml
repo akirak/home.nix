@@ -14,7 +14,7 @@ jobs:
       - run: nix-channel --update
       - run: nix-shell '<home-manager>' -A install
       - run: home-manager switch
-      - run: make -f test.mk all
+      - run: make -C test -f test.mk all
 workflows:
   version: 2
   build:
