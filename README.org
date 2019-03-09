@@ -1,2 +1,3 @@
 * Home-Manager Configuration
+[[https://circleci.com/gh/akirak/home.nix][https://circleci.com/gh/akirak/home.nix.svg?style=svg]]
 My home configuration using [[https://github.com/rycee/home-manager][home-manager]]
