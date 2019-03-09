@@ -1,0 +1,2 @@
+* Home-Manager Configuration
+My home configuration using [[https://github.com/rycee/home-manager][home-manager]]
