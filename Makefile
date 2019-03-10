@@ -1,5 +1,5 @@
 install-hooks:
-	cp -fv test/test-local.sh .git/hooks/pre-push
+	cp -fv -t .git/hooks meta/pre-push
 	chmod +x .git/hooks/pre-push
 
 uninstall-hooks:
