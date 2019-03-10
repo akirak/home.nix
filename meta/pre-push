@@ -52,4 +52,4 @@ do
 	fi
 done
 
-sh test/test-local.sh
+sh test/test-local.sh && test ! -f .errors.txt
