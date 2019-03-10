@@ -1,3 +1,6 @@
-all:
+all: chemacs
 
-.PRUNE: all
+chemacs:
+	test -f $(HOME)/.emacs
+
+.PRUNE: all chemacs
