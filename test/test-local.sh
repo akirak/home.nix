@@ -16,6 +16,6 @@ if [ ! -f .errors.txt ]; then
 fi
 
 # Clean up the error file if it is empty
-if [ $(stat -c '%s' .errors.txt) = 0 ]; then
+if [ $(stat -c '%s' .errors.txt) = "0" ]; then
     rm .errors.txt
 fi
