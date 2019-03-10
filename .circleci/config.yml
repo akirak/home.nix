@@ -11,6 +11,7 @@ jobs:
       ~/nix
     steps:
       - checkout
+      - run: git submodule update --init --recursive
       - run: nix-channel --update
       - run: nix-shell '<home-manager>' -A install
       - run: home-manager switch
