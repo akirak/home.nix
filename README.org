@@ -3,9 +3,18 @@
 
 My home configuration using [[https://github.com/rycee/home-manager][home-manager]]
 
+This is part of [[https://github.com/akirak/emacs.d][my Emacs configuration]].
+
 ** Installation
+This is automatically installed as part of the Emacs configuration. Alternatively, you can use it without Emacs. If you have already added [[https://github.com/rycee/home-manager][home-manager]] to your Nix channels, you can install it by running
+
 #+begin_src sh
-make install-hooks
+  git clone https://github.com/akirak/home.nix.git ~/nix
+  cd ~/nix
+  export HOME_MANAGER_CONFIG=$HOME/nix/home.nix
+  make install-hooks
+  nix-shell '<home-manager>' -A install
+  home-manager switch
 #+end_src
 
 ** Development
