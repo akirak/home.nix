@@ -1,8 +1,4 @@
 install-hooks:
-	cp -fv -t .git/hooks meta/pre-push
-	chmod +x .git/hooks/pre-push
+	if [ -d .git ]; then git config --add core.hooksPath .githooks; fi
 
-uninstall-hooks:
-	rm -v .git/hooks/pre-push
-
-.PRUNE: install-hooks uninstall-hooks
+.PRUNE: install-hooks
