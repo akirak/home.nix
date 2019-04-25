@@ -7,9 +7,8 @@
     };
   };
 
-  home.file = {
-    ".emacs".source = ./contrib/chemacs/.emacs;
-  };
+  # home.file = {
+  # };
 
   programs.home-manager = {
     enable = true;
