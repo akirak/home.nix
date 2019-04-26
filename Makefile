@@ -4,7 +4,7 @@ all: chemacs
 	home-manager -I $(shell pwd) switch
 
 install-hooks:
-	if [ -d .git ]; then git config --add core.hooksPath .githooks; fi
+	if [ -d .git ]; then git config core.hooksPath .githooks; fi
 
 chemacs:
 	cd contrib/chemacs && ./install.sh
