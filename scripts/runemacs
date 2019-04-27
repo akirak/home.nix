@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Run Emacs with the proper environment for Nix
+
+# This is used for launching Emacs from outside of an interactive
+# shell session.
+
+# Load nix config
+NIX_SHELL_CONFIG="$HOME/.nix-profile/etc/profile.d/nix.sh"
+if [ -e "${NIX_SHELL_CONFIG}" ]; then
+    . "${NIX_SHELL_CONFIG}"
+fi
+
+# Retrieve the root directory
+self="$(readlink -e "$0")"
+dir="$(dirname $self)"
+local_nix="$(dirname $dir)"
+
+HOME_MANAGER_CONFIG="${local_nix}/home.nix"
+export HOME_MANAGER_CONFIG
+
+# TODO: Prevent duplicate entries
+PATH="${local_nix}/scripts:$PATH"
+export PATH
+
+set -v
+echo ${HOME_MANAGER_CONFIG}
+echo $PATH
+
+exec "${EMACS:-emacs}" "$@"
