@@ -16,6 +16,10 @@ self="$(readlink -e "$0")"
 dir="$(dirname $self)"
 local_nix="$(dirname $dir)"
 
+channels="$HOME/.nix-defexpr/channels"
+
+export NIX_PATH="nixpkgs=${channels}/nixpkgs:${channels}"
+
 HOME_MANAGER_CONFIG="${local_nix}/home.nix"
 export HOME_MANAGER_CONFIG
 
