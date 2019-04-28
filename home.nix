@@ -4,6 +4,8 @@ with
 let
   homeDirectory = builtins.getEnv "HOME";
   scriptSrcDir = "${homeDirectory}/.emacs.d/nix/scripts";
+  # You have to create a symlink from identity.nix to one of the
+  # identity.*.nix files in the repository
   identity = import ./identity.nix {};
   prefs = identity.preferences;
   fullname = identity.fullname;
