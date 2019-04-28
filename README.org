@@ -12,11 +12,13 @@ This is automatically installed as part of the Emacs configuration. Alternativel
   git clone https://github.com/akirak/home.nix.git ~/nix
   cd ~/nix
   git submodule update --init
-  export HOME_MANAGER_CONFIG=$HOME/nix/home.nix
-  make install-hooks
+  # Create a symbolic link to one of the identity.*.nix files
+  ln -s identity.chromeos.nix identity.nix
   nix-shell '<home-manager>' -A install
-  home-manager switch
+  make all
 #+end_src
+
+Before running =make=, you have to create =identity.nix=. There are some profiles which follow the naming convention of =identity.*.nix= in this repository, so you can use one of them by creating a symbolic link.
 
 ** Development
 Tests are run automatically by a Git hook.
