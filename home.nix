@@ -146,8 +146,19 @@ StartupWMClass=Emacs
 Keywords=Text;Editor;
 '';
 
-      # ".local/share/applications/com.gexperts.Tilix.desktop".source =
-      #   "${pkgs.home-manager-path}/share/applications/com.gexperts.Tilix.desktop";
+      # It would be better if I could let Chrome OS directly read
+      # desktop files from ~/.nix-profile/share/applications.
+      # To do that, I have to set XDG_DATA_DIRS referred by Garcon.
+      ".local/share/applications/com.gexperts.Tilix.desktop".source =
+      "${pkgs.tilix}/share/applications/com.gexperts.Tilix.desktop";
+
+      # Like above, add all icons in ~/.nix-profile/share/icons to
+      # ~/.local/share/icons. This is unnecessary if I could set
+      # XDG_DATA_DIRS as read by Garcon.
+      ".local/share/icons" = {
+        recursive = true;
+        source = "${homeDirectory}/.nix-profile/share/icons";
+      };
     };
   };
 
