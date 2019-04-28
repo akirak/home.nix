@@ -291,11 +291,22 @@ Keywords=Text;Editor;
             # date = 2018-07-04T22:33:02+02:00;
           };
         }
+        {
+          name = "nix-shell";
+          src =  pkgs.fetchFromGitHub {
+            owner = "chisui";
+            repo = "zsh-nix-shell";
+            rev = "b2609ca787803f523a18bb9f53277d0121e30389";
+            sha256 = "01w59zzdj12p4ag9yla9ycxx58pg3rah2hnnf3sw4yk95w3hlzi6";
+            # date = 2019-04-22T22:00:26+02:00;
+          };
+        }
       ];
       sessionVariables = {
         "DIRSTACKSIZE" = "20";
         "SPACESHIP_DIR_TRUNC_REPO" = "false";
         "SPACESHIP_DIR_TRUNC" = "0";
+        "NIX_BUILD_SHELL" = "zsh";
       };
       initExtra = "
 setopt auto_cd
