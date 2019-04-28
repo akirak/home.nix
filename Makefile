@@ -1,6 +1,6 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 
-all: chemacs home-manager
+all: install-hooks chemacs home-manager
 
 home-manager:
 	home-manager -I $(shell pwd) switch
