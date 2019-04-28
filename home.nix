@@ -320,6 +320,8 @@ fpath+=~/${zPromptDir}
 autoload -Uz promptinit
 promptinit
 prompt pure
+# https://github.com/sindresorhus/pure/issues/188
+prompt_pure_set_title() {}
 ";
       shellAliases = {
         ".." = "cd ..";
