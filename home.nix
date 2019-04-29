@@ -130,6 +130,8 @@ in
       "${zPromptDir}/prompt_pure_setup".source = "${zshPurePrompt}/pure.zsh";
       "${zPromptDir}/async".source = "${zshPurePrompt}/async.zsh";
 
+      # TODO: Add a script named runhm
+      # TODO: Rewrite this script using runhm script
       ".local/share/applications/emacs.desktop".text = ''
 [Desktop Entry]
 Version=1.0
@@ -147,6 +149,8 @@ StartupWMClass=Emacs
 Keywords=Text;Editor;
 '';
 
+      # TODO: Replace this desktop file with one using runhm script
+      #
       # It would be better if I could let Chrome OS directly read
       # desktop files from ~/.nix-profile/share/applications.
       # To do that, I have to set XDG_DATA_DIRS referred by Garcon.
@@ -246,7 +250,7 @@ Keywords=Text;Editor;
     # TODO: Configure obs-studio
     # obs-studio = {};
 
-    # I will use rofi only on NixOS (neither on Chrome OS nor on WSL)
+    # TODO: Configure rofi for Chrome OS, WSL, and NixOS
     # rofi = {};
 
     skim = {
