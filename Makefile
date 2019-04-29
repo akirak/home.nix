@@ -19,4 +19,7 @@ install-hooks:
 chemacs:
 	cd contrib/chemacs && ./install.sh
 
-.PRUNE: install-hooks all chemacs home-manager system-icons
+clean:
+	sudo rm -rf /homeless-shelter
+
+.PRUNE: install-hooks all chemacs home-manager system-icons clean
