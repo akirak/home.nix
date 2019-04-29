@@ -113,7 +113,7 @@ in
     sessionVariables = {
       EDITOR = "emacsclient";
       # SHELL = "${pkgs.zsh}/bin/zsh";
-    };
+    } // identity.locale;
 
     file = {
       "${zPromptDir}/prompt_spaceship_setup".source
