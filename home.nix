@@ -344,8 +344,11 @@ prompt_pure_set_title() {}
     # kbfs = {};
     # keybase = {};
     # mbsync = {};
-    # TODO: Run syncthing service
-    # syncthing = {};
+    # Run syncthing service. This is triggered by default.target
+    syncthing = {
+      enable = true;
+      tray = false;
+    };
     # udiskie = {};
 
     # Only on NixOS
