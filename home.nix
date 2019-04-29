@@ -87,7 +87,8 @@ in
       overpass
       powerline-fonts
       # Icons
-      zafiro-icons
+      emacs-alt-icon
+      suru-plus-terminal-icons
       # TODO: Add only on Chrome OS
       # wl-clipboard
       # Other graphical apps
@@ -155,9 +156,9 @@ Keywords=Text;Editor;
       # Like above, add all icons in ~/.nix-profile/share/icons to
       # ~/.local/share/icons. This is unnecessary if I could set
       # XDG_DATA_DIRS as read by Garcon.
-      ".local/share/icons" = {
+      ".local/share/icons/favorites" = {
         recursive = true;
-        source = "${homeDirectory}/.nix-profile/share/icons";
+        source = "${homeDirectory}/.nix-profile/share/icons/favorites";
       };
     };
   };
