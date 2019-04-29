@@ -11,6 +11,7 @@ let
   fullname = identity.fullname;
   email = identity.email;
   language = identity.language;
+  platform = identity.platform;
   isNixOS = identity.platform.isNixOS;
   zDotDir = ".config/zsh";
   zPromptDir = ".config/zsh/prompt";
@@ -89,11 +90,12 @@ in
       # Icons
       emacs-alt-icon
       suru-plus-terminal-icons
-      # TODO: Add only on Chrome OS
-      # wl-clipboard
       # Other graphical apps
       tilix
-    ];
+    ] ++
+    (if platform.isWayland
+    then [ wl-clipboard ]
+    else []);
 
     extraOutputsToInstall = [
       "doc"

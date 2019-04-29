@@ -26,8 +26,11 @@
     useBrowserPass = true;
     addGlobalGitIdentity = true;
   };
-  platform = {
+  platform = rec {
     isChromeOS = true;
     isNixOS = false;
+    # I will use Wayland only on Chrome OS (which enforces Wayland)
+    # for now
+    isWayland = isChromeOS;
   };
 }
