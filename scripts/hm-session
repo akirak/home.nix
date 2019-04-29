@@ -1,0 +1,22 @@
+#!/bin/sh
+
+source_if_existing() {
+    for src; do
+        if [ -e "$src" ]; then
+            echo $(basename "$0"): "Sourcing $src..."
+            . "$src"
+        fi
+    done
+}
+
+if [ -n "$HOME" ] && [ -n "$USER" ]; then
+    source_if_existing "$HOME/.nix-profile/etc/profile.d/nix.sh"
+    source_if_existing "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+
+    # channels="$HOME/.nix-defexpr/channels"
+    # export NIX_PATH="nixpkgs=${channels}/nixpkgs:${channels}"
+else
+    echo "\$HOME and/or \$USER is not defined. This can go wrong."
+fi
+
+exec "$@"

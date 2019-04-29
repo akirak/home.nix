@@ -3,6 +3,10 @@ with
   lib.mkIf;
 let
   homeDirectory = builtins.getEnv "HOME";
+  channelsDir = "${homeDirectory}/.nix-defexpr/channels";
+  hmConfigFile = "${homeDirectory}/.emacs.d/nix/home.nix";
+  binDir = "${homeDirectory}/.nix-profile/bin";
+  hmSessionBin = "${binDir}/hm-session";
   scriptSrcDir = "${homeDirectory}/.emacs.d/nix/scripts";
   # You have to create a symlink from identity.nix to one of the
   # identity.*.nix files in the repository
@@ -92,6 +96,8 @@ in
       suru-plus-terminal-icons
       # Other graphical apps
       tilix
+      # Scripts
+      my-scripts
     ] ++
     (if platform.isWayland
     then [ wl-clipboard ]
@@ -116,6 +122,8 @@ in
     sessionVariables = {
       EDITOR = "emacsclient";
       # SHELL = "${pkgs.zsh}/bin/zsh";
+      NIX_PATH = "nixpkgs=${channelsDir}/nixpkgs:${channelsDir}";
+      HOME_MANAGER_CONFIG = hmConfigFile;
     } // identity.locale;
 
     file = {
@@ -132,8 +140,6 @@ in
       "${zPromptDir}/prompt_pure_setup".source = "${zshPurePrompt}/pure.zsh";
       "${zPromptDir}/async".source = "${zshPurePrompt}/async.zsh";
 
-      # TODO: Add a script named runhm
-      # TODO: Rewrite this script using runhm script
       ".local/share/applications/emacs.desktop".text = ''
 [Desktop Entry]
 Version=1.0
@@ -141,8 +147,8 @@ Name=GNU Emacs (with custom Environment)
 GenericName=Text Editor
 Comment=GNU Emacs is an extensible, customizable text editor - and more
 MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
-TryExec=${scriptSrcDir}/runemacs
-Exec=${scriptSrcDir}/runemacs %F
+TryExec=${hmSessionBin}
+Exec=${hmSessionBin} emacs %F
 Icon=emacs
 Type=Application
 Terminal=false
@@ -151,13 +157,33 @@ StartupWMClass=Emacs
 Keywords=Text;Editor;
 '';
 
-      # TODO: Replace this desktop file with one using runhm script
-      #
-      # It would be better if I could let Chrome OS directly read
-      # desktop files from ~/.nix-profile/share/applications.
-      # To do that, I have to set XDG_DATA_DIRS referred by Garcon.
-      ".local/share/applications/com.gexperts.Tilix.desktop".source =
-      "${pkgs.tilix}/share/applications/com.gexperts.Tilix.desktop";
+      ".local/share/applications/com.gexperts.Tilix.desktop".text = ''
+[Desktop Entry]
+Version=1.0
+Name=Tilix
+Comment=A tiling terminal for Gnome
+Keywords=shell;prompt;command;commandline;cmd;
+Exec=${hmSessionBin} tilix
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=System;TerminalEmulator;X-GNOME-Utilities;
+Icon=terminal
+DBusActivatable=true
+Actions=new-window;new-session;preferences;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=${hmSessionBin} tilix --action=app-new-window
+
+[Desktop Action new-session]
+Name=New Session
+Exec=${hmSessionBin} tilix --action=app-new-session
+
+[Desktop Action preferences]
+Name=Preferences
+Exec=${hmSessionBin} tilix --preferences
+'';
 
       # Like above, add all icons in ~/.nix-profile/share/icons to
       # ~/.local/share/icons. This is unnecessary if I could set
