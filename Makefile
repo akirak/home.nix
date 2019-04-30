@@ -15,7 +15,7 @@ system-icons:
 	fi
 
 install-hooks:
-	if [ -d .git ]; then git config core.hooksPath .githooks; fi
+	if [ -e .git ]; then git config core.hooksPath .githooks; fi
 
 chemacs:
 	cd contrib/chemacs && ./install.sh
