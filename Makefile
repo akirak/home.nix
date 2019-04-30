@@ -30,7 +30,7 @@ chemacs:
 clean:
 	sudo rm -rf /homeless-shelter
 
-.PRUNE: install-hooks all chemacs home-manager system-icons clean
 chsh:
 	scripts/chsh-zsh
 
+.PHONY: install-hooks all chemacs home-manager system-icons clean chsh
