@@ -88,6 +88,8 @@ in
     packages = with pkgs; [
       ripgrep
       mlocate
+      chromium
+      gopass
       nix-prefetch-git
       nix-zsh-completions
       # Fonts
