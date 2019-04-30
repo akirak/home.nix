@@ -1,5 +1,14 @@
 #!/bin/sh
 
+if [ -z "${XDG_DATA_DIRS_ADDED_HM}" ]; then
+    if [ -z "${XDG_DATA_DIRS}" ]; then
+        XDG_DATA_DIRS="${XDG_DATA_HOME:-$HOME/.local}:/usr/share"
+    fi
+    XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS}"
+    export XDG_DATA_DIRS
+    export XDG_DATA_DIRS_ADDED_HM=1
+fi
+
 source_if_existing() {
     for src; do
         if [ -e "$src" ]; then
