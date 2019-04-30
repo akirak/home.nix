@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Set the default shell to zsh.
+
+# This script works on Nix on Chrome OS and other platforms.
+#
+# Run this script as a normal user.
+
+set -e
+
+expected="$(command -v zsh)"
+
+current="$(grep ^$USER: /etc/passwd | cut -d: -f7)"
+
+if [ "$current" = "$expected" ]; then
+    echo "The shell has been already set to zsh."
+    echo "Quitting"
+    exit 0
+fi
+
+if ! grep -qxF "$expected" /etc/shells; then
+    echo "Add $expected to /etc/shells"
+    sudo sed "\$ a $expected" /etc/shells
+fi
+sudo chsh -s "$expected" "$USER"

@@ -1,6 +1,6 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 
-all: install-hooks chemacs home-manager system-icons
+all: install-hooks chemacs home-manager system-icons chsh
 
 home-manager:
 	home-manager -I $(shell pwd) switch
@@ -31,3 +31,6 @@ clean:
 	sudo rm -rf /homeless-shelter
 
 .PRUNE: install-hooks all chemacs home-manager system-icons clean
+chsh:
+	scripts/chsh-zsh
+

@@ -125,7 +125,6 @@ in
 
     sessionVariables = {
       EDITOR = "emacsclient";
-      # SHELL = "${pkgs.zsh}/bin/zsh";
       NIX_PATH = "nixpkgs=${channelsDir}/nixpkgs:${channelsDir}";
       HOME_MANAGER_CONFIG = hmConfigFile;
     } // identity.locale;
@@ -344,7 +343,7 @@ Exec=${hmSessionBin} tilix --preferences
         "SPACESHIP_DIR_TRUNC" = "0";
         "NIX_BUILD_SHELL" = "zsh";
       };
-      initExtra = "
+      initExtra = ''
 setopt auto_cd
 setopt cdable_vars
 setopt auto_name_dirs
@@ -358,7 +357,9 @@ promptinit
 prompt pure
 # https://github.com/sindresorhus/pure/issues/188
 prompt_pure_set_title() {}
-";
+
+export SHELL="$0"
+'';
       shellAliases = {
         ".." = "cd ..";
         "..." = "cd ../..";
