@@ -60,7 +60,9 @@ in
 
   # TODO; Enable fonts installed through home.packages.
   # This is only necessary on non-NixOS systems.
-  # fonts.fontconfig.enableProfileFonts = true;
+  fonts.fontconfig = {
+    enable = true;
+  };
 
   gtk = import ./gtk.nix {};
 
