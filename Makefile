@@ -1,9 +1,10 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 
-all: install-hooks chemacs home-manager system-icons chsh
+all: install-hooks chemacs home-manager
 
 home-manager:
 	home-manager -I $(shell pwd) switch
+	$(MAKE) system-icons chsh
 
 system-icons:
 	if [ -n "$(SOMMELIER_VERSION)" ]; then \
