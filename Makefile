@@ -1,6 +1,14 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 
-all: install-hooks chemacs home-manager
+all: init chemacs home-manager
+
+init: install-hooks update-nix-channels init-home-manager
+
+update-nix-channels:
+	nix-channel --update
+
+init-home-manager:
+	nix-shell '<home-manager>' -A install
 
 home-manager:
 	home-manager -I $(shell pwd) switch
@@ -34,4 +42,5 @@ clean:
 chsh:
 	scripts/chsh-zsh
 
-.PHONY: install-hooks all chemacs home-manager system-icons clean chsh
+.PHONY: install-hooks all chemacs home-manager system-icons clean \
+	chsh update-nix-channels init-home-manager
