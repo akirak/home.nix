@@ -191,7 +191,6 @@ Exec=${hmSessionBin} tilix --preferences
       # ~/.local/share/icons. This is unnecessary if I could set
       # XDG_DATA_DIRS as read by Garcon.
       ".local/share/icons/favorites" = {
-        recursive = true;
         source = "${homeDirectory}/.nix-profile/share/icons/favorites";
       };
     };
