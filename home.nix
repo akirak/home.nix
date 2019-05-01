@@ -158,6 +158,11 @@ Terminal=false
 Categories=Utility;Development;TextEditor;
 StartupWMClass=Emacs
 Keywords=Text;Editor;
+Actions=debug-session;
+
+[Desktop Action debug-session]
+Name=Start in debug mode
+Exec=${hmSessionBin} emacs --debug-init
 '';
 
       ".local/share/applications/com.gexperts.Tilix.desktop".text = ''
