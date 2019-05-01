@@ -89,6 +89,7 @@ in
       ripgrep
       mlocate
       gopass
+      nox
       nix-prefetch-git
       nix-zsh-completions
       # Fonts
