@@ -237,9 +237,8 @@ Exec=${hmSessionBin} tilix --preferences
       extraConfig = {
         github.user = identity.github.user;
 
-        # url = {
-        #   "\"https://github.com/\"".pushInsteadOf = "git@github.com:";
-        # };
+        "url \"git@github.com:\"".pushInsteadOf = "https://github.com/";
+
       };
 
       ignores = [];
