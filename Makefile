@@ -10,9 +10,20 @@ update-nix-channels:
 init-home-manager:
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 
-home-manager:
+home-manager: deps
 	home-manager -I $(shell pwd) switch
 	$(MAKE) system-icons chsh
+
+deps: setup-keybase fuse
+
+fuse:
+	if grep --silent -P "ID(_LIKE)?=debian" /etc/os-release \
+		&& ! which fusermount >/dev/null 2>&1 \
+		&& ! which wsl.exe >dev/null 2>&1 ; then \
+		sudo apt-get install --yes fuse; \
+	fi
+
+post-install: system-icons chsh
 
 system-icons:
 	if [ -n "$(SOMMELIER_VERSION)" ]; then \
@@ -42,5 +53,8 @@ clean:
 chsh:
 	scripts/chsh-zsh
 
+setup-keybase:
+	[ -e /keybase ] || sudo mkdir /keybase
+
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-	chsh update-nix-channels init-home-manager
+	chsh update-nix-channels init-home-manager setup-keybase

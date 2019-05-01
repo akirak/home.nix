@@ -88,6 +88,8 @@ in
     packages = with pkgs; [
       ripgrep
       mlocate
+      kbfs
+      keybase-gui
       gopass
       nox
       nix-prefetch-git
@@ -201,6 +203,9 @@ Exec=${hmSessionBin} tilix --action=app-new-session
 Name=Preferences
 Exec=${hmSessionBin} tilix --preferences
 '';
+
+      ".local/share/applications/keybase.desktop".source =
+        "${homeDirectory}/.nix-profile/share/applications/keybase.desktop";
 
       # Like above, add all icons in ~/.nix-profile/share/icons to
       # ~/.local/share/icons. This is unnecessary if I could set
@@ -400,9 +405,11 @@ export SHELL="$0"
     # dunst = {};
     # flameshot = {};
     # gpg-agent = {};
-    # TODO: Run keybase service
-    # kbfs = {};
-    # keybase = {};
+
+    keybase = {
+      enable = true;
+    };
+
     # mbsync = {};
     # Run syncthing service. This is triggered by default.target
     syncthing = {
@@ -476,6 +483,48 @@ export SHELL="$0"
           ExecStart = "${binDir}/backup-org-git";
         };
       };
+
+      # An alternative service unit for kbfs.
+      #
+      # To use this service, you have to take the following additional steps:
+      #
+      # 1. Install a package that provides =fusermout=. On Debian,
+      # this is fuse package. Note that fusermount 2.9.9 from nixpkgs
+      # doesn't seem to work, while fusermount 2.9.7 from the Debian
+      # repo works.
+      #
+      # 2. Create /keybase directory owned by the user.
+      kbfs =
+      let
+        mountPoint = "/keybase";
+      in
+      {
+        Unit = {
+          Description = "Keybase File System";
+          Requires = [ "keybase.service" ];
+          After = [ "keybase.service" ];
+          AssertPathIsDirectory = mountPoint;
+          # Use fusermount provided by the OS distribution
+          AssertFileIsExecutable = "/bin/fusermount";
+        };
+
+        Service =
+        {
+          Environment = [
+            "KEYBASE_SYSTEMD=1"
+          ];
+          ExecStart ="${pkgs.kbfs}/bin/kbfsfuse ${mountPoint}";
+          # Use fusermount provided by the OS distribution
+          ExecStopPost = "/bin/fusermount -u ${mountPoint}";
+          Restart = "on-failure";
+          PrivateTmp = true;
+        };
+
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+      };
+
     };
     targets = {};
     timers = {
