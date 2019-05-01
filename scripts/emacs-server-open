@@ -30,17 +30,12 @@ else
 
     echo "Starting ${EMACS_SERVICE}..."
     if systemctl --user start ${EMACS_SERVICE}; then
-        notify-desktop "Emacs server has been started."
         exec_new_frame
     fi
 
     if [ -n "$TERM" ]; then
-        echo "emacs.service failed to start." >&2
         systemctl --user status ${EMACS_SERVICE}
-        exit 1
-    else
-        xmessage "emacs.service failed to start."
-        exit 1
     fi
+    exit 1
 
 fi

@@ -92,6 +92,7 @@ in
       nox
       nix-prefetch-git
       nix-zsh-completions
+      notify-desktop
       # Fonts
       overpass
       powerline-fonts
@@ -417,6 +418,16 @@ export SHELL="$0"
   systemd.user = {
   #   paths = {};
     services = {
+      "notify-failure@" = {
+        Unit = {
+          Description = "Notify failure of a service";
+        };
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${binDir}/notify-desktop '%i service has exited.'";
+        };
+      };
+
       # Based on https://askubuntu.com/questions/1105123/how-to-start-emacs-as-service
       emacs = {
         Unit = {
@@ -427,11 +438,16 @@ export SHELL="$0"
           After = [
             "default.target"
           ];
+          OnFailure = [
+            "notify-failure@emacs.service"
+          ];
         };
         Service = {
           Type = "forking";
 
           ExecStart = "${hmSessionBin} emacs --daemon";
+
+          ExecStartPost = "${binDir}/notify-desktop -u low -a Emacs 'Emacs service successfully started'";
 
           ExecStop = "${binDir}/emacsclient --eval \"(progn (save-some-buffers t) (setq kill-emacs-hook nil) (kill-emacs))\"";
 
