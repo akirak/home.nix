@@ -447,10 +447,36 @@ export SHELL="$0"
         };
       };
 
-      # TODO: Backup ~/org periodically
+      backup-org =
+      let repo = "%h/org";
+      in {
+        Unit = {
+          Description = "Backup contents in ~/org to the Git repository inside itself";
+          AssertPathIsDirectory = "${repo}/.git";
+        };
+        Service = {
+          Type = "simple";
+          WorkingDirectory = repo;
+          ExecStart = "${binDir}/backup-org-git";
+        };
+      };
     };
     targets = {};
-    timers = {};
+    timers = {
+      backup-org = {
+        Unit = {
+          Description = "Run backup-org.service periodically";
+        };
+        Timer = {
+          OnUnitActiveSec = "5m";
+        };
+        Install = {
+          WantedBy = [
+            "default.target"
+          ];
+        };
+      };
+    };
   #   sessionVariables = {};
   #   # startServices = false;
   #   systemctlPath = "";

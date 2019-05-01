@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Git branch on which a new commit is added
+branch=master
+
+# The path to the root of the working tree
+dir=$HOME/org
+
+GIT=$(command -v git)
+
+# Fail if the working directory is not ~/org
+if [ $PWD != $dir ]; then
+    echo "This script must be run at $dir"
+    exit 1
+fi
+
+if ! which $GIT >/dev/null 2>/dev/null; then
+   echo "git is unavailable" >2
+   exit 1
+fi
+
+# Update the index from the working tree and retrieve its hash
+ref=refs/heads/$branch
+parent=$($GIT show-ref -s $branch)
+$GIT add .
+tree=$($GIT write-tree)
+
+# Compare the tree with the branch and update it if there are changes
+$GIT diff-tree --exit-code --stat --shortstat $parent $tree
+if [ $? -eq 1 ]; then
+    commit=$($GIT commit-tree -p $parent -m "Auto backup on $(hostname)" $tree)
+    $GIT update-ref $ref $commit $parent
+    echo "Created a new commit"
+else
+    echo "Not changed"
+fi
