@@ -381,6 +381,14 @@ export SHELL="$0"
         "ll" = "ls -l";
         "rm" = "rm -i";
         "e" = "emacs-server-open";
+        "start" = "systemctl --user start";
+        "stop" = "systemctl --user stop";
+        "reload" = "systemctl --user daemon-reload";
+        "status" = "systemctl --user status";
+        "restart" = "systemctl --user restart";
+        "list-units" = "systemctl --user list-units";
+        "list-unit-files" = "systemctl --user list-unit-files";
+        "reset" = "systemctl --user reset-failed";
       };
     };
 
