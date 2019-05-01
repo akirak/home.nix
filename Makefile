@@ -8,7 +8,7 @@ update-nix-channels:
 	nix-channel --update
 
 init-home-manager:
-	nix-shell '<home-manager>' -A install
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 
 home-manager:
 	home-manager -I $(shell pwd) switch
