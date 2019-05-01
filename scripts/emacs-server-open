@@ -1,0 +1,46 @@
+#!/bin/sh
+
+EMACS_SERVICE=emacs.service
+
+exec_new_frame() {
+    if [ -n "$DISPLAY" ]; then
+        exec emacsclient -c "$@"
+    else
+        exec emacsclient -nw "$@"
+    fi
+}
+
+# If arguments are given, open them via emacsclient
+if [ "$#" -gt 0 ]; then
+
+    if ! systemctl --user is-active --quiet ${EMACS_SERVICE}; then
+        echo "${EMACS_SERVICE} systemd unit isn't active."
+        echo "Continueing anyway"
+    fi
+    exec_new_frame --alternate-editor=emacs "$@"
+
+# Otherwise, start a server
+else
+
+    if systemctl --user is-active --quiet ${EMACS_SERVICE}; then
+        echo "${EMACS_SERVICE} is running."
+        echo "Creating a new frame."
+        exec_new_frame
+    fi
+
+    echo "Starting ${EMACS_SERVICE}..."
+    if systemctl --user start ${EMACS_SERVICE}; then
+        notify-desktop "Emacs server has been started."
+        exec_new_frame
+    fi
+
+    if [ -n "$TERM" ]; then
+        echo "emacs.service failed to start." >&2
+        systemctl --user status ${EMACS_SERVICE}
+        exit 1
+    else
+        xmessage "emacs.service failed to start."
+        exit 1
+    fi
+
+fi

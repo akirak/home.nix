@@ -150,15 +150,23 @@ Name=GNU Emacs (with custom Environment)
 GenericName=Text Editor
 Comment=GNU Emacs is an extensible, customizable text editor - and more
 MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
-TryExec=${hmSessionBin}
-Exec=${hmSessionBin} emacs %F
+TryExec=${binDir}/emacs-server-open
+Exec=${hmSessionBin} emacs-server-open %F
 Icon=emacs
 Type=Application
 Terminal=false
 Categories=Utility;Development;TextEditor;
 StartupWMClass=Emacs
 Keywords=Text;Editor;
-Actions=debug-session;
+Actions=new-frame;new-session;debug-session;
+
+[Desktop Action new-frame]
+Name=New emacscslient frame
+Exec=${binDir}/emacsclient -c
+
+[Desktop Action new-session]
+Name=New session without server
+Exec=${hmSessionBin} emacs
 
 [Desktop Action debug-session]
 Name=Start in debug mode
@@ -372,7 +380,7 @@ export SHELL="$0"
         "la" = "ls -a";
         "ll" = "ls -l";
         "rm" = "rm -i";
-        "e" = "$EDITOR";
+        "e" = "emacs-server-open";
       };
     };
 
@@ -399,8 +407,39 @@ export SHELL="$0"
 
   systemd.user = {
   #   paths = {};
-    # TODO: Backup ~/org periodically
-    services = {};
+    services = {
+      # Based on https://askubuntu.com/questions/1105123/how-to-start-emacs-as-service
+      emacs = {
+        Unit = {
+          Description = "Emacs session with relevant services started";
+          Wants = [
+            "default.target"
+          ];
+          After = [
+            "default.target"
+          ];
+        };
+        Service = {
+          Type = "forking";
+
+          ExecStart = "${hmSessionBin} emacs --daemon";
+
+          ExecStop = "${binDir}/emacsclient --eval \"(progn (save-some-buffers t) (setq kill-emacs-hook nil) (kill-emacs))\"";
+
+          Restart = "on-failure";
+
+          Environment = [
+            "DISPLAY=:0"
+            # "SSH_AUTH_SOCK=/run/user/1000/keyring/ssh"
+            # Maybe necessary (see https://datko.net/2015/10/08/emacs-systemd-service/)
+            # "GPG_AGENT_INFO=/run/user/1000/keyring/gpg:0:1"
+          ];
+
+        };
+      };
+
+      # TODO: Backup ~/org periodically
+    };
     targets = {};
     timers = {};
   #   sessionVariables = {};
