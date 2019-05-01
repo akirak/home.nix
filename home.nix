@@ -88,7 +88,6 @@ in
     packages = with pkgs; [
       ripgrep
       mlocate
-      chromium
       gopass
       nix-prefetch-git
       nix-zsh-completions
@@ -249,9 +248,9 @@ Exec=${hmSessionBin} tilix --preferences
       browsers = ["chrome" "chromium"];
     };
 
-    # chromium = {
-    #   enable = not identity.platform.isChromeOS;
-    # };
+    chromium = {
+      enable = true;
+    };
 
     command-not-found = {
       enable = true;
