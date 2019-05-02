@@ -147,63 +147,61 @@ in
       "${zPromptDir}/prompt_pure_setup".source = "${zshPurePrompt}/pure.zsh";
       "${zPromptDir}/async".source = "${zshPurePrompt}/async.zsh";
 
-      ".local/share/applications/emacs.desktop".text = ''
-[Desktop Entry]
-Version=1.0
-Name=GNU Emacs (with custom Environment)
-GenericName=Text Editor
-Comment=GNU Emacs is an extensible, customizable text editor - and more
-MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
-TryExec=${binDir}/emacs-server-open
-Exec=${hmSessionBin} emacs-server-open %F
-Icon=emacs
-Type=Application
-Terminal=false
-Categories=Utility;Development;TextEditor;
-StartupWMClass=Emacs
-Keywords=Text;Editor;
-Actions=new-frame;new-session;debug-session;
+      ".local/share/applications/emacs.desktop".text =
+      desktop.mkApplicationEntry {
+        name = "GNU Emacs (with custom Environment)";
+        genericName = "Text Editor";
+        keywords = "Text;Editor;";
+        comment = "GNU Emacs is an extensible, customizable text editor - and more";
+        mimeType = "text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;";
+        exec = "${hmSessionBin} emacs-server-open %F";
+        tryExec = "${binDir}/emacs-server-open";
+        startupWmClass = "Emacs";
+        categories = "Utility;Development;TextEditor;";
+        icon = "emacs";
+        actions = {
+          new-frame = {
+            name = "New emacscslient frame";
+            exec = "${binDir}/emacsclient -c";
+          };
+          new-session = {
+            exec = "${hmSessionBin} emacs";
+            name = "New session without server";
+          };
+          debug-session = {
+            exec = "${hmSessionBin} emacs --debug-init";
+            name = "Start in debug mode";
+          };
+        };
+      };
 
-[Desktop Action new-frame]
-Name=New emacscslient frame
-Exec=${binDir}/emacsclient -c
-
-[Desktop Action new-session]
-Name=New session without server
-Exec=${hmSessionBin} emacs
-
-[Desktop Action debug-session]
-Name=Start in debug mode
-Exec=${hmSessionBin} emacs --debug-init
-'';
-
-      ".local/share/applications/com.gexperts.Tilix.desktop".text = ''
-[Desktop Entry]
-Version=1.0
-Name=Tilix
-Comment=A tiling terminal for Gnome
-Keywords=shell;prompt;command;commandline;cmd;
-Exec=${hmSessionBin} tilix
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=System;TerminalEmulator;X-GNOME-Utilities;
-Icon=terminal
-DBusActivatable=true
-Actions=new-window;new-session;preferences;
-
-[Desktop Action new-window]
-Name=New Window
-Exec=${hmSessionBin} tilix --action=app-new-window
-
-[Desktop Action new-session]
-Name=New Session
-Exec=${hmSessionBin} tilix --action=app-new-session
-
-[Desktop Action preferences]
-Name=Preferences
-Exec=${hmSessionBin} tilix --preferences
-'';
+      ".local/share/applications/com.gexperts.Tilix.desktop".text =
+      desktop.mkApplicationEntry {
+        name = "Tilix";
+        keywords = "shell;prompt;command;commandline;cmd;";
+        comment = "A tiling terminal for Gnome";
+        exec = "${hmSessionBin} tilix";
+        tryExec = "${binDir}/tilix";
+        startupNotify = true;
+        startupWmClass = "Tilix";
+        categories = "System;TerminalEmulator;X-GNOME-Utilities;";
+        icon = "terminal";
+        dBusActivatable = true;
+        actions = {
+          new-window = {
+            name = "New Window";
+            exec = "${hmSessionBin} tilix --action=app-new-window";
+          };
+          new-session = {
+            exec = "${hmSessionBin} tilix --action=app-new-session";
+            name = "New Session";
+          };
+          preferences = {
+            exec = "${hmSessionBin} tilix --preferences";
+            name = "Preferences";
+          };
+        };
+      };
 
       ".local/share/applications/keybase.desktop".text =
       desktop.mkApplicationEntry {
