@@ -26,11 +26,21 @@ $GIT add .
 tree=$($GIT write-tree)
 
 # Compare the tree with the branch and update it if there are changes
-$GIT diff-tree --exit-code --stat --shortstat $parent $tree
+filelist=$(mktemp)
+$GIT diff-tree --exit-code --name-only $parent $tree > $filelist
 if [ $? -eq 1 ]; then
-    commit=$($GIT commit-tree -p $parent -m "Auto backup on $(hostname)" $tree)
+    msg=$(mktemp)
+    echo -n "Auto commit: " > $msg
+    numfiles=$(wc -l $filelist | cut -d' ' -f1)
+    if [ $numfiles -gt 1 ]; then
+      echo -n "($numfiles files) " >> $msg
+    fi
+    cat $filelist | tr '\n' ' ' >> $msg
+    commit=$($GIT commit-tree -p $parent -F $msg $tree)
+    rm $msg $filelist
     $GIT update-ref $ref $commit $parent
     echo "Created a new commit"
 else
+    rm $filelist
     echo "Not changed"
 fi
