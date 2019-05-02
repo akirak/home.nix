@@ -26,6 +26,7 @@ let
     sha256 = "10mdk4dn2azzrhymx0ghl8v668ydy6mz5i797nmbl2ijx9hlqb3v";
     # date = 2019-03-21T18:29:27+02:00;
   };
+  desktop = import ./functions/desktop.nix;
 in
 {
 
@@ -204,8 +205,14 @@ Name=Preferences
 Exec=${hmSessionBin} tilix --preferences
 '';
 
-      ".local/share/applications/keybase.desktop".source =
-        "${homeDirectory}/.nix-profile/share/applications/keybase.desktop";
+      ".local/share/applications/keybase.desktop".text =
+      desktop.mkApplicationEntry {
+        name = "Keybase";
+        exec = "/usr/bin/env PATH=${binDir}:/usr/bin:/bin ${binDir}/keybase-gui";
+        tryExec = "${binDir}/keybase-gui";
+        icon = "keybase";
+        startupWmClass = "Keybase";
+      };
 
       # Like above, add all icons in ~/.nix-profile/share/icons to
       # ~/.local/share/icons. This is unnecessary if I could set
