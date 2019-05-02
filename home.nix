@@ -96,6 +96,8 @@ in
       nix-prefetch-git
       nix-zsh-completions
       notify-desktop
+      # If you use exwm
+      xorg.xorgserver
       # Fonts
       overpass
       powerline-fonts
@@ -173,6 +175,15 @@ in
             name = "Start in debug mode";
           };
         };
+      };
+
+      ".local/share/applications/exwm.desktop".text =
+      desktop.mkApplicationEntry {
+        name = "EXWM";
+        exec = "/bin/systemctl --user start exwm.service";
+        tryExec = "${binDir}/Xephyr";
+        startupWmClass = "Xephyr";
+        icon = "xorg";
       };
 
       ".local/share/applications/com.gexperts.Tilix.desktop".text =
@@ -470,6 +481,50 @@ export SHELL="$0"
             # "SSH_AUTH_SOCK=/run/user/1000/keyring/ssh"
             # Maybe necessary (see https://datko.net/2015/10/08/emacs-systemd-service/)
             # "GPG_AGENT_INFO=/run/user/1000/keyring/gpg:0:1"
+          ];
+
+        };
+      };
+
+      xephyr = {
+        Unit = {
+          Description = "Nested X server";
+          StopWhenUnneeded = true;
+        };
+        Service = {
+          Type = "simple";
+
+          ExecStart = "${binDir}/xephyr-launcher :2";
+
+          Environment = [
+            "DISPLAY=:0"
+            "PATH=${binDir}:/usr/bin:/bin"
+          ];
+        };
+      };
+
+      exwm = {
+        Unit = {
+          Description = "Emacs Window Manager";
+          BindsTo = [
+            "xephyr.service"
+          ];
+          After = [
+            "xephyr.service"
+          ];
+
+          OnFailure = [
+            "notify-failure@exwm.service"
+          ];
+
+        };
+        Service = {
+          Type = "simple";
+
+          ExecStart = "${hmSessionBin} emacs --exwm";
+
+          Environment = [
+            "DISPLAY=:2"
           ];
 
         };
