@@ -104,6 +104,7 @@ in
       # Icons
       emacs-alt-icon
       suru-plus-terminal-icons
+      la-capitaine-icons
       # Other graphical apps
       tilix
       # Scripts

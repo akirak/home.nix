@@ -55,4 +55,38 @@ done
 
     nativeBuildInputs = [ gtk3 ];
   };
+
+  la-capitaine-icons = with self; stdenv.mkDerivation rec {
+    name = "la-capitaine-icons";
+    version = "0.6.1";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "keeferrourke";
+      repo = "la-capitaine-icon-theme";
+      rev = "8ac03b4646df2ea854dc0c30745a7d7dcd52c0eb";
+      sha256 = "17866q44w00zrhlpa8h2kcf5k0pkgzgvj8x6qbf9rkj2xb4kjzgv";
+      # date = 2019-04-26T11:31:33-04:00;
+    };
+
+    phases = [ "buildPhase" ];
+
+    buildInputs = [inkscape];
+
+    buildPhase = ''
+      cd ${src}/apps/scalable
+      for basename in xorg; do
+        for height in 32 48 64 96 128; do
+          outdir=$out/share/icons/favorites/"$height"x"$height"/apps
+          mkdir -p $outdir
+          ${pkgs.inkscape}/bin/inkscape -z --export-background-opacity=0 \
+            --export-height=$height \
+            --export-png=$outdir/$basename.png \
+            --file=$basename.svg
+        done
+      done
+    '';
+
+    nativeBuildInputs = [ gtk3 ];
+  };
+
 }
