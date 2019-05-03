@@ -1,7 +1,7 @@
 x:
 {
   # You have to configure an identity
-  identity = x.identity;
+  identity = if x ? identity then x.identity else import ../identity.nix;
   github = if x ? github then x.github else {
     user = "akirak";
   };
