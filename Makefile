@@ -2,12 +2,12 @@ export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 
 all: init chemacs home-manager
 
-init: install-hooks update-nix-channels init-home-manager
+init: install-hooks init-home-manager
 
 update-nix-channels:
 	nix-channel --update
 
-init-home-manager:
+init-home-manager: update-nix-channels
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	./choose-profile.sh
 
