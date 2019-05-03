@@ -1,3 +1,5 @@
+# TODO: Test without Docker
+
 # Name of the created container
 NAME=akirak/home.nix:latest
 
