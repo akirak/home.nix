@@ -4,7 +4,7 @@ jobs:
     environment:
       TERM: dumb
       NIX_PATH: /root/.nix-defexpr/channels
-      HOME_MANAGER_CONFIG: /root/nix/home.nix
+      HOME_NIX_PROFILE_NOCONFIRM: 1
     docker:
       - image: akirak/nixmacs-bootstrap
     working_directory:
@@ -12,10 +12,10 @@ jobs:
     steps:
       - checkout
       - run: git submodule update --init --recursive
-      - run: nix-channel --update
-      - run: nix-shell '<home-manager>' -A install
-      # TODO: Install other components, e.g. chemacs
-      - run: home-manager switch
+      - run: make init
+      - run: make home-manager
+      # TODO: Install chemacs
+      # - run: make chemacs
       - run: make -C test -f test.mk all
 workflows:
   version: 2
