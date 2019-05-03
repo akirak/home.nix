@@ -4,10 +4,8 @@ with
 let
   homeDirectory = builtins.getEnv "HOME";
   channelsDir = "${homeDirectory}/.nix-defexpr/channels";
-  hmConfigFile = "${homeDirectory}/.emacs.d/nix/home.nix";
   binDir = "${homeDirectory}/.nix-profile/bin";
   hmSessionBin = "${binDir}/hm-session";
-  scriptSrcDir = "${homeDirectory}/.emacs.d/nix/scripts";
   # You have to create a symlink from identity.nix to one of the
   # identity.*.nix files in the repository
   profile = import ./functions/fallback-profile.nix (import ./profile.nix {});
@@ -27,6 +25,7 @@ let
   };
   desktop = import ./functions/desktop.nix;
 in
+# TODO: Refacor this whole configuration
 {
 
   nixpkgs = {
@@ -71,7 +70,7 @@ in
 
     configHome = "${homeDirectory}/.config";
     dataHome = "${homeDirectory}/.local/share";
-    cacheHome = "${homeDirectory}/.cache/";
+    cacheHome = "${homeDirectory}/.cache";
   };
 
   # The following configuration is used if you start an X session using xinit.
@@ -133,7 +132,7 @@ in
     sessionVariables = {
       EDITOR = "emacsclient";
       NIX_PATH = "nixpkgs=${channelsDir}/nixpkgs:${channelsDir}";
-      HOME_MANAGER_CONFIG = hmConfigFile;
+      HOME_MANAGER_CONFIG = builtins.getEnv "HOME_MANAGER_CONFIG";
     } // profile.locale;
 
     file = {
