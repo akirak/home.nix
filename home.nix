@@ -10,13 +10,12 @@ let
   scriptSrcDir = "${homeDirectory}/.emacs.d/nix/scripts";
   # You have to create a symlink from identity.nix to one of the
   # identity.*.nix files in the repository
-  identity = import ./identity.nix {};
-  prefs = identity.preferences;
-  fullname = identity.fullname;
-  email = identity.email;
-  language = identity.language;
-  platform = identity.platform;
-  isNixOS = identity.platform.isNixOS;
+  profile = import ./functions/fallback-profile.nix (import ./profile.nix {});
+  identity = profile.identity;
+  prefs = profile.preferences;
+  language = profile.language;
+  platform = profile.platform;
+  isNixOS = profile.platform.isNixOS;
   zDotDir = ".config/zsh";
   zPromptDir = ".config/zsh/prompt";
   zshPurePrompt = pkgs.fetchFromGitHub {
@@ -134,7 +133,7 @@ in
       EDITOR = "emacsclient";
       NIX_PATH = "nixpkgs=${channelsDir}/nixpkgs:${channelsDir}";
       HOME_MANAGER_CONFIG = hmConfigFile;
-    } // identity.locale;
+    } // profile.locale;
 
     file = {
       "${zPromptDir}/prompt_spaceship_setup".source
@@ -258,7 +257,7 @@ in
       };
 
       extraConfig = {
-        github.user = identity.github.user;
+        github.user = profile.github.user;
 
         "url \"git@github.com:\"".pushInsteadOf = "https://github.com/";
 
