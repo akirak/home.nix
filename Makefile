@@ -8,7 +8,7 @@ update-nix-channels:
 	nix-channel --update
 
 init-home-manager: update-nix-channels
-	./choose-profile.sh
+	./choose-profile.bash
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 
 home-manager: deps
