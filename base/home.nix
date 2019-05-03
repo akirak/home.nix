@@ -15,6 +15,7 @@ gopass
 nox
 nix-prefetch-git
 nix-zsh-completions
+fzy
 notify-desktop
 # If you use exwm
 xorg.xorgserver

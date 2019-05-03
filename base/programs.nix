@@ -131,13 +131,14 @@ with profile;
           src = pkgs.zsh-pure-prompt;
         }
         {
-          name = "zsh-bd";
+          name = "enhancd";
+          file = "init.sh";
           src = pkgs.fetchFromGitHub {
-            owner = "Tarrasch";
-            repo = "zsh-bd";
-            rev = "d4a55e661b4c9ef6ae4568c6abeff48bdf1b1af7";
-            sha256 = "020f8nq86g96cps64hwrskppbh2dapfw2m9np1qbs5pgh16z4fcb";
-            # date = 2018-07-04T22:33:02+02:00;
+             owner = "b4b4r07";
+             repo = "enhancd";
+             rev = "a708e6dc1029de310c3b73c2a9d34f33a6e24d14";
+             sha256 = "0bxpif2id1kmh48zv96hzgcx3m4qwl0cppaiya868cnlyrb2x9k1";
+             # date = 2019-04-01T13:55:23+09:00;
           };
         }
         {
