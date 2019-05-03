@@ -243,11 +243,15 @@ in
       enable = true;
     };
 
-    git = {
+    git =
+    if prefs.addGlobalGitIdentity
+    then {
+      userName = identity.fullname;
+      userEmail = identity.email;
+    } else {}
+    //
+    {
       enable = true;
-
-    #   userName = mkIf prefs.addGlobalGitIdentity identity.fullname;
-    #   userEmail = mkIf prefs.addGlobalGitIdentity identity.email;
 
       aliases = {
         co = "checkout";
