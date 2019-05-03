@@ -8,7 +8,8 @@ update-nix-channels:
 	nix-channel --update
 
 init-home-manager: update-nix-channels
-	./choose-profile.bash
+	nix-shell -p bash --command 'bash choose-profile.bash'
+	if nix-env -q 'git.*'; then nix-env -e git; fi
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 
 home-manager: deps
@@ -27,12 +28,7 @@ fuse:
 post-install: system-icons chsh
 
 system-icons:
-	if [ -n "$(SOMMELIER_VERSION)" ]; then \
-		sudo mkdir -p /usr/share/icons/gnome; \
-		sudo rsync -ra --copy-links \
-			"$(HOME)/.local/share/icons/favorites/" \
-			/usr/share/icons/gnome/; \
-	fi
+	garcon-helper copy-icons
 
 install-hooks:
 	if [ -e .git ]; then git config core.hooksPath .githooks; fi

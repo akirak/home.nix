@@ -93,13 +93,6 @@ is_supported_linux() {
         return 1
     fi
 
-    if has_executable /bin/systemctl; then
-        echo "/bin/systemctl exists."
-    else
-        error "/bin/systemctl does not exist."
-        return 1
-    fi
-
     if [ -e /etc/os-release ]; then
         echo "/etc/os-release exists."
     else
@@ -115,9 +108,17 @@ is_supported_linux() {
         echo "The operating system is like Debian: $ID"
     elif [ "$ID" = nixos ]; then
         echo "The operating system is NixOS."
+        return
     else
         echo "The operaing system may not be supported by this config: $ID"
         echo "Continueing anyway"
+    fi
+
+    if which systemctl; then
+        echo "systemctl exists."
+    else
+        error "systemctl does not exist."
+        return 1
     fi
 }
 
@@ -133,8 +134,7 @@ elif is_wsl; then
     set_profile wsl.nix "WSL"
 # Other Linux
 elif is_supported_linux; then
-    # TODO: Create linux.nix profile
-     set_profile linux.nix "Linux"
+     set_profile linux-basic.nix "Linux"
 else
     error "Failed to determine the OS distribution."
     exit 1

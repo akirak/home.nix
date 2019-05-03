@@ -1,0 +1,24 @@
+#!/bin/sh
+error() { echo "$*" >&2; }
+
+is_chromeos() { [ -n "${SOMMELIER_VERSION}" ]; }
+
+set -e
+
+case "$1" in
+    copy-icons)
+        if is_chromeos; then
+            sudo mkdir -p /usr/share/icons/gnome
+            sudo rsync -ra --copy-links \
+                 "$(HOME)/.nix-profile/share/icons/favorites/" \
+                 /usr/share/icons/gnome/
+        else
+            echo "This is not Chrome OS."
+            exit 0
+        fi
+        ;;
+    *)
+        error "No command is specified."
+        exit 1
+        ;;
+esac

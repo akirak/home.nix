@@ -9,7 +9,7 @@ with profile.path;
   home.file.".local/share/applications/exwm.desktop".text =
     desktop.mkApplicationEntry {
       name = "EXWM";
-      exec = "/bin/systemctl --user start exwm.service";
+      exec = "systemctl --user start exwm.service";
       tryExec = "${binDir}/Xephyr";
       startupWmClass = "Xephyr";
       icon = "xorg";

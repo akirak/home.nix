@@ -11,7 +11,14 @@ jobs:
       ~/nix
     steps:
       - checkout
+      - run: command -v git
+      - run: command -v make
       - run: git submodule update --init --recursive
+      - run: nix-shell -p bash --run 'bash choose-profile.bash'
+      - run: test -e profile.nix
+      - run: unlink profile.nix
+      - run: ln -s profiles/linux-full.nix profile.nix
+      - run: cp identity.sample.nix identity.nix
       - run: make init
       - run: make home-manager
       # TODO: Install chemacs
