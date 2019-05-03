@@ -525,6 +525,8 @@ export SHELL="$0"
         Service = {
           Type = "simple";
 
+          # TODO: Save all buffers in existing Emacs sessions
+
           ExecStart = "${hmSessionBin} emacs --exwm";
 
           Environment = [
