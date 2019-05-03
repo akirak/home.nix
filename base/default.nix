@@ -3,7 +3,7 @@
   nixpkgs = import ./nixpkgs.nix {};
   xdg = import ./xdg.nix { inherit profile; };
   home = import ./home.nix { inherit profile pkgs lib; };
-  programs = import ./programs.nix { inherit profile pkgs lib; };
+  programs = import ./programs { inherit profile pkgs lib; };
   services= import ./services.nix { inherit profile pkgs lib; };
   systemd.user = import ./systemd.user.nix { inherit profile pkgs lib; };
 

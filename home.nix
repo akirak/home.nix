@@ -1,4 +1,5 @@
 { pkgs, lib, ... }:
+with lib;
 let
   profile = import ./functions/profile.nix {
     profile = import ./profile.nix {};
@@ -13,5 +14,8 @@ let
         inherit homeDirectory channelsDir binDir hmSessionBin;
       };
   };
+  extendConfigWith = import ./functions/extend-config.nix { inherit lib; };
+  desktop = import ./functions/desktop.nix;
+  attrs = { inherit profile pkgs lib desktop; };
 in
-(import ./base { inherit profile pkgs lib; })
+extendConfigWith (import ./base attrs) (import ./apps attrs)
