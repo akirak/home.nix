@@ -8,8 +8,8 @@ update-nix-channels:
 	nix-channel --update
 
 init-home-manager: update-nix-channels
-	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	./choose-profile.sh
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 
 home-manager: deps
 	home-manager -I $(shell pwd) switch
