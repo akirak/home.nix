@@ -7,6 +7,7 @@ with profile;
     nox
     nix-prefetch-git
     my-scripts
+    git-sync
   ];
 
   extraOutputsToInstall = [
