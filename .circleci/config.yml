@@ -5,6 +5,8 @@ jobs:
       TERM: dumb
       NIX_PATH: /root/.nix-defexpr/channels
       HOME_NIX_PROFILE_NOCONFIRM: 1
+      # TODO: Run chsh (requires root)
+      SKIP_CHSH: 1
     docker:
       - image: akirak/nixmacs-bootstrap
     working_directory:
