@@ -6,6 +6,11 @@
 #
 # Run this script as a normal user.
 
+if [ "${SKIP_CHSH}" = 1 ]; then
+    echo "Skipped chsh"
+    exit 0
+fi
+
 set -e
 
 expected="$(command -v zsh)"
