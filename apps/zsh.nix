@@ -44,6 +44,27 @@ with profile;
           };
         }
         {
+          name = "solarized-man";
+          src = pkgs.fetchFromGitHub {
+            owner = "zlsun";
+            repo = "solarized-man";
+            rev = "a902b64696271efee95f37d45589078fdfbbddc5";
+            sha256 = "04gm4qm17s49s6h9klbifgilxv8i45sz3rg521dwm599gl3fgmnv";
+            # date = ;
+            # date = 2017-05-19T00:10:24+08:00;
+          };
+        }
+        {
+          name = "fast-syntax-highlighting";
+          src = pkgs.fetchFromGitHub {
+            owner = "zdharma";
+            repo = "fast-syntax-highlighting";
+            rev = "3601297ebfd67f208f489189e984df665ec9242c";
+            sha256 = "026ykxgfy0p7y3wcsq0z3kmrs0n67rmxf89kqmiw5vxr9l67jr6l";
+            # date = 2019-04-09T15:18:55+02:00;
+          };
+        }
+        {
           name = "nix-shell";
           src =  pkgs.fetchFromGitHub {
             owner = "chisui";
