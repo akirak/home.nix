@@ -1,5 +1,8 @@
 { profile, pkgs, lib, desktop, ... }:
 with profile.path;
+let
+  mountPoint = "${homeDirectory}/keybase";
+in
 {
   home.packages = with pkgs; [
     kbfs
@@ -30,16 +33,19 @@ with profile.path;
   #
   # 2. Create /keybase directory owned by the user.
   systemd.user.services.kbfs =
-    let
-      mountPoint = "/keybase";
-    in
     {
       Unit = {
         Description = "Keybase File System";
         Requires = [ "keybase.service" ];
-        After = [ "keybase.service" ];
-        AssertPathIsDirectory = mountPoint;
-        # Use fusermount provided by the OS distribution
+        Wants = [
+          "kbfs-root.service"
+        ];
+        After = [
+          "kbfs-root.service"
+          "keybase.service"
+        ];
+
+       # Use fusermount provided by the OS distribution
         AssertFileIsExecutable = "/bin/fusermount";
       };
 
@@ -47,6 +53,7 @@ with profile.path;
         Environment = [
           "KEYBASE_SYSTEMD=1"
         ];
+        ExecStartPre = "/bin/mkdir -p ${mountPoint}";
         ExecStart ="${pkgs.kbfs}/bin/kbfsfuse ${mountPoint}";
         # Use fusermount provided by the OS distribution
         ExecStopPost = "/bin/fusermount -u ${mountPoint}";
@@ -56,6 +63,18 @@ with profile.path;
 
       Install = {
         WantedBy = [ "default.target" ];
+      };
+    };
+
+  systemd.user.services.kbfs-root =
+    {
+      Unit = {
+        Description = "Preferred mount point (/keybase) for Keybase File System";
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart ="/bin/sh -c '[ -e /keybase ] || sudo ln -s ${mountPoint} /keybase'";
       };
     };
 

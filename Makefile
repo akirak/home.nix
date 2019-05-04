@@ -16,7 +16,7 @@ home-manager: deps
 	home-manager -I $(shell pwd) switch
 	$(MAKE) system-icons chsh
 
-deps: setup-keybase fuse
+deps: fuse
 
 fuse:
 	if grep --silent -P "ID(_LIKE)?=debian" /etc/os-release \
@@ -50,8 +50,5 @@ clean:
 chsh:
 	scripts/chsh-zsh
 
-setup-keybase:
-	[ -e /keybase ] || sudo mkdir /keybase
-
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-	chsh update-nix-channels init-home-manager setup-keybase
+	chsh update-nix-channels init-home-manager
