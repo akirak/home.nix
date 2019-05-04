@@ -27,4 +27,4 @@ if ! grep -qxF "$expected" /etc/shells; then
     echo "Add $expected to /etc/shells"
     sudo sed "\$ a $expected" /etc/shells
 fi
-sudo chsh -s "$expected" "$USER"
+chsh -s "$expected"
