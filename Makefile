@@ -14,7 +14,7 @@ init-home-manager: update-nix-channels
 
 home-manager: deps
 	home-manager -I $(shell pwd) switch
-	$(MAKE) system-icons chsh
+	$(MAKE) post-install
 
 deps: fuse
 
