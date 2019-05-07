@@ -59,7 +59,7 @@ with profile;
 
     skim = {
       # I may or may not try out skim in the future
-      enable = true;
+      enable = false;
       enableZshIntegration = true;
     };
 
