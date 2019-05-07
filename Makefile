@@ -31,7 +31,7 @@ system-icons:
 	garcon-helper copy-icons
 
 install-hooks:
-	if [ -e .git ]; then git config core.hooksPath .githooks; fi
+	if [ -e .git ]; then nix-shell -p git --run 'git config core.hooksPath .githooks'; fi
 
 chemacs:
 	cd contrib/chemacs && ./install.sh
