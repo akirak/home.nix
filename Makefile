@@ -9,7 +9,10 @@ update-nix-channels:
 
 init-home-manager: update-nix-channels
 	nix-shell -p bash --command 'bash choose-profile.bash'
-	if nix-env -q 'git.*'; then nix-env -e git; fi
+	if nix-env -q 'git.*' >/dev/null 2>&1; then \
+		echo "Uninstalling git to avoid conflict..."; \
+		nix-env -e git; \
+	fi
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 
 home-manager: deps
