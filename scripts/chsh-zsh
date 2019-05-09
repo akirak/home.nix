@@ -15,7 +15,7 @@ set -e
 
 expected="$(command -v zsh)"
 
-current="$(grep ^$USER: /etc/passwd | cut -d: -f7)"
+current="$(getent passwd $USER | cut -d: -f7)"
 
 if [ "$current" = "$expected" ]; then
     echo "The shell has been already set to zsh."
