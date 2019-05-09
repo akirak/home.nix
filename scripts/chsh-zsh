@@ -13,7 +13,7 @@ fi
 
 set -e
 
-expected="$(command -v zsh)"
+expected="$HOME/.nix-profile/bin/zsh"
 
 current="$(getent passwd $USER | cut -d: -f7)"
 
