@@ -6,6 +6,7 @@ with profile;
     locale
     nox
     nix-prefetch-git
+    lorri
     my-scripts
     git-sync
   ];
