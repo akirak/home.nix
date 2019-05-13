@@ -11,6 +11,10 @@ with profile.path;
     gopass
     overpass
     emacs-alt-icon
+    google-fonts
+    fira-code
+    harenosora-mincho-font
+    adobe-chinese
   ];
 
   home.sessionVariables = {
