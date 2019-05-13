@@ -7,6 +7,8 @@ with profile.path;
 
   home.packages = with pkgs; [
     ripgrep
+    exa
+    fd
     mlocate
     gopass
     overpass
