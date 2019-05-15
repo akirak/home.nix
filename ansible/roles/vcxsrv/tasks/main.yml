@@ -1,0 +1,13 @@
+---
+- name: Install vcxsrv
+  win_chocolatey:
+    name: vcxsrv
+    state: latest
+
+- name: Create shortcuts for starting vcxsrv
+  win_shortcut:
+    description: Start vcxsrv in multi-window mode.
+    dest: '%PUBLIC%\Startup\vcxsrv (multi-window).lnk'
+    src: '%PROGRAMFILES%\vcxsrv\vcxsrv.exe'
+    args: ':0 -multiwindow -clipboard -wgl'
+    icon: '%PROGRAMFILES%\vcxsrv\vcxsrv.exe,0'

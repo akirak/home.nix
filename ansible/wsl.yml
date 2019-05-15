@@ -1,0 +1,24 @@
+---
+- hosts: all
+  vars:
+    bin_dir: '%userprofile%\bin'
+  tasks:
+    - name: Create bin directoy
+      win_file:
+        path: "{{ bin_dir }}"
+        state: directory
+    - name: Add the bin directory to the Windows PATH of the user
+      win_path:
+        scope: user
+        state: present
+        elements:
+          - "{{ bin_dir }}"
+    - name: Install chocolatey and chocolatey GUI
+      win_chocolatey:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - chocolatey
+        - chocolateygui
+  roles:
+    - vcxsrv
