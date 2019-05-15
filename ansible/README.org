@@ -1,0 +1,53 @@
+* Ansible playbook
+** What it does
+*** Set up vcxsrv
+**** Shortcuts
+***** Multi-window mode
+#+begin_src 
+:0 -multiwindow -clipboard -wgl
+#+end_src
+***** Single-window mode
+#+begin_src 
+:2 -clipboard -wgl -nodecoration
+#+end_src
+***** Multi monitor mode
+#+begin_src 
+:2 -clipboard -screen 0 @1 -wgl -nodecoration +xinerama -screen 1 @2 -wgl -nodecoration +xinerama
+#+end_src
+
+*** Script for launching Emacs
+#+begin_src vbs :tangle runEmacs.vbs
+If WScript.Arguments.Count <= 0 Then
+   WScript.Quit
+End If
+
+display = WScript.Arguments(0)
+
+If WScript.Arguments.Count >= 2 Then
+   options = WScript.Arguments(1)
+Else
+   options = ""
+End If
+
+Set oShell = CreateObject ("Wscript.Shell")
+
+Dim strArgs
+strArgs = """C:\Windows\System\wsl.exe"" bash -c ""DISPLAY=:" & display & " HOME=/mnt/c/Users/akomamura1/refuge /home/akomamura1/.nix-profile/bin/emacs " & options & """"
+oShell.Run strArgs, 0, false
+
+#+end_src
+*** Create shortcuts for starting Emacs
+**** Emacs
+#+begin_src 
+0
+#+end_src
+**** Emacs (debug)
+#+begin_src 
+0 --debug-init
+#+end_src
+**** Emacs (EXWM)
+#+begin_src 
+2 --exwm
+#+end_src
+**** Update Emacs
+
