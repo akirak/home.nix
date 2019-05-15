@@ -16,7 +16,7 @@
 #+end_src
 
 *** Script for launching Emacs
-#+begin_src vbs :tangle runEmacs.vbs
+#+begin_src vbscript :tangle runEmacs.vbs
 If WScript.Arguments.Count <= 0 Then
    WScript.Quit
 End If
