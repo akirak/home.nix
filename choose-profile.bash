@@ -80,7 +80,7 @@ else
 fi
 
 is_chromeos() { [ -n "${SOMMELIER_VERSION}" ]; }
-is_wsl() { has_executable wsl.exe; }
+is_wsl() { ./scripts/is-wsl; }
 
 is_supported_linux() {
     echo "Checking if the platform is Linux..."
