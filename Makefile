@@ -51,7 +51,8 @@ clean:
 	sudo rm -rf /homeless-shelter
 
 chsh:
-	scripts/chsh-zsh
+# I won't run chsh inside Makefile until I find out a proper way to do this
+# 	scripts/chsh-zsh
 
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
 	chsh update-nix-channels init-home-manager
