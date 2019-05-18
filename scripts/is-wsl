@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# If the operating system is not Linux, it is not WSL
+if [[ "$(< /proc/sys/kernel/ostype)" != Linux ]]; then
+    exit 1
+fi
+
+if [[ "$(< /proc/sys/kernel/osrelease)" == *@(Microsoft|WSL) ]]; then
+    exit 0
+fi
+
+if [[ "$(< /proc/version)" == *@(Microsoft|WSL) ]]; then
+    exit 0
+fi
+
+exit 1
