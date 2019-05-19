@@ -10,7 +10,7 @@ x:
     # Default locale
     LANG = "en_GB.UTF-8";
     # Fallback locales
-    LANGUAGE = "en_US:en";
+    LANGUAGE = "en_US:zh_CN:zh_TW:ja:en";
     LC_ALL = "C";
     # Use ISO 8601 (YYYY-MM-DD) date format
     LC_TIME = "en_DK.UTF-8";
