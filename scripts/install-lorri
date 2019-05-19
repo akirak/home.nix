@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if command -v lorri >/dev/null 2>&1; then
+    echo "lorri is already installed."
+    echo "You can run 'lorri self-upgrade' to upgrade it."
+else
+    tempdir=$(mktemp -d)
+    cd $tempdir
+    git clone -b rolling-release https://github.com/target/lorri.git
+    cd lorri
+    nix-env -if .
+    success=$?
+    cd
+    rm -rf $tempdir
+    exit $success
+fi

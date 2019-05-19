@@ -47,6 +47,11 @@ chemacs:
 		touch "$(HOME)/.custom.el"; \
 	fi
 
+lorri:
+	if ! command -v lorri >/dev/null 2>&1; then \
+		scripts/install-lorri \
+	fi
+
 clean:
 	sudo rm -rf /homeless-shelter
 
@@ -55,4 +60,4 @@ chsh:
 # 	scripts/chsh-zsh
 
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-	chsh update-nix-channels init-home-manager
+	chsh update-nix-channels init-home-manager lorri
