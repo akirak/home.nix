@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # If the operating system is not Linux, it is not WSL
 if [[ "$(< /proc/sys/kernel/ostype)" != Linux ]]; then
