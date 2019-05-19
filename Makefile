@@ -1,6 +1,10 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 
-all: init chemacs home-manager
+home-manager: deps
+	home-manager -I $(shell pwd) switch
+	$(MAKE) post-install
+
+all: init chemacs home-manager lorri
 
 init: install-hooks init-home-manager
 
@@ -14,10 +18,6 @@ init-home-manager: update-nix-channels
 		nix-env -e git; \
 	fi
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
-
-home-manager: deps
-	home-manager -I $(shell pwd) switch
-	$(MAKE) post-install
 
 deps: fuse
 
