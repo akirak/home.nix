@@ -49,7 +49,7 @@ chemacs:
 
 lorri:
 	if ! command -v lorri >/dev/null 2>&1; then \
-		scripts/install-lorri \
+		scripts/install-lorri; \
 	fi
 
 clean:
