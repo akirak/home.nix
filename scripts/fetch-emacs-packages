@@ -1,0 +1,21 @@
+#!/bin/bash
+
+EMACS_DIR="$HOME/.emacs.d"
+
+err() { echo "$*" >&2; }
+
+if [[ ! -d "${EMACS_DIR}" ]]; then
+    err "Directory ${EMACS_DIR} does not exist"
+    exit 1
+fi
+
+cd "${EMACS_DIR}"
+for dir in straight/repos/*; do
+    [ ! -d $dir ] && continue
+    echo "Entering $dir"
+    cd $dir
+    if [[ -d .git ]]; then
+        git fetch --no-tags --recurse-submodules
+    fi
+    cd ../../..
+done
