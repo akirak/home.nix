@@ -23,6 +23,7 @@ x:
   let
     that = x.platform;
   in rec {
+    isWsl = that.isWsl or false;
     isChromeOS = that.isChromeOS or false;
     isNixOS = that.isNixOS or false;
     isWayland = that.isWayland or isChromeOS;
