@@ -109,6 +109,7 @@ setopt pushdminus
         "list-units" = "systemctl --user list-units";
         "list-unit-files" = "systemctl --user list-unit-files";
         "reset" = "systemctl --user reset-failed";
+        "cb" = "cd `lsbm.d | fzy -p 'cd to bookmark: '`";
       };
     };
 
