@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# List directory bookmarks in Emacs
+
+IFS=:
+for dir in $(emacsclient --eval "(->> projectile-known-projects
+     (-map #'expand-file-name)
+     (funcall (-flip #'string-join) \":\"))" \
+         | sed -e 's/^"//' -e 's/"$//'); do
+    echo $dir
+done
