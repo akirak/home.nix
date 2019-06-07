@@ -8,6 +8,7 @@ with profile;
     nix-prefetch-git
     my-scripts
     git-sync
+    (lib.mkIf profile.platform.isWsl wsl-open)
   ];
 
   extraOutputsToInstall = [
