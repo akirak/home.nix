@@ -82,6 +82,7 @@ with profile;
         "SPACESHIP_DIR_TRUNC_REPO" = "false";
         "SPACESHIP_DIR_TRUNC" = "0";
         "NIX_BUILD_SHELL" = "zsh";
+        "VAGRANT_WSL_WINDOWS_ACCESS" = "1";
       };
       initExtra = ''
 setopt auto_cd
@@ -111,7 +112,8 @@ setopt pushdminus
         "reset" = "systemctl --user reset-failed";
         "cb" = "cd `lsbm.d | fzy -p 'cd to bookmark: '`";
         "cdp" = "cd `lsproj | fzy -p 'cd to project: '`";
-      };
-    };
+        "v" = "vagrant";
+     };
+   };
 
 }
