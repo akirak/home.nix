@@ -1,12 +1,157 @@
 * Home-Manager Configuration
 [[https://circleci.com/gh/akirak/home.nix][https://circleci.com/gh/akirak/home.nix.svg?style=svg]]
 
-My home configuration using [[https://github.com/rycee/home-manager][home-manager]]
+This repository contains my user configuration files,
+which are actually [[https://nixos.org/nix/][nix]] configuration files for [[https://github.com/rycee/home-manager][home-manager]].
+If you are looking for an alternative way to manage "dotfiles", this repository may be an example.
+A better example will be John Wiegley's [[https://github.com/jwiegley/nix-config][nix-config]] repository.
+** Installation and usage
+:PROPERTIES:
+:header-args:makefile: :tangle Makefile
+:header-args:shell: :tangle no
+:END:
+This is automatically installed as part of  [[https://github.com/akirak/emacs.d][my Emacs configuration]]. 
+Alternatively, you can use it without Emacs (see /Manual installation/).
 
-This is part of [[https://github.com/akirak/emacs.d][my Emacs configuration]].
+Administration tasks are organized as make tasks.
+*** Make configuration
+I need to set the main configuration file of home-manager:
 
-** Installation
-This is automatically installed as part of the Emacs configuration. Alternatively, you can use it without Emacs. If you have already added [[https://github.com/rycee/home-manager][home-manager]] to your Nix channels, you can install it by running
+#+begin_src makefile
+export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
+#+end_src
+*** Updating the configuration
+You can update the configuration by running =make=:
+
+#+begin_src shell
+make
+#+end_src
+
+The default make task consists of the following phases:
+
+1. Install dependencies.
+2. Run home-manager.
+3. Run post installation tasks.
+
+#+begin_src makefile
+home-manager: tangle deps
+	home-manager -I $(shell pwd) switch
+	$(MAKE) post-install
+#+end_src
+
+#+begin_src makefile
+tangle:
+	if command -v emacs >/dev/null 2>&1; then \
+		emacs --batch --eval "(require 'org-babel) (org-babel-tangle-file \"README.org\")"; \
+	fi
+#+end_src
+*** Installing dependencies
+Some dependencies cannot be installed by Nix, so they need to be installed in advance.
+
+#+begin_src makefile
+deps: fuse
+#+end_src
+**** FUSE support
+If the platform is WSL 1, then the operating system should be Debian or Ubuntu, and =fusermount= must be installed.
+#+begin_src makefile
+fuse:
+	if grep --silent -P "ID(_LIKE)?=debian" /etc/os-release \
+		&& ! which fusermount >/dev/null 2>&1 \
+		&& ./scripts/is-wsl; then \
+		sudo apt-get install --yes fuse; \
+	fi
+#+end_src
+*** Post installation
+Some tasks need to be run after home-manager.
+
+#+begin_src makefile
+post-install: system-icons chsh
+#+end_src
+**** System icons (only on Chrome OS)
+#+begin_src makefile
+system-icons:
+	garcon-helper copy-icons
+#+end_src
+**** Change the shell
+Somehow this doesn't work.
+
+#+begin_src makefile
+chsh:
+# I won't run chsh inside Makefile until I find out a proper way to do this
+# 	scripts/chsh-zsh
+#+end_src
+*** Initial installation
+If you install this configuration for the first time, you have to run
+
+#+begin_src shell
+make all
+#+end_src
+
+which is defined as
+
+#+begin_src makefile
+all: init chemacs home-manager lorri
+#+end_src
+
+where =init= is defined as
+
+#+begin_src makefile
+init: install-hooks init-home-manager
+#+end_src
+**** Initial installation of home-manager
+#+begin_src makefile
+init-home-manager: update-nix-channels
+	nix-shell -p bash --command 'bash choose-profile.bash'
+	if nix-env -q 'git.*' >/dev/null 2>&1; then \
+		echo "Uninstalling git to avoid conflict..."; \
+		nix-env -e git; \
+	fi
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
+#+end_src
+
+#+begin_src makefile
+update-nix-channels:
+	nix-channel --update
+#+end_src
+*** Extra stuffs that are not installed by Nix
+**** Chemacs
+#+begin_src makefile
+chemacs:
+	cd contrib/chemacs && ./install.sh
+
+	if [ ! -f "$(HOME)/.emacs-profiles.el" ]; then \
+		install -m 644 -t "$(HOME)" -v dotfiles/.emacs-profiles.el; \
+	fi
+
+	if [ ! -f "$(HOME)/.custom.el" ]; then \
+		touch "$(HOME)/.custom.el"; \
+	fi
+#+end_src
+**** Lorri
+#+begin_src makefile
+lorri:
+	if ! command -v lorri >/dev/null 2>&1; then \
+		scripts/install-lorri; \
+	fi
+#+end_src
+*** Maintenance
+**** Git hooks
+#+begin_src makefile
+install-hooks:
+	if [ -e .git ]; then nix-shell -p git --run 'git config core.hooksPath .githooks'; fi
+#+end_src
+**** Cleaning up
+#+begin_src makefile
+clean:
+	sudo rm -rf /homeless-shelter
+#+end_src
+*** Phony                                                        :noexport:
+#+begin_src makefile
+.PHONY: install-hooks all chemacs home-manager system-icons clean \
+		chsh update-nix-channels init-home-manager lorri tangle
+#+end_src
+*** Manual installation
+If you have already added [[https://github.com/rycee/home-manager][home-manager]] to your Nix channels, you can install it by running
 
 #+begin_src sh
   git clone https://github.com/akirak/home.nix.git ~/nix
@@ -18,19 +163,10 @@ This is automatically installed as part of the Emacs configuration. Alternativel
   make all
 #+end_src
 
-Before running =make=, you have to create =identity.nix=. There are some profiles which follow the naming convention of =identity.*.nix= in this repository, so you can use one of them by creating a symbolic link.
-
-** Development
-Tests are run automatically by a Git hook.
-
-To remove the hook
-
-#+begin_src sh
-make uninstall-hooks
-#+end_src
-
-To run the tests manually
-
-#+begin_src sh
-sh test/test-local.sh
-#+end_src
++Before running =make=, you have to create =identity.nix=. There are some profiles which follow the naming convention of =identity.*.nix= in this repository, so you can use one of them by creating a symbolic link.+
+** Meta                                                           :noexport:
+# Local Variables:
+# before-save-hook: org-make-toc
+# org-id-link-to-org-use-id: nil
+# org-src-preserve-indentation: t
+# End:
