@@ -1,4 +1,4 @@
 ((nil
-  (projectile-project-compilation-cmd . "home-manager build"))
+  (projectile-project-compilation-cmd . "make"))
  (prog-mode
   (mode . whitespace-cleanup)))
