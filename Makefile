@@ -1,5 +1,4 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
-export NIX_PATH = "nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-defexpr/channels"
 
 update: home-manager emacs-config
 

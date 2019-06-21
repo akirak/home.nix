@@ -46,7 +46,6 @@ The following environment variables are set for the entire makefile.
 
 #+begin_src makefile
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
-export NIX_PATH = "nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-defexpr/channels"
 #+end_src
 *** Initial installation
 You can install this configuration on any Linux machine without any dependencies:
