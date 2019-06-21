@@ -1,3 +1,4 @@
+#!/bin/sh
 NIX_OS_VERSION=unstable
 HM_URL=https://github.com/rycee/home-manager/archive/master.tar.gz
 REPO_URL=https://github.com/akirak/home.nix.git

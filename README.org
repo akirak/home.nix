@@ -5,21 +5,86 @@ This repository contains my user configuration files,
 which are actually [[https://nixos.org/nix/][nix]] configuration files for [[https://github.com/rycee/home-manager][home-manager]].
 If you are looking for an alternative way to manage "dotfiles", this repository may be an example.
 A better example will be John Wiegley's [[https://github.com/jwiegley/nix-config][nix-config]] repository.
+** Prerequisites
+This configuration should run on Linux operating systems.
 ** Installation and usage
 :PROPERTIES:
 :header-args:makefile: :tangle Makefile
 :header-args:shell: :tangle no
 :END:
-This is automatically installed as part of  [[https://github.com/akirak/emacs.d][my Emacs configuration]]. 
-Alternatively, you can use it without Emacs (see /Manual installation/).
-
-Administration tasks are organized as make tasks.
 *** Make configuration
-I need to set the main configuration file of home-manager:
+Administration tasks for this configuration are organized as a set of make tasks.
+
+The following environment variables are set for the entire makefile.
 
 #+begin_src makefile
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 export NIX_PATH = "nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-defexpr/channels"
+#+end_src
+*** Initial installation
+You can install this configuration on any Linux machine without any dependencies:
+
+#+begin_src shell
+curl https://raw.githubusercontent.com/akirak/home.nix/master/bootstrap.sh | sh
+#+end_src
+
+It installs dependencies, clones the repository in =~/home.nix=, and runs all jobs required for installation. It also installs [[https://github.com/akirak/emacs.d][my Emacs configuration]] if =~/.emacs.d= does not exist.
+
+Alternatively, you can clone this repository to anywhere and run
+
+#+begin_src shell
+./bootstrap.sh
+#+end_src
+
+The following is the full source code of the script:
+
+#+begin_src shell :tangle bootstrap.sh
+#!/bin/sh
+NIX_OS_VERSION=unstable
+HM_URL=https://github.com/rycee/home-manager/archive/master.tar.gz
+REPO_URL=https://github.com/akirak/home.nix.git
+REPO_DEST="$HOME/home.nix"
+
+set -e
+
+if ! command -v nix-env >/dev/null 2>&1; then
+    curl https://nixos.org/nix/install | sh \
+        && . $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
+
+nix-channel --add https://nixos.org/channels/nixos-${NIX_OS_VERSION} nixpkgs
+nix-channel --add "${HM_URL}" home-manager
+nix-channel --update
+
+if ! command -v make >/dev/null 2>&1; then
+    nix-env -i gnumake
+fi
+
+if ! command -v git >/dev/null 2>&1; then
+    nix-env -i git
+fi
+
+if ! command -v systemctl >/dev/null 2>&1; then
+    echo "Installing systemd from nixpkgs."
+    echo "This may not work on non-NixOS distribution."
+    nix-env -i systemd
+fi
+
+if [ ! -d /etc/nixos ]; then
+    mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/$USER
+fi
+
+if [ $(git config --local remote.origin.url) != "${REPO_URL}" ]; then
+    git clone "${REPO_URL}" "${REPO_DEST}"
+    cd "${REPO_DEST}"
+fi
+
+if nix-env -q 'git.*' >/dev/null 2>&1; then
+    echo "Uninstalling git to avoid conflict..."
+    nix-env -e git
+fi
+
+nix-shell -p gnumake --command 'make all'
 #+end_src
 *** Updating the configuration
 You can update the configuration by running =make=:
