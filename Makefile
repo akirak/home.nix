@@ -1,4 +1,5 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
+export NIX_PATH = "nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-defexpr/channels"
 
 home-manager: tangle deps
 	home-manager -I $(shell pwd) switch

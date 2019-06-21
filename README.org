@@ -19,6 +19,7 @@ I need to set the main configuration file of home-manager:
 
 #+begin_src makefile
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
+export NIX_PATH = "nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-defexpr/channels"
 #+end_src
 *** Updating the configuration
 You can update the configuration by running =make=:
