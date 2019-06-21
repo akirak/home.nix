@@ -1,8 +1,11 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 
+all: install-hooks chemacs home-manager lorri emacs-config
+
 update: home-manager emacs-config
 
 home-manager: tangle deps
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) switch
 	$(MAKE) post-install
 
@@ -28,17 +31,6 @@ system-icons:
 chsh:
 # I won't run chsh inside Makefile until I find out a proper way to do this
 # 	scripts/chsh-zsh
-
-all: init chemacs home-manager lorri emacs-config
-
-init: install-hooks init-home-manager
-
-init-home-manager: update-nix-channels
-	nix-shell -p bash --command 'bash choose-profile.bash'
-	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
-
-update-nix-channels:
-	nix-channel --update
 
 emacs-config:
 	if [ ! -d "$(HOME)/.emacs.d" ]; then \

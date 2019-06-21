@@ -14,14 +14,15 @@ A better example will be John Wiegley's [[https://github.com/jwiegley/nix-config
     -  [[#installation-and-usage][Installation and usage]]
       -  [[#make-configuration][Make configuration]]
       -  [[#initial-installation][Initial installation]]
+        -  [[#bootstrapping][Bootstrapping]]
+        -  [[#choosing-a-profile][Choosing a profile]]
+        -  [[#installation][Installation]]
       -  [[#updating-the-configuration][Updating the configuration]]
       -  [[#installing-dependencies][Installing dependencies]]
         -  [[#fuse-support][FUSE support]]
       -  [[#post-installation][Post installation]]
         -  [[#system-icons-only-on-chrome-os][System icons (only on Chrome OS)]]
         -  [[#change-the-shell][Change the shell]]
-      -  [[#initial-installation][Initial installation]]
-        -  [[#initial-installation-of-home-manager][Initial installation of home-manager]]
       -  [[#extra-stuffs-that-are-not-installed-by-nix][Extra stuffs that are not installed by Nix]]
         -  [[#my-emacs-configuration][My Emacs configuration]]
         -  [[#chemacs][Chemacs]]
@@ -48,6 +49,7 @@ The following environment variables are set for the entire makefile.
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 #+end_src
 *** Initial installation
+**** Bootstrapping
 You can install this configuration on any Linux machine without any dependencies:
 
 #+begin_src shell
@@ -106,7 +108,27 @@ if nix-env -q 'git.*' >/dev/null 2>&1; then
     nix-env -e git
 fi
 
-nix-shell -p gnumake --command 'make all'
+echo <<EOF
+Choose a profile and run
+
+  make all
+
+EOF
+
+nix-shell -p gnumake
+#+end_src
+**** Choosing a profile
+**** Installation
+After configuring your profile, run
+
+#+begin_src shell
+make all
+#+end_src
+
+to install all the components.
+
+#+begin_src makefile
+all: install-hooks chemacs home-manager lorri emacs-config
 #+end_src
 *** Updating the configuration
 You can update the configuration by running =make=:
@@ -131,6 +153,7 @@ Updating home-manager consists of the following tasks:
 
 #+begin_src makefile
 home-manager: tangle deps
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) switch
 	$(MAKE) post-install
 #+end_src
@@ -175,35 +198,6 @@ Somehow this doesn't work.
 chsh:
 # I won't run chsh inside Makefile until I find out a proper way to do this
 # 	scripts/chsh-zsh
-#+end_src
-*** Initial installation
-If you install this configuration for the first time, you have to run
-
-#+begin_src shell
-make all
-#+end_src
-
-which is defined as
-
-#+begin_src makefile
-all: init chemacs home-manager lorri emacs-config
-#+end_src
-
-where =init= is defined as
-
-#+begin_src makefile
-init: install-hooks init-home-manager
-#+end_src
-**** Initial installation of home-manager
-#+begin_src makefile
-init-home-manager: update-nix-channels
-	nix-shell -p bash --command 'bash choose-profile.bash'
-	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
-#+end_src
-
-#+begin_src makefile
-update-nix-channels:
-	nix-channel --update
 #+end_src
 *** Extra stuffs that are not installed by Nix
 **** My Emacs configuration

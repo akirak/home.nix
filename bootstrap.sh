@@ -39,4 +39,11 @@ if nix-env -q 'git.*' >/dev/null 2>&1; then
     nix-env -e git
 fi
 
-nix-shell -p gnumake --command 'make all'
+echo <<EOF
+Choose a profile and run
+
+  make all
+
+EOF
+
+nix-shell -p gnumake
