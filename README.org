@@ -5,6 +5,32 @@ This repository contains my user configuration files,
 which are actually [[https://nixos.org/nix/][nix]] configuration files for [[https://github.com/rycee/home-manager][home-manager]].
 If you are looking for an alternative way to manage "dotfiles", this repository may be an example.
 A better example will be John Wiegley's [[https://github.com/jwiegley/nix-config][nix-config]] repository.
+** Table of contents                                              :noexport:
+:PROPERTIES:
+:TOC:      siblings
+:END:
+    -  [[#prerequisites][Prerequisites]]
+    -  [[#installation-and-usage][Installation and usage]]
+      -  [[#make-configuration][Make configuration]]
+      -  [[#initial-installation][Initial installation]]
+      -  [[#updating-the-configuration][Updating the configuration]]
+      -  [[#installing-dependencies][Installing dependencies]]
+        -  [[#fuse-support][FUSE support]]
+      -  [[#post-installation][Post installation]]
+        -  [[#system-icons-only-on-chrome-os][System icons (only on Chrome OS)]]
+        -  [[#change-the-shell][Change the shell]]
+      -  [[#initial-installation][Initial installation]]
+        -  [[#initial-installation-of-home-manager][Initial installation of home-manager]]
+      -  [[#extra-stuffs-that-are-not-installed-by-nix][Extra stuffs that are not installed by Nix]]
+        -  [[#my-emacs-configuration][My Emacs configuration]]
+        -  [[#chemacs][Chemacs]]
+        -  [[#lorri][Lorri]]
+      -  [[#maintenance][Maintenance]]
+        -  [[#git-hooks][Git hooks]]
+        -  [[#cleaning-up][Cleaning up]]
+      -  [[#phony][Phony]]
+      -  [[#manual-installation][Manual installation]]
+
 ** Prerequisites
 This configuration should run on Linux operating systems.
 ** Installation and usage
@@ -248,6 +274,9 @@ If you have already added [[https://github.com/rycee/home-manager][home-manager]
 
 +Before running =make=, you have to create =identity.nix=. There are some profiles which follow the naming convention of =identity.*.nix= in this repository, so you can use one of them by creating a symbolic link.+
 ** Meta                                                           :noexport:
+:PROPERTIES:
+:TOC:      ignore
+:END:
 # Local Variables:
 # before-save-hook: org-make-toc
 # org-id-link-to-org-use-id: nil
