@@ -1,6 +1,8 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 export NIX_PATH = "nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-defexpr/channels"
 
+update: home-manager emacs-config
+
 home-manager: tangle deps
 	home-manager -I $(shell pwd) switch
 	$(MAKE) post-install
@@ -28,20 +30,23 @@ chsh:
 # I won't run chsh inside Makefile until I find out a proper way to do this
 # 	scripts/chsh-zsh
 
-all: init chemacs home-manager lorri
+all: init chemacs home-manager lorri emacs-config
 
 init: install-hooks init-home-manager
 
 init-home-manager: update-nix-channels
 	nix-shell -p bash --command 'bash choose-profile.bash'
-	if nix-env -q 'git.*' >/dev/null 2>&1; then \
-		echo "Uninstalling git to avoid conflict..."; \
-		nix-env -e git; \
-	fi
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 
 update-nix-channels:
 	nix-channel --update
+
+emacs-config:
+	if [ ! -d "$(HOME)/.emacs.d" ]; then \
+		git clone -b maint https://github.com/akirak/emacs.d.git "$(HOME)/.emacs.d"; \
+	else
+		cd "$(HOME)/.emacs.d"; ./update.bash; \
+	fi
 
 chemacs:
 	cd contrib/chemacs && ./install.sh
@@ -66,4 +71,4 @@ clean:
 	sudo rm -rf /homeless-shelter
 
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-		chsh update-nix-channels init-home-manager lorri tangle
+		chsh update-nix-channels init-home-manager lorri tangle emacs-config

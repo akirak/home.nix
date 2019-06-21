@@ -99,7 +99,7 @@ make all
 which is defined as
 
 #+begin_src makefile
-all: init chemacs home-manager lorri
+all: init chemacs home-manager lorri emacs-config
 #+end_src
 
 where =init= is defined as
@@ -111,10 +111,6 @@ init: install-hooks init-home-manager
 #+begin_src makefile
 init-home-manager: update-nix-channels
 	nix-shell -p bash --command 'bash choose-profile.bash'
-	if nix-env -q 'git.*' >/dev/null 2>&1; then \
-		echo "Uninstalling git to avoid conflict..."; \
-		nix-env -e git; \
-	fi
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 #+end_src
 
@@ -170,7 +166,7 @@ clean:
 *** Phony                                                        :noexport:
 #+begin_src makefile
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-		chsh update-nix-channels init-home-manager lorri tangle
+		chsh update-nix-channels init-home-manager lorri tangle emacs-config
 #+end_src
 *** Manual installation
 If you have already added [[https://github.com/rycee/home-manager][home-manager]] to your Nix channels, you can install it by running
