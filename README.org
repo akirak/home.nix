@@ -1,3 +1,4 @@
+#+startup: content
 * Home-Manager Configuration
 [[https://circleci.com/gh/akirak/home.nix][https://circleci.com/gh/akirak/home.nix.svg?style=svg]]
 
