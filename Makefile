@@ -6,7 +6,7 @@ home-manager: tangle deps
 
 tangle:
 	if command -v emacs >/dev/null 2>&1; then \
-		emacs --batch --eval "(require 'org-babel) (org-babel-tangle-file \"README.org\")"; \
+		emacs --batch --eval "(progn (require 'ob) (org-babel-tangle-file \"README.org\"))"; \
 	fi
 
 deps: fuse

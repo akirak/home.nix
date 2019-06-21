@@ -42,7 +42,7 @@ home-manager: tangle deps
 #+begin_src makefile
 tangle:
 	if command -v emacs >/dev/null 2>&1; then \
-		emacs --batch --eval "(require 'org-babel) (org-babel-tangle-file \"README.org\")"; \
+		emacs --batch --eval "(progn (require 'ob) (org-babel-tangle-file \"README.org\"))"; \
 	fi
 #+end_src
 *** Installing dependencies
