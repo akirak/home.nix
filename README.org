@@ -28,7 +28,15 @@ You can update the configuration by running =make=:
 make
 #+end_src
 
-The default make task consists of the following phases:
+The default tasks is defined as follows:
+
+#+begin_src makefile
+update: home-manager emacs-config
+#+end_src
+
+That is, it runs home-manager and installs or updates my Emacs configuration.
+
+Updating home-manager consists of the following tasks:
 
 1. Install dependencies.
 2. Run home-manager.
@@ -115,6 +123,19 @@ update-nix-channels:
 	nix-channel --update
 #+end_src
 *** Extra stuffs that are not installed by Nix
+**** My Emacs configuration
+My Emacs configuration is installed to =~/.emacs.d=. If it is already installed, it runs the updating script (=update.bash=) contained in the repository.
+
+I usually stay on =maint= branch in the repository, so the branch is checked out by default.
+
+#+begin_src makefile
+emacs-config:
+	if [ ! -d "$(HOME)/.emacs.d" ]; then \
+		git clone -b maint https://github.com/akirak/emacs.d.git "$(HOME)/.emacs.d"; \
+	else
+		cd "$(HOME)/.emacs.d"; ./update.bash; \
+	fi
+#+end_src
 **** Chemacs
 #+begin_src makefile
 chemacs:
