@@ -210,7 +210,7 @@ I usually stay on =maint= branch in the repository, so the branch is checked out
 emacs-config:
 	if [ ! -d "$(HOME)/.emacs.d" ]; then \
 		git clone -b maint https://github.com/akirak/emacs.d.git "$(HOME)/.emacs.d"; \
-	else
+	else \
 		cd "$(HOME)/.emacs.d"; ./update.bash; \
 	fi
 #+end_src

@@ -35,7 +35,7 @@ chsh:
 emacs-config:
 	if [ ! -d "$(HOME)/.emacs.d" ]; then \
 		git clone -b maint https://github.com/akirak/emacs.d.git "$(HOME)/.emacs.d"; \
-	else
+	else \
 		cd "$(HOME)/.emacs.d"; ./update.bash; \
 	fi
 
