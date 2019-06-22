@@ -1,7 +1,5 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 
-all: install-hooks chemacs home-manager lorri emacs-config
-
 update: home-manager emacs-config
 
 home-manager: tangle deps
@@ -13,6 +11,8 @@ tangle:
 	if command -v emacs >/dev/null 2>&1; then \
 		emacs --batch --eval "(progn (require 'ob) (org-babel-tangle-file \"README.org\"))"; \
 	fi
+
+all: install-hooks chemacs home-manager lorri emacs-config
 
 deps: fuse
 

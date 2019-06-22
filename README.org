@@ -13,11 +13,11 @@ A better example will be John Wiegley's [[https://github.com/jwiegley/nix-config
     -  [[#prerequisites][Prerequisites]]
     -  [[#installation-and-usage][Installation and usage]]
       -  [[#make-configuration][Make configuration]]
+      -  [[#updating-the-configuration][Updating the configuration]]
       -  [[#initial-installation][Initial installation]]
         -  [[#bootstrapping][Bootstrapping]]
         -  [[#choosing-a-profile][Choosing a profile]]
         -  [[#installation][Installation]]
-      -  [[#updating-the-configuration][Updating the configuration]]
       -  [[#installing-dependencies][Installing dependencies]]
         -  [[#fuse-support][FUSE support]]
       -  [[#post-installation][Post installation]]
@@ -47,6 +47,40 @@ The following environment variables are set for the entire makefile.
 
 #+begin_src makefile
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
+#+end_src
+*** Updating the configuration
+You can update the configuration by running =make=:
+
+#+begin_src shell
+make
+#+end_src
+
+The default tasks is defined as follows:
+
+#+begin_src makefile
+update: home-manager emacs-config
+#+end_src
+
+That is, it runs home-manager and installs or updates my Emacs configuration.
+
+Updating home-manager consists of the following tasks:
+
+1. Install dependencies.
+2. Run home-manager.
+3. Run post installation tasks.
+
+#+begin_src makefile
+home-manager: tangle deps
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
+	home-manager -I $(shell pwd) switch
+	$(MAKE) post-install
+#+end_src
+
+#+begin_src makefile
+tangle:
+	if command -v emacs >/dev/null 2>&1; then \
+		emacs --batch --eval "(progn (require 'ob) (org-babel-tangle-file \"README.org\"))"; \
+	fi
 #+end_src
 *** Initial installation
 **** Bootstrapping
@@ -130,40 +164,6 @@ to install all the components.
 
 #+begin_src makefile
 all: install-hooks chemacs home-manager lorri emacs-config
-#+end_src
-*** Updating the configuration
-You can update the configuration by running =make=:
-
-#+begin_src shell
-make
-#+end_src
-
-The default tasks is defined as follows:
-
-#+begin_src makefile
-update: home-manager emacs-config
-#+end_src
-
-That is, it runs home-manager and installs or updates my Emacs configuration.
-
-Updating home-manager consists of the following tasks:
-
-1. Install dependencies.
-2. Run home-manager.
-3. Run post installation tasks.
-
-#+begin_src makefile
-home-manager: tangle deps
-	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
-	home-manager -I $(shell pwd) switch
-	$(MAKE) post-install
-#+end_src
-
-#+begin_src makefile
-tangle:
-	if command -v emacs >/dev/null 2>&1; then \
-		emacs --batch --eval "(progn (require 'ob) (org-babel-tangle-file \"README.org\"))"; \
-	fi
 #+end_src
 *** Installing dependencies
 Some dependencies cannot be installed by Nix, so they need to be installed in advance.
