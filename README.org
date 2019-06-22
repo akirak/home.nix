@@ -100,6 +100,7 @@ fi
 
 if [ $(git config --local remote.origin.url) != "${REPO_URL}" ]; then
     git clone "${REPO_URL}" "${REPO_DEST}"
+    git submodule update --init --recursive
     cd "${REPO_DEST}"
 fi
 
