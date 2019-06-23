@@ -7,7 +7,7 @@ with profile.preferences;
   (import ./graphical.nix attrs)
   (optionalAttrs (!profile.platform.isWsl) (import ./tilix.nix attrs))
   (optionalAttrs profile.platform.isWayland (import ./wayland.nix attrs))
-  (import ./org-personal.nix attrs)
+  (import ./org.nix attrs)
   (import ./kbfs.nix attrs)
   (import ./exwm.nix attrs)
 ]
