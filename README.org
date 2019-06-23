@@ -12,7 +12,7 @@ A better example will be John Wiegley's [[https://github.com/jwiegley/nix-config
 :END:
     -  [[#prerequisites][Prerequisites]]
     -  [[#installation-and-usage][Installation and usage]]
-      -  [[#make-configuration][Make configuration]]
+      -  [[#configuration-of-the-makefile][Configuration of the Makefile]]
       -  [[#updating-the-configuration][Updating the configuration]]
       -  [[#initial-installation][Initial installation]]
         -  [[#bootstrapping][Bootstrapping]]
@@ -39,7 +39,7 @@ This configuration should run on Linux operating systems.
 :header-args:makefile: :tangle Makefile
 :header-args:shell: :tangle no
 :END:
-*** Make configuration
+*** Configuration of the Makefile
 Administration tasks for this configuration are organized as a set of make tasks.
 
 The following environment variables are set for the entire makefile.
