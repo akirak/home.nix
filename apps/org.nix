@@ -1,17 +1,12 @@
 { profile, pkgs, lib, ... }:
+let backup = { name, repo, interval }:
 {
-  # Run syncthing service. This is triggered by default.target
-  services.syncthing = {
-    enable = true;
-    tray = false;
-  };
-
-  systemd.user.timers."backup-org@notes" = {
+  systemd.user.timers."${name}" = {
     Unit = {
       Description = "Backup the repository periodically";
     };
     Timer = {
-      OnUnitActiveSec = "5m";
+      OnUnitActiveSec = interval;
     };
     Install = {
       WantedBy = [
@@ -19,12 +14,11 @@
       ];
     };
   };
-  systemd.user.services."backup-org@notes" =
+  systemd.user.services."${name}" =
     with profile.path;
-    let repo = "%h/lib/notes";
-    in {
+    {
       Unit = {
-      Description = "Backup contents in ~/lib/notes to the Git repository inside itself";
+      Description = "Backup contents in ${repo} to the Git repository inside itself";
         AssertPathIsDirectory = "${repo}/.git";
       };
       Service = {
@@ -33,4 +27,18 @@
         ExecStart = "${binDir}/backup-org-git";
     };
   };
+};
+in
+{
+  # Run syncthing service. This is triggered by default.target
+  services.syncthing = {
+    enable = true;
+    tray = false;
+  };
+} //
+backup
+{
+  name = "backup-org@notes";
+  repo = "%h/lib/notes";
+  interval = "5m";
 }
