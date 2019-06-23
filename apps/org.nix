@@ -41,4 +41,10 @@ backup
   name = "backup-org@notes";
   repo = "%h/lib/notes";
   interval = "5m";
+} //
+backup
+{
+  name = "backup-org@journal";
+  repo = "%h/lib/journal";
+  interval = "30m";
 }
