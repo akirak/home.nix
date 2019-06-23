@@ -10,7 +10,7 @@ case "$1" in
         if is_chromeos; then
             sudo mkdir -p /usr/share/icons/gnome
             sudo rsync -ra --copy-links \
-                 "$(HOME)/.nix-profile/share/icons/favorites/" \
+                 "$HOME/.nix-profile/share/icons/favorites/" \
                  /usr/share/icons/gnome/
         else
             echo "This is not Chrome OS."
