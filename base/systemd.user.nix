@@ -1,3 +1,4 @@
 { ... }:
 {
+  startServices = true;
 }
