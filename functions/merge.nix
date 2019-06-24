@@ -9,11 +9,11 @@ let
   init path == ["services"] ||
   init path == ["programs"];
   c1 = lib.recursiveUpdateUntil predicate base exts;
-  basePackages = base.home.packages or [];
-  newPackages = exts.home.packages or [];
+  basePackages = (base.home or {}).packages or [];
+  newPackages = (exts.home or {}).packages or [];
 in
 c1 // {
-  home = c1.home // {
+  home = (c1.home or {}) // {
     packages = basePackages ++ newPackages;
     file = (base.home.file or {}) // (exts.home.file or {});
     sessionVariables = (base.home.sessionVariables or {})
