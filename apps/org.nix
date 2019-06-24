@@ -1,50 +1,29 @@
 { profile, pkgs, lib, ... }:
-let backup = { name, repo, interval }:
-{
-  systemd.user.timers."${name}" = {
-    Unit = {
-      Description = "Backup the repository periodically";
-    };
-    Timer = {
-      OnUnitActiveSec = interval;
-    };
-    Install = {
-      WantedBy = [
-        "default.target"
-      ];
-    };
-  };
-  systemd.user.services."${name}" =
-    with profile.path;
-    {
-      Unit = {
-      Description = "Backup contents in ${repo} to the Git repository inside itself";
-        AssertPathIsDirectory = "${repo}/.git";
-      };
-      Service = {
-        Type = "simple";
-        WorkingDirectory = repo;
-        ExecStart = "${binDir}/backup-org-git";
-    };
-  };
-};
+let
+  merge-many = import ../functions/merge-many.nix { inherit lib; };
+  backup-org = import ../functions/backup-org.nix { inherit lib profile; };
 in
-{
-  # Run syncthing service. This is triggered by default.target
-  services.syncthing = {
-    enable = true;
-    tray = false;
-  };
-} //
-backup
-{
-  name = "backup-org@notes";
-  repo = "%h/lib/notes";
-  interval = "5m";
-} //
-backup
-{
-  name = "backup-org@journal";
-  repo = "%h/lib/journal";
-  interval = "30m";
-}
+merge-many
+[
+  {
+    # Run syncthing service. This is triggered by default.target
+    services.syncthing = {
+      enable = true;
+      tray = false;
+    };
+  }
+  # Define backup-org@notes.{service,timer}
+  (backup-org
+    {
+      name = "notes";
+      repo = "%h/lib/notes";
+      interval = "5m";
+    })
+  # Define backup-org@journal.{service,timer}
+  (backup-org
+    {
+      name = "journal";
+      repo = "%h/lib/journal";
+      interval = "30m";
+    })
+]
