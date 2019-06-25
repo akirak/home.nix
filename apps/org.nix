@@ -26,4 +26,11 @@ merge-many
       repo = "%h/lib/journal";
       interval = "30m";
     })
+  # Define backup-org@personal-tasks.{service,timer}
+  (backup-org
+    {
+      name = "personal-tasks";
+      repo = "%h/lib/tasks.personal";
+      interval = "5m";
+    })
 ]
