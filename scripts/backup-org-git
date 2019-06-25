@@ -10,9 +10,9 @@ if [ -z "${GIT_COMMAND}" ]; then
     GIT_COMMAND=$(command -v git)
 fi
 
-# Fail if the working directory is not ~/org
-if [ $PWD != $dir ]; then
-    echo "This script must be run at $dir"
+# Ensure that this script is run at the root of a Git repository
+if [ ! -d .git ]; then
+    echo "This script must be run at a repository root"
     exit 1
 fi
 
