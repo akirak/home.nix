@@ -6,7 +6,9 @@ branch=master
 # The path to the root of the working tree
 dir=$HOME/org
 
-GIT=$(command -v git)
+if [ -z "${GIT_COMMAND}" ]; then
+    GIT_COMMAND=$(command -v git)
+fi
 
 # Fail if the working directory is not ~/org
 if [ $PWD != $dir ]; then
@@ -14,20 +16,20 @@ if [ $PWD != $dir ]; then
     exit 1
 fi
 
-if ! which $GIT >/dev/null 2>/dev/null; then
+if ! which "${GIT_COMMAND}" >/dev/null 2>/dev/null; then
    echo "git is unavailable" >2
    exit 1
 fi
 
 # Update the index from the working tree and retrieve its hash
 ref=refs/heads/$branch
-parent=$($GIT show-ref -s $branch)
-$GIT add .
-tree=$($GIT write-tree)
+parent=$("${GIT_COMMAND}" show-ref -s $branch)
+"${GIT_COMMAND}" add .
+tree=$("${GIT_COMMAND}" write-tree)
 
 # Compare the tree with the branch and update it if there are changes
 filelist=$(mktemp)
-$GIT diff-tree --exit-code --name-only $parent $tree > $filelist
+"${GIT_COMMAND}" diff-tree --exit-code --name-only $parent $tree > $filelist
 if [ $? -eq 1 ]; then
     msg=$(mktemp)
     echo -n "Auto commit: " > $msg
@@ -36,9 +38,9 @@ if [ $? -eq 1 ]; then
       echo -n "($numfiles files) " >> $msg
     fi
     cat $filelist | tr '\n' ' ' >> $msg
-    commit=$($GIT commit-tree -p $parent -F $msg $tree)
+    commit=$("${GIT_COMMAND}" commit-tree -p $parent -F $msg $tree)
     rm $msg $filelist
-    $GIT update-ref $ref $commit $parent
+    "${GIT_COMMAND}" update-ref $ref $commit $parent
     echo "Created a new commit"
 else
     rm $filelist
