@@ -17,6 +17,7 @@ with profile.path;
     fira-code
     harenosora-mincho-font
     adobe-chinese
+    ispell
     hunspell
     hunspellDicts.en-us
     hunspellDicts.en-gb-ise
