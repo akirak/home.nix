@@ -12,6 +12,10 @@ tangle:
 		emacs --batch --eval "(progn (require 'ob) (org-babel-tangle-file \"README.org\"))"; \
 	fi
 
+build: tangle
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
+	home-manager -I $(shell pwd) build
+
 all: install-hooks chemacs home-manager lorri emacs-config
 
 deps: fuse

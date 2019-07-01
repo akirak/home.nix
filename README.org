@@ -81,6 +81,14 @@ tangle:
 		emacs --batch --eval "(progn (require 'ob) (org-babel-tangle-file \"README.org\"))"; \
 	fi
 #+end_src
+
+Alternatively, the makefile provides a task which builds the configuration but don't switch it to check its correctness:
+
+#+begin_src makefile
+build: tangle
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
+	home-manager -I $(shell pwd) build
+#+end_src
 *** Initial installation
 **** Bootstrapping
 You can install this configuration on any Linux machine without any dependencies:
