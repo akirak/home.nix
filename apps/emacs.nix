@@ -17,6 +17,10 @@ with profile.path;
     fira-code
     harenosora-mincho-font
     adobe-chinese
+    hunspell
+    hunspellDicts.en-us
+    hunspellDicts.en-gb-ise
+    hunspellDicts.en-gb-ize
   ];
 
   home.sessionVariables = {
