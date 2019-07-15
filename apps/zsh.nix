@@ -40,9 +40,9 @@ with profile;
           src = pkgs.fetchFromGitHub {
              owner = "b4b4r07";
              repo = "enhancd";
-             rev = "a708e6dc1029de310c3b73c2a9d34f33a6e24d14";
-             sha256 = "0bxpif2id1kmh48zv96hzgcx3m4qwl0cppaiya868cnlyrb2x9k1";
-             # date = 2019-04-01T13:55:23+09:00;
+             rev = "4c6656201e3f70b2e9bc0b29a42fcfeda0109541";
+             sha256 = "0dx49rnfz68ij7v5bfjs651mnr63f18zjxzbq1aa68i4q6xp99p3";
+             # date = 2019-06-10T22:14:53+09:00;
           };
         }
         {
@@ -50,10 +50,10 @@ with profile;
           src = pkgs.fetchFromGitHub {
             owner = "zlsun";
             repo = "solarized-man";
-            rev = "a902b64696271efee95f37d45589078fdfbbddc5";
-            sha256 = "04gm4qm17s49s6h9klbifgilxv8i45sz3rg521dwm599gl3fgmnv";
+            rev = "e69d2cedc3a51031e660f2c3459b08ab62ef9afa";
+            sha256 = "1ljnqxfzhi26jfzm0nm2s9w43y545sj1gmlk6pyd9a8zc0hafdx8";
             # date = ;
-            # date = 2017-05-19T00:10:24+08:00;
+            # date = 2019-07-01T11:22:24+08:00;
           };
         }
         {
@@ -61,9 +61,9 @@ with profile;
           src = pkgs.fetchFromGitHub {
             owner = "zdharma";
             repo = "fast-syntax-highlighting";
-            rev = "3601297ebfd67f208f489189e984df665ec9242c";
-            sha256 = "026ykxgfy0p7y3wcsq0z3kmrs0n67rmxf89kqmiw5vxr9l67jr6l";
-            # date = 2019-04-09T15:18:55+02:00;
+            rev = "45b6516fad95c8bc35aea44eb7edc8ccbf642007";
+            sha256 = "1cf09rls81b00kkbabi562x9kkbwm9p31x9vcbpyz8sixfp5anv3";
+            # date = 2019-07-15T07:04:50+02:00;
           };
         }
         {

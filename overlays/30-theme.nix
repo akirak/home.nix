@@ -26,14 +26,14 @@ done
 
   suru-plus-terminal-icons = with self; stdenv.mkDerivation rec {
     name = "suru-plus-terminal-icons";
-    version = "25.3";
+    version = "30.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "gusbemacbe";
       repo = "suru-plus";
       rev = "v${version}";
-      sha256 = "0xl7663zpbknzax9ad3l4d3j19184nymq71880f4y0d73901rqpi";
-      # date = 2019-03-18T08:03:48-03:00;
+      sha256 = "18kc463q4kbzb3zkig0rycjqhxgsq8lrfwji7zkjbadflspcif32";
+      # date = 2019-04-29T04:32:42-03:00;
     };
 
     phases = [ "buildPhase" ];
@@ -63,9 +63,9 @@ done
     src = pkgs.fetchFromGitHub {
       owner = "keeferrourke";
       repo = "la-capitaine-icon-theme";
-      rev = "8ac03b4646df2ea854dc0c30745a7d7dcd52c0eb";
-      sha256 = "17866q44w00zrhlpa8h2kcf5k0pkgzgvj8x6qbf9rkj2xb4kjzgv";
-      # date = 2019-04-26T11:31:33-04:00;
+      rev = "0299ebbdbbc4cb7dea8508059f38a895c98027f7";
+      sha256 = "050w5jfj7dvix8jgb3zwvzh2aiy27i16x792cv13fpqqqgwkfpmf";
+      # date = 2019-07-13T15:37:21+00:00;
     };
 
     phases = [ "buildPhase" ];
