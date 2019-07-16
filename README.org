@@ -47,6 +47,7 @@ The following environment variables are set for the entire makefile.
 #+begin_src makefile
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 export NIX_PATH = nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-defexpr/channels
+export TMPDIR = $(shell scripts/nix-tmpdir)
 #+end_src
 *** Updating the configuration
 You can update the configuration by running =make=:

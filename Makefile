@@ -1,5 +1,6 @@
 export HOME_MANAGER_CONFIG = $(shell pwd)/home.nix
 export NIX_PATH = nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-defexpr/channels
+export TMPDIR = $(shell scripts/nix-tmpdir)
 
 update: home-manager emacs-config
 

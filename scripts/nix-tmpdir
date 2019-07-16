@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Return a tmpdir suitable for system
+
+function is_crostini() {
+    uname -a | grep -E "^Linux penguin" >/dev/null
+}
+
+if is_crostini; then
+    tmpdir=/dev/shm/nix-build
+    mkdir -p $tmpdir
+    echo $tmpdir
+elif [ -n "$TMPDIR" ]; then
+    echo "$TMPDIR"
+elif [ -n "$TMP" ]; then
+    echo "$TMP"
+elif [ -d /tmp ]; then
+    echo /tmp
+else
+    echo "Failed to determine the temporary directory" >&2
+    exit 1
+fi
