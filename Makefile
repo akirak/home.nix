@@ -22,8 +22,7 @@ deps: fuse
 
 fuse:
 	if grep --silent -P "ID(_LIKE)?=debian" /etc/os-release \
-		&& ! which fusermount >/dev/null 2>&1 \
-		&& ./scripts/is-wsl; then \
+		&& ! which fusermount >/dev/null 2>&1; then \
 		sudo apt-get install --yes fuse; \
 	fi
 

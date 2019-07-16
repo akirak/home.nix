@@ -185,8 +185,7 @@ If the platform is WSL 1, then the operating system should be Debian or Ubuntu, 
 #+begin_src makefile
 fuse:
 	if grep --silent -P "ID(_LIKE)?=debian" /etc/os-release \
-		&& ! which fusermount >/dev/null 2>&1 \
-		&& ./scripts/is-wsl; then \
+		&& ! which fusermount >/dev/null 2>&1; then \
 		sudo apt-get install --yes fuse; \
 	fi
 #+end_src
