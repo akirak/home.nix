@@ -21,26 +21,21 @@
 
 self: super:
 {
-  harenosora-mincho-font = with self; stdenv.mkDerivation rec {
-    name = "harenosora-mincho-font";
+  honoka-mincho-font = with self; stdenv.mkDerivation rec {
+    name = "honoka-mincho-font";
 
-    src = pkgs.fetchFromGitHub {
-      owner = "qothr";
-      repo = "cabinet";
-      rev = "f386afa8faa9052617eefffc88330afe10b7bad6";
-      sha256 = "0ngfk7247xlgd6ijxags791xifvpfwyqhnwxcmqd1sv09xvb92wz";
-      # date = 2016-10-21T07:10:44+09:00;
+    src = pkgs.fetchzip {
+      url = "http://font.gloomy.jp/dl-font-s5a4ik5w/honoka-min.zip";
+      sha256 = "1wwrrz62zjnpnasq8d0fzi2kzfj6339xww0riqcg4h33fr97paav";
     };
 
     dontBuild = true;
-
-    buildInputs = [unzip];
+    dontUnpack = true;
 
     installPhase = ''
-      fontDir=$out/share/fonts/opentype
-      unzip hare.zip
+      fontDir=$out/share/fonts/truetype
       mkdir -p $fontDir
-      cp *.otf $fontDir
+      cp $src/*.ttf $fontDir
     '';
   };
 
