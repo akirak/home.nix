@@ -2,7 +2,7 @@
 
 # Return a tmpdir suitable for system
 
-function is_crostini() {
+is_crostini() {
     uname -a | grep -E "^Linux penguin" >/dev/null
 }
 
