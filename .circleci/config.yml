@@ -3,20 +3,17 @@ jobs:
   build:
     environment:
       TERM: dumb
-      USER: root
-      HOME: /root
       HOME_NIX_PROFILE_NOCONFIRM: 1
       BOOTSTRAP_PREVENT_SUBSHELL: 1
     docker:
-      - image: debian:stable
+      - image: nixos/nix
     working_directory:
       ~/home.nix
     steps:
       - checkout
-      - run: apt-get update
-      - run: apt-get install --yes curl bzip2 sudo
-      - run: mkdir -m 0755 /nix
-      - run: env sh bootstrap.sh
+      - run: nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+      - run: nix-channel --update
+      - run: nix-shell -p git --run 'git submodule update --init'
       - run: nix-shell -p bash --run 'bash choose-profile.bash'
       - run: test -e profile.nix
       - run: unlink profile.nix
