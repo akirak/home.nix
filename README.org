@@ -31,6 +31,10 @@ However, a better example will be John Wiegley's [[https://github.com/jwiegley/n
         -  [[#git-hooks][Git hooks]]
         -  [[#cleaning-up][Cleaning up]]
       -  [[#phony][Phony]]
+    -  [[#misc][Misc]]
+      -  [[#docker-image][Docker image]]
+        -  [[#dockerfile][Dockerfile]]
+        -  [[#circleci-configuration][CircleCI configuration]]
 
 ** Prerequisites
 This configuration should run on Linux operating systems.
@@ -274,6 +278,85 @@ clean:
 #+begin_src makefile
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
 		chsh update-nix-channels init-home-manager lorri tangle emacs-config
+#+end_src
+** Misc
+*** Docker image
+This repository also provides a Docker image, which is mostly intended for running the CI for [[https://github.com/akirak/emacs.d][my Emacs configuration]].
+**** Dockerfile
+=Dockerfile= for the image is defined as follows:
+
+#+begin_src dockerfile :tangle Dockerfile
+FROM nixos/nix
+RUN nix-env -i coreutils
+ENV HOME /root
+RUN mkdir -p /root/home.nix
+ADD . /root/home.nix
+WORKDIR /root/home.nix
+RUN BOOTSTRAP_PREVENT_SUBSHELL=1 sh bootstrap.sh
+RUN HOME_NIX_PROFILE_NOCONFIRM=1 \
+        nix-shell -p bash --run 'bash choose-profile.bash'
+RUN test -e profile.nix
+RUN unlink profile.nix
+RUN ln -s profiles/linux-full.nix profile.nix
+RUN cp identity.sample.nix identity.nix
+RUN SKIP_EMACS_CONFIG=1 nix-shell -p gnumake --run 'make all'
+RUN nix-shell -p bats --run 'bats tests/install-all.bats'
+RUN nix-store --gc
+#+end_src
+**** CircleCI configuration
+The Docker image is built on [[https://circleci.com/][CircleCI]].
+After running the installation tasks and tests, the produced image is uploaded to [[https://cloud.docker.com/u/akirak/repository/docker/akirak/home.nix][Docker Hub]].
+
+#+begin_src yaml :tangle .circleci/config.yml
+version: 2.1
+executors:
+  docker-publisher:
+    environment:
+      IMAGE_NAME: akirak/home.nix
+    docker:
+      - image: circleci/buildpack-deps:stretch
+jobs:
+  build:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: git submodule update --init
+      - run:
+          name: Build Docker image
+          command: docker build -t $IMAGE_NAME:latest .
+      - run:
+          name: Archive Docker image
+          command: docker save -o image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
+  publish-latest:
+    executor: docker-publisher
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - setup_remote_docker
+      - run:
+          name: Load archived Docker image
+          command: docker load -i /tmp/workspace/image.tar
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $IMAGE_NAME:latest
+workflows:
+  version: 2
+  build-master:
+    jobs:
+      - build
+      - publish-latest:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
 #+end_src
 ** Meta                                                           :noexport:
 :PROPERTIES:
