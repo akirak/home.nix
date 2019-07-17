@@ -39,6 +39,7 @@ workflows:
   version: 2
   build-master:
     jobs:
+      - build:
       - publish-latest:
           requires:
             - build
