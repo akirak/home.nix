@@ -14,6 +14,7 @@ jobs:
       - run: nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
       - run: nix-channel --update
       - run: nix-shell -p git --run 'git submodule update --init'
+      - run: nix-env -i systemd
       - run: nix-shell -p bash --run 'bash choose-profile.bash'
       - run: test -e profile.nix
       - run: unlink profile.nix
