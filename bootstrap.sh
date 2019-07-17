@@ -32,7 +32,9 @@ if [ ! -d /etc/nixos ]; then
 fi
 
 if [ $(git config --local remote.origin.url) != "${REPO_URL}" ]; then
-    git clone "${REPO_URL}" "${REPO_DEST}"
+    if [ "$PWD" != "${REPO_DEST}" ]; then
+        git clone "${REPO_URL}" "${REPO_DEST}"
+    fi
     git submodule update --init --recursive
     cd "${REPO_DEST}"
 fi
@@ -49,4 +51,6 @@ Choose a profile and run
 
 EOF
 
-nix-shell -p gnumake
+if [ -z "${BOOTSTRAP_PREVENT_SUBSHELL}" ]; then
+    nix-shell -p gnumake
+fi

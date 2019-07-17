@@ -3,36 +3,19 @@ jobs:
   build:
     environment:
       TERM: dumb
-      NIX_PATH: /root/.nix-defexpr/channels
       HOME_NIX_PROFILE_NOCONFIRM: 1
-      # TODO: Run chsh (requires root)
-      SKIP_CHSH: 1
+      BOOTSTRAP_PREVENT_SUBSHELL: 1
     docker:
-      - image: akirak/nixmacs-bootstrap
+      - image: nixos/nix
     working_directory:
-      ~/nix
+      ~/home.nix
     steps:
       - checkout
-      - run: command -v git
-      - run: command -v make
-      - run: git submodule update --init --recursive
+      - run: sh bootstrap.sh
       - run: nix-shell -p bash --run 'bash choose-profile.bash'
       - run: test -e profile.nix
       - run: unlink profile.nix
       - run: ln -s profiles/linux-full.nix profile.nix
       - run: cp identity.sample.nix identity.nix
-      - run: make init
-      - run: make home-manager
-      # TODO: Install chemacs
-      # - run: make chemacs
-      - run: make -C test -f test.mk all
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - master
-                - develop
+      - run: nix-shell -p gnumake --run 'make all'
+      - run: nix-shell -p bats --run 'bats tests/install-all.bats'

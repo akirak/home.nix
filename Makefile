@@ -46,7 +46,7 @@ emacs-config:
 	fi
 
 chemacs:
-	cd contrib/chemacs && ./install.sh
+	cd contrib/chemacs && bash install.sh
 
 	if [ ! -f "$(HOME)/.emacs-profiles.el" ]; then \
 		install -m 644 -t "$(HOME)" -v dotfiles/.emacs-profiles.el; \
