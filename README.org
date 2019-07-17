@@ -184,7 +184,7 @@ Some dependencies cannot be installed by Nix, so they need to be installed in ad
 deps: fuse
 #+end_src
 **** FUSE support
-If the platform is WSL 1, then the operating system should be Debian or Ubuntu, and =fusermount= must be installed.
+=fusermount= must be installed.
 #+begin_src makefile
 fuse:
 	if grep --silent -P "ID(_LIKE)?=debian" /etc/os-release \
