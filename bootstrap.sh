@@ -49,4 +49,6 @@ Choose a profile and run
 
 EOF
 
-nix-shell -p gnumake
+if [ -z "${BOOTSTRAP_PREVENT_SUBSHELL}" ]; then
+    nix-shell -p gnumake
+fi
