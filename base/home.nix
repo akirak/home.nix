@@ -4,6 +4,7 @@ with profile;
   # The set of packages to appear in the user environment.
   packages = with pkgs; [
     locale
+    gnumake
     nox
     nix-prefetch-git
     my-scripts
