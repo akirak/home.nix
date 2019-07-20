@@ -42,6 +42,9 @@ with profile.path;
         After = [
           "xephyr.service"
         ];
+        Wants = [
+          "default.target"
+        ];
 
         OnFailure = [
           "notify-failure@exwm.service"
