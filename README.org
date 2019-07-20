@@ -239,6 +239,7 @@ emacs-config:
 		echo "Skipped installing the Emacs configuration"; \
 	elif [ ! -d "$(HOME)/.emacs.d" ]; then \
 		git clone --recursive -b maint https://github.com/akirak/emacs.d.git "$(HOME)/.emacs.d"; \
+		$(MAKE); \
 	else \
 		cd "$(HOME)/.emacs.d"; ./update.bash; \
 	fi
