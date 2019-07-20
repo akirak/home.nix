@@ -9,6 +9,7 @@ with profile.path;
     ripgrep
     exa
     fd
+    bat
     mlocate
     gopass
     overpass
