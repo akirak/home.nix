@@ -57,19 +57,8 @@ with profile;
     # TODO: Configure rofi for Chrome OS, WSL, and NixOS
     # rofi = {};
 
-    skim = {
-      # I may or may not try out skim in the future
-      enable = false;
-      enableZshIntegration = true;
-    };
-
     # I used termite before, but not now. It's a decent term app anyway.
     # termite = {};
-
-    # I am not supposed to use tmux
-    tmux = {
-      enable = true;
-    };
 
     # vscode = {};
 
