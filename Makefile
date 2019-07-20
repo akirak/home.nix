@@ -39,7 +39,9 @@ chsh:
 # 	scripts/chsh-zsh
 
 emacs-config:
-	if [ ! -d "$(HOME)/.emacs.d" ]; then \
+	if [ -n "$(SKIP_EMACS_CONFIG)" ]; then \
+		echo "Skipped installing the Emacs configuration"; \
+	elif [ ! -d "$(HOME)/.emacs.d" ]; then \
 		git clone --recursive -b maint https://github.com/akirak/emacs.d.git "$(HOME)/.emacs.d"; \
 	else \
 		cd "$(HOME)/.emacs.d"; ./update.bash; \
