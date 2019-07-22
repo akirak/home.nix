@@ -38,3 +38,7 @@ with profile;
   // profile.locale;
 
 }
+//
+lib.optionalAttrs profile.platform.isWsl {
+  file.".profile".source = ./dotprofile/wsl.sh;
+}
