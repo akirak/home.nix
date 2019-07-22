@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -e
+
+err() { echo "ERROR: $*" >&2; }
+
+if [[ $(git rev-parse --is-inside-work-tree) != true ]]; then
+    err "Not inside a Git working tree."
+    exit 1
+fi
+
+if ! git rev-parse --quiet --verify HEAD >/dev/null; then
+    err "The current HEAD is detached."
+    exit 1
+fi
+
+if ! git diff-index --name-status --exit-code HEAD; then
+    err "The working tree is not clean."
+    exit 1
+fi
+
+branch=$(git symbolic-ref --short HEAD)
+remote=origin
+
+# For now, abort if HEAD is not on master
+if [[ $branch != master ]]; then
+    err "Not on master branch."
+    exit 1
+fi
+
+git fetch $remote
+if git diff-tree --quiet HEAD..$remote/$branch; then
+    echo "The branch is up-to-date."
+    exit 2
+else
+    git rebase $remote/$branch
+fi
