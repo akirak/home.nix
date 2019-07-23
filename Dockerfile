@@ -11,6 +11,6 @@ RUN test -e profile.nix
 RUN unlink profile.nix
 RUN ln -s profiles/linux-full.nix profile.nix
 RUN cp identity.sample.nix identity.nix
-RUN SKIP_EMACS_CONFIG=1 nix-shell -p gnumake --run 'make all'
+RUN NO_MR_CHECKOUT=1 nix-shell -p gnumake --run 'make all'
 RUN nix-shell -p bats --run 'bats tests/install-all.bats'
 RUN nix-store --gc

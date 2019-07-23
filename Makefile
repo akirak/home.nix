@@ -3,8 +3,6 @@ export NIX_PATH = nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-def
 export TMPDIR = $(shell scripts/nix-tmpdir)
 export NIX_BUILD_SHELL = $(shell nix-build --no-out-link '<nixpkgs>' -A bash)/bin/bash
 
-update: home-manager emacs-config
-
 home-manager: tangle deps
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) switch
@@ -19,7 +17,7 @@ build: tangle
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) build
 
-all: install-hooks chemacs home-manager lorri emacs-config
+all: install-hooks chemacs home-manager lorri myrepos-checkout
 
 deps: fuse
 
@@ -38,15 +36,10 @@ chsh:
 # I won't run chsh inside Makefile until I find out a proper way to do this
 # 	scripts/chsh-zsh
 
-emacs-config:
-	if [ -n "$(SKIP_EMACS_CONFIG)" ]; then \
-		echo "Skipped installing the Emacs configuration"; \
-	elif [ ! -d "$(HOME)/.emacs.d" ]; then \
-		git clone --recursive -b maint https://github.com/akirak/emacs.d.git "$(HOME)/.emacs.d"; \
-		$(MAKE); \
-	else \
-		cd "$(HOME)/.emacs.d"; ./update.bash; \
-	fi
+myrepos-checkout:
+	if [ ! -f "$(HOME)/.mrconfig" ]; then exit 1; fi
+	cd $(HOME)
+	if [ "$(NO_MR_CHECKOUT)" != 1 ]; then mr checkout; fi
 
 chemacs:
 	cd contrib/chemacs && bash install.sh
@@ -71,4 +64,5 @@ clean:
 	sudo rm -rf /homeless-shelter
 
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-		chsh update-nix-channels init-home-manager lorri tangle emacs-config
+	chsh update-nix-channels init-home-manager lorri tangle \
+	myrepos-checkout

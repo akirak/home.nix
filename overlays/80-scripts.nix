@@ -29,4 +29,20 @@ install -t $out/bin git-sync
 '';
   };
 
+  myrepos = with self; stdenv.mkDerivation rec {
+    name = "myrepos";
+    version = "1.20180726";
+
+    src = fetchTarball {
+      url = "https://git.joeyh.name/index.cgi/myrepos.git/snapshot/myrepos-${version}.tar.gz";
+      sha256 = "0jphw61plm8cgklja6hs639xhdvxgvjwbr6jpvjwpp7hc5gmhms5";
+    };
+
+    nativeBuildInputs = [pkgs.perl];
+
+    installPhase = ''
+mkdir -p $out/bin
+install -t $out/bin mr
+'';
+  };
 }
