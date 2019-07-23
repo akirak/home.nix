@@ -8,7 +8,6 @@ with profile;
     nox
     nix-prefetch-git
     my-scripts
-    git-sync
     myrepos
     (lib.mkIf profile.platform.isWsl wsl-open)
   ];
