@@ -10,7 +10,9 @@
 update = git safe-update
 
 [$HOME/.emacs.d]
-checkout = git clone -b maint --recursive https://github.com/akirak/emacs.d.git .emacs.d
+checkout =
+      git clone -b maint --recursive https://github.com/akirak/emacs.d.git .emacs.d
+      cd .emacs.d; make
 update = ./update.bash
 
 [home.nix]
