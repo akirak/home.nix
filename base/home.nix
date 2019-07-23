@@ -7,6 +7,7 @@ with profile;
     gnumake
     nox
     nix-prefetch-git
+    gitbatch
     my-scripts
     (lib.mkIf profile.platform.isWsl wsl-open)
   ];
