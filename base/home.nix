@@ -8,6 +8,7 @@ with profile;
     nox
     nix-prefetch-git
     gitbatch
+    trash-cli
     my-scripts
     (lib.mkIf profile.platform.isWsl wsl-open)
   ];
