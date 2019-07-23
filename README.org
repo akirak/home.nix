@@ -24,7 +24,7 @@ However, a better example will be John Wiegley's [[https://github.com/jwiegley/n
         -  [[#system-icons-only-on-chrome-os][System icons (only on Chrome OS)]]
         -  [[#change-the-shell][Change the shell]]
       -  [[#extra-stuffs-that-are-not-installed-by-nix][Extra stuffs that are not installed by Nix]]
-        -  [[#my-emacs-configuration][My Emacs configuration]]
+        -  [[#other-configuration-repositories-myrepos][Other configuration repositories (myrepos)]]
         -  [[#chemacs][Chemacs]]
         -  [[#lorri][Lorri]]
       -  [[#maintenance][Maintenance]]
@@ -64,10 +64,11 @@ make
 The default tasks is defined as follows:
 
 #+begin_src makefile
-update: home-manager emacs-config
+home-manager: tangle deps
+	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
+	home-manager -I $(shell pwd) switch
+	$(MAKE) post-install
 #+end_src
-
-That is, it runs home-manager and installs or updates my Emacs configuration.
 
 Updating home-manager consists of the following tasks:
 
@@ -75,12 +76,7 @@ Updating home-manager consists of the following tasks:
 2. Run home-manager.
 3. Run post installation tasks.
 
-#+begin_src makefile
-home-manager: tangle deps
-	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
-	home-manager -I $(shell pwd) switch
-	$(MAKE) post-install
-#+end_src
+Configuration files in this repository are generated from snippets in this README using org-babel-tangle of Emacs:
 
 #+begin_src makefile
 tangle:
@@ -95,6 +91,12 @@ Alternatively, the makefile provides a task which builds the configuration but d
 build: tangle
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) build
+#+end_src
+
+Actually, I have set up [[https://myrepos.branchable.com/][myrepos]] to update all of my configuration repositories at once using the following command:
+
+#+begin_src shell :tangle no
+mr up
 #+end_src
 *** Initial installation
 **** Bootstrapping
@@ -183,7 +185,7 @@ make all
 to install all the components.
 
 #+begin_src makefile
-all: install-hooks chemacs home-manager lorri emacs-config
+all: install-hooks chemacs home-manager lorri myrepos-checkout
 #+end_src
 *** Installing dependencies
 Some dependencies cannot be installed by Nix, so they need to be installed in advance.
@@ -228,22 +230,17 @@ command -v zsh | sudo tee -a /etc/shells
 chsh -s `command -v zsh`
 #+end_src
 *** Extra stuffs that are not installed by Nix
-**** My Emacs configuration
-My Emacs configuration is installed to =~/.emacs.d=. If it is already installed, it runs the updating script (=update.bash=) contained in the repository.
-
-I usually stay on =maint= branch in the repository, so the branch is checked out by default.
+**** Other configuration repositories (myrepos)
+I use [[https://myrepos.branchable.com/][myrepos]] to manage other configuration repositories:
 
 #+begin_src makefile
-emacs-config:
-	if [ -n "$(SKIP_EMACS_CONFIG)" ]; then \
-		echo "Skipped installing the Emacs configuration"; \
-	elif [ ! -d "$(HOME)/.emacs.d" ]; then \
-		git clone --recursive -b maint https://github.com/akirak/emacs.d.git "$(HOME)/.emacs.d"; \
-		$(MAKE); \
-	else \
-		cd "$(HOME)/.emacs.d"; ./update.bash; \
-	fi
+myrepos-checkout:
+	if [ ! -f "$(HOME)/.mrconfig" ]; then exit 1; fi
+	cd $(HOME)
+	mr checkout
 #+end_src
+
+Since this depends on =mr= program and its configuration file, both of which are installed by home-manager, you have to run this task after running home-manager.
 **** Chemacs
 #+begin_src makefile
 chemacs:
@@ -278,7 +275,8 @@ clean:
 *** Phony                                                        :noexport:
 #+begin_src makefile
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-		chsh update-nix-channels init-home-manager lorri tangle emacs-config
+	chsh update-nix-channels init-home-manager lorri tangle \
+	myrepos-checkout
 #+end_src
 ** Misc
 *** Docker image
