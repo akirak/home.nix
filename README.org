@@ -237,7 +237,7 @@ I use [[https://myrepos.branchable.com/][myrepos]] to manage other configuration
 myrepos-checkout:
 	if [ ! -f "$(HOME)/.mrconfig" ]; then exit 1; fi
 	cd $(HOME)
-	mr checkout
+	if [ "$(NO_MR_CHECKOUT)" != 1 ]; then mr checkout; fi
 #+end_src
 
 Since this depends on =mr= program and its configuration file, both of which are installed by home-manager, you have to run this task after running home-manager.
@@ -298,7 +298,7 @@ RUN test -e profile.nix
 RUN unlink profile.nix
 RUN ln -s profiles/linux-full.nix profile.nix
 RUN cp identity.sample.nix identity.nix
-RUN SKIP_EMACS_CONFIG=1 nix-shell -p gnumake --run 'make all'
+RUN NO_MR_CHECKOUT=1 nix-shell -p gnumake --run 'make all'
 RUN nix-shell -p bats --run 'bats tests/install-all.bats'
 RUN nix-store --gc
 #+end_src
