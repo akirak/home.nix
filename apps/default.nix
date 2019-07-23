@@ -10,4 +10,5 @@ with profile.preferences;
   (import ./org.nix attrs)
   (import ./kbfs.nix attrs)
   (import ./exwm.nix attrs)
+  (import ./myrepos.nix attrs)
 ]
