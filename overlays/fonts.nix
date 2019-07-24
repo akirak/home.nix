@@ -5,7 +5,7 @@ self: super:
 
     src = pkgs.fetchzip {
       url = "http://font.gloomy.jp/dl-font-s5a4ik5w/honoka-min.zip";
-      sha256 = "1wwrrz62zjnpnasq8d0fzi2kzfj6339xww0riqcg4h33fr97paav";
+      sha256 = "05ns173baw5n0hzy0zladp538lmdjx5sxvls8c699222jzpgdvq1";
     };
 
     dontBuild = true;
