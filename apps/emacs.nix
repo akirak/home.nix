@@ -3,6 +3,13 @@ with profile.path;
 {
   programs.emacs = {
     enable = true;
+    extraPackages = epkgs:
+      with epkgs; [
+        melpaStablePackages.emacsql-sqlite
+        emacs-libvterm
+        pdf-tools
+        elisp-ffi
+      ];
   };
 
   home.packages = with pkgs; [
