@@ -16,7 +16,7 @@ with profile.path;
     emacs-alt-icon
     google-fonts
     fira-code
-    honoka-mincho-font
+    hannari-mincho-font
     adobe-chinese
     ispell
     hunspell

@@ -1,20 +1,24 @@
 self: super:
 {
-  honoka-mincho-font = with self; stdenv.mkDerivation rec {
-    name = "honoka-mincho-font";
+  hannari-mincho-font = with self; stdenv.mkDerivation rec {
+    name = "hannari-mincho-font";
 
-    src = pkgs.fetchzip {
-      url = "http://font.gloomy.jp/dl-font-s5a4ik5w/honoka-min.zip";
-      sha256 = "1wwrrz62zjnpnasq8d0fzi2kzfj6339xww0riqcg4h33fr97paav";
+    src = fetchurl {
+      url = "https://github.com/qothr/cabinet/blob/master/hannari.zip?raw=true";
+      sha256 = "f9f7cb9c2711e04b8ad492af5d3ae11b948f1de7bec7896470b1728602010a4e";
     };
 
     dontBuild = true;
-    dontUnpack = true;
+    buildInputs = [ unzip ];
+
+    unpackPhase = ''
+      unzip $src
+    '';
 
     installPhase = ''
       fontDir=$out/share/fonts/truetype
       mkdir -p $fontDir
-      cp $src/*.ttf $fontDir
+      cp *.otf $fontDir
     '';
   };
 
