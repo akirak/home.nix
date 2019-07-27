@@ -69,6 +69,7 @@ with profile.path;
       ];
       OnFailure = [
         "notify-failure@emacs.service"
+        "emacs@debug.service"
       ];
     };
     Service = {
@@ -80,13 +81,29 @@ with profile.path;
 
       ExecStop = "${binDir}/emacsclient --eval \"(progn (save-some-buffers t) (setq kill-emacs-hook nil) (kill-emacs))\"";
 
-      Restart = "on-failure";
-
       Environment = [
         "DISPLAY=:0"
         # "SSH_AUTH_SOCK=/run/user/1000/keyring/ssh"
         # Maybe necessary (see https://datko.net/2015/10/08/emacs-systemd-service/)
         # "GPG_AGENT_INFO=/run/user/1000/keyring/gpg:0:1"
+      ];
+    };
+  };
+
+  # Like above, but start Emacs in debug mode
+  systemd.user.services."emacs-debug-init" = {
+    Unit = {
+      Description = "Start Emacs with --debug-init";
+    };
+    Service = {
+      Type = "simple";
+
+      ExecStartPre = "${binDir}/notify-desktop 'Starting emacs --debug-init'";
+
+      ExecStart = "${hmSessionBin} emacs --debug-init";
+
+      Environment = [
+        "DISPLAY=:0"
       ];
     };
   };
