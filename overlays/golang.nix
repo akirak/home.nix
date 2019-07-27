@@ -1,6 +1,8 @@
 self: super:
 {
 
+  # Deprecated. I won't use it since there is magit-list-repositories
+  # on Emacs.
   gitbatch = with self; stdenv.mkDerivation rec {
     name = "gitbatch";
     version = "0.5.0";
