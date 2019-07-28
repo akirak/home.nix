@@ -29,6 +29,7 @@ However, a better example will be John Wiegley's [[https://github.com/jwiegley/n
         -  [[#lorri][Lorri]]
       -  [[#maintenance][Maintenance]]
         -  [[#git-hooks][Git hooks]]
+        -  [[#synchronising-the-configuration-repositories][Synchronising the configuration repositories]]
         -  [[#cleaning-up][Cleaning up]]
       -  [[#phony][Phony]]
     -  [[#misc][Misc]]
@@ -266,6 +267,20 @@ lorri:
 #+begin_src makefile
 install-hooks:
 	if [ -e .git ]; then nix-shell -p git --run 'git config core.hooksPath .githooks'; fi
+#+end_src
+**** Synchronising the configuration repositories
+Use myrepos to synchronize the configuration repositories with GitHub.
+
+To pull changes from the remotes to the local repositories, run =mr update= (or =mr up= for short):
+
+#+begin_src shell
+mr up
+#+end_src
+
+To push changes to the remotes, run =mr push=:
+
+#+begin_src shell
+mr push
 #+end_src
 **** Cleaning up
 #+begin_src makefile
