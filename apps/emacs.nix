@@ -20,6 +20,8 @@ with profile.path;
     mlocate
     gopass
     overpass
+    # needed for helm-dash
+    sqlite
     emacs-alt-icon
     google-fonts
     fira-code
