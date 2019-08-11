@@ -5,7 +5,7 @@ export NIX_BUILD_SHELL = $(shell nix-build --no-out-link '<nixpkgs>' -A bash)/bi
 
 home-manager: tangle deps
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
-	home-manager -I $(shell pwd) switch
+	nix-shell -p git --run "home-manager -I $(shell pwd) switch"
 	$(MAKE) post-install
 
 tangle:
