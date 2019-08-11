@@ -52,5 +52,5 @@ Choose a profile and run
 EOF
 
 if [ -z "${BOOTSTRAP_PREVENT_SUBSHELL}" ]; then
-    nix-shell -p gnumake
+    nix-shell -p gnumake git
 fi
