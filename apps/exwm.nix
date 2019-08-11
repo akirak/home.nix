@@ -3,6 +3,7 @@ with profile.path;
 {
   home.packages = with pkgs; [
     xorg.xorgserver
+    xorg.xdpyinfo
     la-capitaine-icons
   ];
 
