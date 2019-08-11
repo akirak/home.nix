@@ -55,6 +55,8 @@ export NIX_PATH = nixpkgs=$(HOME)/.nix-defexpr/channels/nixpkgs:$(HOME)/.nix-def
 export TMPDIR = $(shell scripts/nix-tmpdir)
 export NIX_BUILD_SHELL = $(shell nix-build --no-out-link '<nixpkgs>' -A bash)/bin/bash
 #+end_src
+
+You will require =make= from (=gnumake= package) and =git= to run tasks in this Makefile.
 *** Updating the configuration
 You can update the configuration by running =make=:
 
@@ -172,7 +174,7 @@ Choose a profile and run
 EOF
 
 if [ -z "${BOOTSTRAP_PREVENT_SUBSHELL}" ]; then
-    nix-shell -p gnumake
+    nix-shell -p gnumake git
 fi
 #+end_src
 **** Choosing a profile
@@ -313,7 +315,7 @@ RUN test -e profile.nix
 RUN unlink profile.nix
 RUN ln -s profiles/linux-full.nix profile.nix
 RUN cp identity.sample.nix identity.nix
-RUN NO_MR_CHECKOUT=1 nix-shell -p gnumake --run 'make all'
+RUN NO_MR_CHECKOUT=1 nix-shell -p gnumake git --run 'make all'
 RUN nix-shell -p bats --run 'bats tests/install-all.bats'
 RUN nix-store --gc
 #+end_src
