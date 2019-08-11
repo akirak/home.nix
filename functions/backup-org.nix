@@ -17,13 +17,13 @@
     with profile.path;
     {
       Unit = {
-      Description = "Backup the contents in ${repo} to the Git repository inside itself";
+        Description = "Backup the contents in ${repo} to the Git repository inside itself";
         AssertPathIsDirectory = "${repo}/.git";
       };
       Service = {
         Type = "simple";
         WorkingDirectory = repo;
         ExecStart = "${binDir}/backup-org-git";
-    };
+      };
   };
 }
