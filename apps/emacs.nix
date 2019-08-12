@@ -19,6 +19,10 @@ with profile.path;
     bat
     mlocate
     gopass
+    # gif-screencast
+    scrot
+    imagemagick
+    gifsicle
     # needed for helm-dash
     sqlite
     # icons
