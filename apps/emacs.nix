@@ -19,14 +19,17 @@ with profile.path;
     bat
     mlocate
     gopass
-    overpass
     # needed for helm-dash
     sqlite
+    # icons
     emacs-alt-icon
+    # fonts
     google-fonts
     fira-code
     hannari-mincho-font
     adobe-chinese
+    overpass
+    # ispell
     ispell
     hunspell
     hunspellDicts.en-us
