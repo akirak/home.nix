@@ -31,7 +31,7 @@ if [ ! -d /etc/nixos ]; then
     mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/$USER
 fi
 
-if [ $(git config --local remote.origin.url) != "${REPO_URL}" ]; then
+if [ ! "$(git config --local remote.origin.url)" = "${REPO_URL}" ]; then
     if [ "$PWD" != "${REPO_DEST}" ]; then
         git clone "${REPO_URL}" "${REPO_DEST}"
     fi
