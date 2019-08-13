@@ -31,19 +31,17 @@ if [ ! -d /etc/nixos ]; then
     mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/$USER
 fi
 
-if [ -d .git ]; then
+if [ "$PWD" = "${REPO_DEST}" ]; then
     origin="$(git config --local remote.origin.url)"
+    # Ensure that the origin is the same as REPO_URL
+    [ "$origin" = "${REPO_URL}" ]
 else
-    origin=""
-fi
-
-if [ ! "$origin" = "${REPO_URL}" ]; then
-    if [ "$PWD" != "${REPO_DEST}" ]; then
+    if [ ! -d "${REPO_DEST}" ]; then
         git clone "${REPO_URL}" "${REPO_DEST}"
     fi
-    git submodule update --init --recursive
     cd "${REPO_DEST}"
 fi
+git submodule update --init --recursive
 
 if nix-env -q 'git.*' >/dev/null 2>&1; then
     echo "Uninstalling git to avoid conflict..."
