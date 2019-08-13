@@ -6,6 +6,7 @@ in
 {
   home.packages = with pkgs; [
     alacritty
+    alacritty-icons
   ];
 
   home.file.".local/share/applications/alacritty.desktop".text =
@@ -18,7 +19,7 @@ in
       startupNotify = true;
       startupWmClass = "Alacritty";
       categories = "System;TerminalEmulator;";
-      icon = "Alacritty";
+      icon = "alacritty-term";
       dBusActivatable = true;
     };
 }

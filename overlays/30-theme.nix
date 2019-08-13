@@ -89,4 +89,31 @@ done
     nativeBuildInputs = [ gtk3 ];
   };
 
+  alacritty-icons = with self; stdenv.mkDerivation rec {
+    name = "alacritty-icons";
+    version = "0.6.1";
+
+    src = super.pkgs.alacritty.src;
+
+    phases = [ "buildPhase" ];
+
+    buildInputs = [inkscape];
+
+    buildPhase = ''
+      cd ${src}/extra/logo
+      for basename in alacritty-term; do
+        for height in 32 48 64 96 128; do
+          outdir=$out/share/icons/favorites/"$height"x"$height"/apps
+          mkdir -p $outdir
+          ${pkgs.inkscape}/bin/inkscape -z --export-background-opacity=0 \
+            --export-height=$height \
+            --export-png=$outdir/$basename.png \
+            --file=$basename.svg
+        done
+      done
+    '';
+
+    nativeBuildInputs = [ gtk3 ];
+  };
+
 }
