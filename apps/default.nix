@@ -6,6 +6,7 @@ with profile.preferences;
   (import ./zsh.nix attrs)
   (import ./graphical.nix attrs)
   (optionalAttrs (!profile.platform.isWsl) (import ./tilix.nix attrs))
+  (import ./alacritty.nix attrs)
   (optionalAttrs profile.platform.isWayland (import ./wayland.nix attrs))
   (import ./org.nix attrs)
   (import ./kbfs.nix attrs)
