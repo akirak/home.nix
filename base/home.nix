@@ -5,6 +5,7 @@ with profile;
   packages = with pkgs; [
     locale
     gnumake
+    gitAndTools.hub
     nox
     nix-prefetch-git
     trash-cli
