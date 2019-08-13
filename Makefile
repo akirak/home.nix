@@ -30,7 +30,7 @@ fuse:
 post-install: system-icons chsh
 
 system-icons:
-#	garcon-helper copy-icons
+	garcon-helper copy-icons
 
 chsh:
 # I won't run chsh inside Makefile until I find out a proper way to do this
