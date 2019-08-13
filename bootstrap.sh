@@ -6,7 +6,7 @@ REPO_DEST="$HOME/home.nix"
 
 set -e
 
-export NIX_BUILD_SHELL=
+export NIX_BUILD_SHELL=$(command -v bash)
 
 if ! command -v nix-env >/dev/null 2>&1; then
     curl https://nixos.org/nix/install | sh \
