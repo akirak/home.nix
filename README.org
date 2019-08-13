@@ -212,9 +212,10 @@ Some tasks need to be run after home-manager.
 post-install: system-icons chsh
 #+end_src
 **** System icons (only on Chrome OS)
+This is probably unnecessary. [[https://nixos.wiki/wiki/Installing_on_Crostini][Override the garcon service]] via [[file:apps/garcon.nix][this configuration]].
 #+begin_src makefile
 system-icons:
-	garcon-helper copy-icons
+#	garcon-helper copy-icons
 #+end_src
 **** Change the shell
 Somehow this doesn't work.
