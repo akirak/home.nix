@@ -33,4 +33,35 @@ merge-many
       repo = "%h/lib/tasks.personal";
       interval = "5m";
     })
+
+  {
+    systemd.user.timers.build-org = {
+      Unit = {
+        Description = "Build the Org configuration periodically";
+      };
+      Timer = {
+        OnStartupSec = "1h";
+        OnUnitActiveSec = "2h";
+      };
+      Install = {
+        WantedBy = [
+          "default.target"
+        ];
+      };
+    };
+
+    systemd.user.services.build-org =
+      with profile.path;
+      {
+        Unit = {
+          Description = "Build the Org configuration";
+          AssertPathIsDirectory = "${homeDirectory}/lib/notes";
+        };
+        Service = {
+          Type = "simple";
+          WorkingDirectory = "${homeDirectory}/lib/notes";
+          ExecStart = "${binDir}/make";
+        };
+      };
+  }
 ]
