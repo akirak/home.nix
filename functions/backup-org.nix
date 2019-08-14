@@ -5,6 +5,7 @@
       Description = "Backup the repository periodically";
     };
     Timer = {
+      OnStartupSec = "3min";
       OnUnitActiveSec = interval;
     };
     Install = {
