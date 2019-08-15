@@ -10,6 +10,19 @@ with profile.path;
         pdf-tools
         elisp-ffi
       ];
+    overrides = self: super: {
+      # Temporarily override the recipe for the package.
+      emacs-libvterm = lib.overrideDerivation super.emacs-libvterm (attrs: rec {
+        name = "emacs-libvterm-${version}";
+        version = "unstable-2019-07-22";
+        src = pkgs.fetchFromGitHub {
+          owner = "akermu";
+          repo = "emacs-libvterm";
+          rev = "301fe9fdfd5fb2496c8428a11e0812fd8a4c0820";
+          sha256 = "0i1hn5gcxayqcbjrnpgczvbicq2vsyn59646ary3crs0mz9wlbpr";
+        };
+      });
+     };
   };
 
   home.packages = with pkgs; [
