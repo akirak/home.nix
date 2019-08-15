@@ -59,7 +59,7 @@ with profile.path;
     EDITOR = "emacsclient";
   };
 
-  home.file.".local/share/applications/emacs.desktop".text =
+  home.file.".local/share/applications/emacs-custom.desktop".text =
     desktop.mkApplicationEntry {
       name = "GNU Emacs (with custom Environment)";
       genericName = "Text Editor";
