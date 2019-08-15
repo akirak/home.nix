@@ -26,7 +26,7 @@ with profile.path;
     # needed for helm-dash
     sqlite
     # icons
-    emacs-alt-icon
+    # emacs-alt-icon
     # fonts
     google-fonts
     fira-code
