@@ -46,7 +46,6 @@ with profile.path;
     fira-code
     hannari-mincho-font
     adobe-chinese
-    overpass
     # ispell
     ispell
     hunspell
