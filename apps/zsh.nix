@@ -91,6 +91,12 @@ setopt auto_name_dirs
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
+
+# Support directory tracking on emacs-libvterm.
+# https://github.com/akermu/emacs-libvterm#directory-tracking
+function chpwd() {
+    print -Pn "\e]51;A$(pwd)\e\\";
+}
 '';
       shellAliases = {
         ".." = "cd ..";
