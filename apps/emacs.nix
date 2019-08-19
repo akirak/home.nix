@@ -37,6 +37,10 @@ with profile.path;
     scrot
     imagemagick
     gifsicle
+    # for editing image files
+    pinta
+    # for document conversion
+    unoconv
     # needed for helm-dash
     sqlite
     # icons
