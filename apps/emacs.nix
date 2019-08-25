@@ -9,6 +9,7 @@ with profile.path;
         emacs-libvterm
         pdf-tools
         elisp-ffi
+        exwm
       ];
     overrides = self: super: {
       # Temporarily override the recipe for the package.
