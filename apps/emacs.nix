@@ -33,6 +33,8 @@ with profile.path;
     bat
     mlocate
     gopass
+    # Use dex to use counsel-linux-apps on NixOS
+    dex
     # gif-screencast
     scrot
     imagemagick
