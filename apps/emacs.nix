@@ -7,11 +7,65 @@ with profile.path;
       with epkgs; [
         melpaStablePackages.emacsql-sqlite
         emacs-libvterm
+        mozc
         pdf-tools
         elisp-ffi
         exwm
       ];
     overrides = self: super: {
+      mozc = with pkgs;
+        let
+          japanese_usage_dictionary = pkgs.fetchFromGitHub {
+            owner  = "hiroyuki-komatsu";
+            repo   = "japanese-usage-dictionary";
+            rev    = "a4a66772e33746b91e99caceecced9a28507e925";
+            sha256 = "10kcx108v0yjdsf71yi7c9igy2i92gan682gfv78sbmcazx80xda";
+            # date = 2018-07-01T13:01:10+09:00;
+          };
+          python = python2;
+          gyp = python27Packages.gyp;
+          libxcb = xorg.libxcb;
+          protobuf = pkgs.protobuf.overrideDerivation (oldAttrs: { stdenv = clangStdenv; });
+        in
+          clangStdenv.mkDerivation rec {
+            inherit (super.mozc) name version meta src;
+
+            nativeBuildInputs = [ which ninja python gyp pkgconfig ];
+            buildInputs = [ protobuf gtk2 zinnia libxcb ];
+
+            postUnpack = ''
+              rmdir $sourceRoot/src/third_party/japanese_usage_dictionary/
+              ln -s ${japanese_usage_dictionary} $sourceRoot/src/third_party/japanese_usage_dictionary
+            '';
+
+            configurePhase = ''
+              export GYP_DEFINES="document_dir=$out/share/doc/mozc use_libzinnia=1 use_libprotobuf=1"
+              cd src && python build_mozc.py gyp --gypdir=${gyp}/bin --server_dir=$out/lib/mozc --noqt
+            '';
+
+            buildPhase = ''
+              PYTHONPATH="$PWD:$PYTHONPATH" python build_mozc.py build -c Release \
+                server/server.gyp:mozc_server \
+                unix/emacs/emacs.gyp:mozc_emacs_helper
+              '';
+
+            installPhase = ''
+              install -d        $out/share/licenses/mozc
+              head -n 29 server/mozc_server.cc > $out/share/licenses/mozc/LICENSE
+              install -m 644    data/installer/*.html     $out/share/licenses/mozc/
+              install -d $out/lib/mozc
+              install -D -m 755 out_linux/Release/mozc_server $out/lib/mozc/mozc_server
+              install -d $out/bin
+              install    -m 755 out_linux/Release/mozc_emacs_helper $out/bin/mozc_emacs_helper
+              install -d        $out/share/doc/mozc
+              install -m 644    data/installer/*.html         $out/share/doc/mozc/
+              install -d        $out/share/emacs/site-lisp/elpa/mozc
+              elisp=$out/share/emacs/site-lisp/elpa/mozc/mozc.el
+              install -m 644    unix/emacs/mozc.el            $elisp
+              sed --in-place s/\"mozc_emacs_helper\"/\"$(echo $out/bin/ | sed s/\\//\\\\\\//g)mozc_emacs_helper\"/ $elisp
+            '';
+          };
+
       # Temporarily override the recipe for the package.
       emacs-libvterm = lib.overrideDerivation super.emacs-libvterm (attrs: rec {
         name = "emacs-libvterm-${version}";
