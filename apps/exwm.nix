@@ -7,6 +7,12 @@ with profile.path;
     la-capitaine-icons
   ];
 
+  xsession = {
+    enable = true;
+    scriptPath = ".xinitrc";
+    windowManager.command = "${binDir}/hm-session emacs --exwm";
+  };
+
   home.file.".local/share/applications/exwm.desktop".text =
     desktop.mkApplicationEntry {
       name = "EXWM";
