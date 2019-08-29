@@ -97,6 +97,8 @@ setopt pushdminus
 function chpwd() {
     print -Pn "\e]51;A$(pwd)\e\\";
 }
+
+export SHELL=${profile.path.binDir}/zsh
 '';
       shellAliases = {
         ".." = "cd ..";
