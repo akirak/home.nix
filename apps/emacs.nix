@@ -3,6 +3,7 @@ with profile.path;
 {
   programs.emacs = {
     enable = true;
+    package = pkgs.emacs-overlay.emacsGit;
     extraPackages = epkgs:
       with epkgs; [
         melpaStablePackages.emacsql-sqlite
