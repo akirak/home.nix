@@ -3,6 +3,9 @@ with profile.path;
 {
   programs.emacs = {
     enable = true;
+    # Emacs 27.0.50 failed to start up with my Emacs config.
+    # I will try it later.
+    # package = pkgs.emacs-overlay.emacsGit;
     extraPackages = epkgs:
       with epkgs; [
         melpaStablePackages.emacsql-sqlite
