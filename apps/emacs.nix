@@ -104,6 +104,8 @@ with profile.path;
     pandoc
     # needed for helm-dash
     sqlite
+    # for some packages (e.g. treemacs)
+    python3
     # icons
     # emacs-alt-icon
     # fonts
