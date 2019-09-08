@@ -101,6 +101,7 @@ with profile.path;
     pinta
     # for document conversion
     unoconv
+    pandoc
     # needed for helm-dash
     sqlite
     # icons
