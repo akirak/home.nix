@@ -10,6 +10,7 @@ with profile;
     nix-prefetch-git
     trash-cli
     my-scripts
+    xclip
     (lib.mkIf profile.platform.isWsl wsl-open)
   ];
 
