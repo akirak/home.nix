@@ -9,6 +9,15 @@ set -e
 export NIX_BUILD_SHELL=$(command -v bash)
 
 if ! command -v nix-env >/dev/null 2>&1; then
+    if ! command -v xz >/dev/null 2>&1; then
+        if grep -P ^'ID(_LIKE)?=debian' /etc/os-release >/dev/null; then
+            sudo apt-get update --yes && sudo apt-get install --yes xz-utils
+        else
+            echo "xz program is missing, but don't know how to install it" >&2
+            exit 1
+        fi
+    fi
+
     curl https://nixos.org/nix/install | sh \
         && . $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
