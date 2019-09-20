@@ -18,6 +18,7 @@ function clean_path() {
 }
 
 clean_path
+export PATH
 
 # Set DISPLAY to 0 unless it has been already set
 DISPLAY=${DISPLAY:-:0}
