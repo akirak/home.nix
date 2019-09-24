@@ -17,7 +17,7 @@ build: tangle
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) build
 
-all: install-hooks chemacs home-manager lorri myrepos-checkout
+all: install-hooks chemacs cachix home-manager lorri myrepos-checkout
 
 deps: fuse
 
@@ -52,6 +52,11 @@ chemacs:
 		touch "$(HOME)/.custom.el"; \
 	fi
 
+cachix:
+	if command -v cachix 2>&1 >/dev/null; then \
+		nix-env -iA cachix -f https://cachix.org/api/v1/install; \
+	fi
+
 lorri:
 	if ! command -v lorri >/dev/null 2>&1; then \
 		scripts/install-lorri; \
@@ -65,4 +70,4 @@ clean:
 
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
 	chsh update-nix-channels init-home-manager lorri tangle \
-	myrepos-checkout
+	myrepos-checkout cachix

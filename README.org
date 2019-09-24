@@ -26,6 +26,7 @@ However, a better example will be John Wiegley's [[https://github.com/jwiegley/n
       -  [[#extra-stuffs-that-are-not-installed-by-nix][Extra stuffs that are not installed by Nix]]
         -  [[#other-configuration-repositories-myrepos][Other configuration repositories (myrepos)]]
         -  [[#chemacs][Chemacs]]
+        -  [[#cachix][Cachix]]
         -  [[#lorri][Lorri]]
       -  [[#maintenance][Maintenance]]
         -  [[#git-hooks][Git hooks]]
@@ -201,7 +202,7 @@ make all
 to install all the components.
 
 #+begin_src makefile
-all: install-hooks chemacs home-manager lorri myrepos-checkout
+all: install-hooks chemacs cachix home-manager lorri myrepos-checkout
 #+end_src
 *** Installing dependencies
 Some dependencies cannot be installed by Nix, so they need to be installed in advance.
@@ -270,6 +271,13 @@ chemacs:
 		touch "$(HOME)/.custom.el"; \
 	fi
 #+end_src
+**** Cachix
+#+begin_src makefile
+cachix:
+	if command -v cachix 2>&1 >/dev/null; then \
+		nix-env -iA cachix -f https://cachix.org/api/v1/install; \
+	fi
+#+end_src
 **** Lorri
 #+begin_src makefile
 lorri:
@@ -306,7 +314,7 @@ clean:
 #+begin_src makefile
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
 	chsh update-nix-channels init-home-manager lorri tangle \
-	myrepos-checkout
+	myrepos-checkout cachix
 #+end_src
 ** Misc
 *** Docker image
