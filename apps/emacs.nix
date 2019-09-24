@@ -29,12 +29,21 @@ with profile.path;
           gyp = python27Packages.gyp;
           libxcb = xorg.libxcb;
           protobuf = pkgs.protobuf.overrideDerivation (oldAttrs: { stdenv = clangStdenv; });
+          fetchpatch = pkgs.fetchpatch;
         in
           clangStdenv.mkDerivation rec {
             inherit (super.mozc) name version meta src;
 
             nativeBuildInputs = [ which ninja python gyp pkgconfig ];
             buildInputs = [ protobuf gtk2 zinnia libxcb ];
+
+            patches = [
+              # https://github.com/google/mozc/pull/444 - fix for gcc8 STL
+              (fetchpatch {
+                url = "https://github.com/google/mozc/commit/82d38f929882a9c62289b179c6fe41efed249987.patch";
+                sha256 = "07cja1b7qfsd3i76nscf1zwiav74h7d6h2g9g2w4bs3h1mc9jwla";
+              })
+            ];
 
             postUnpack = ''
               rmdir $sourceRoot/src/third_party/japanese_usage_dictionary/
