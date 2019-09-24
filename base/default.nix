@@ -24,7 +24,7 @@
   # TODO; Enable fonts installed through home.packages.
   # This is only necessary on non-NixOS systems.
   fonts.fontconfig = {
-    enable = true;
+    enable = false;
   };
 
   gtk.enable = false;
