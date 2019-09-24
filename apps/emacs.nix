@@ -118,7 +118,7 @@ with profile.path;
     hunspell
     hunspellDicts.en-us
     hunspellDicts.en-gb-ise
-    hunspellDicts.en-gb-ize
+    # hunspellDicts.en-gb-ize
   ];
 
   home.sessionVariables = {
