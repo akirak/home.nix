@@ -53,7 +53,7 @@ chemacs:
 	fi
 
 cachix:
-	if command -v cachix 2>&1 >/dev/null; then \
+	if ! command -v cachix 2>&1 >/dev/null; then \
 		nix-env -iA cachix -f https://cachix.org/api/v1/install; \
 	fi
 
