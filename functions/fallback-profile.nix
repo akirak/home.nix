@@ -11,7 +11,8 @@ x:
     LANG = "en_GB.UTF-8";
     # Fallback locales
     LANGUAGE = "en_US:zh_CN:zh_TW:ja:en";
-    LC_ALL = "C";
+    LC_ALL = "C.utf8";
+    LC_CTYPE = "C.utf8";
     # Use ISO 8601 (YYYY-MM-DD) date format
     LC_TIME = "en_DK.UTF-8";
   } // (x.locale or {});
