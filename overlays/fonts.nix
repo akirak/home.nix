@@ -42,4 +42,96 @@ self: super:
     '';
   };
 
+  code-new-roman = with self; stdenv.mkDerivation rec {
+    name = "code-new-roman";
+
+    src = fetchurl {
+      url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v1.2.0/CodeNewRoman.zip";
+      # date = 2019-09-28T02:33:02+0900;
+      sha256 = "18v86qw4skaz4g9fjs1cq218mmngwacd4jg3lnjgzdvbsjpjwc5l";
+    };
+
+    dontBuild = true;
+    buildInputs = [ unzip ];
+
+    unpackPhase = ''
+      unzip $src
+    '';
+
+    installPhase = ''
+      fontDir=$out/share/fonts/opentype
+      mkdir -p $fontDir
+      cp *.otf $fontDir
+    '';
+  };
+
+  go-mono = with self; stdenv.mkDerivation rec {
+    name = "go-mono";
+
+    src = fetchurl {
+      url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Go-Mono.zip";
+      # date = 2019-09-28T02:49:11+0900;
+      sha256 = "18qga9z2hwsbaxi601vkfdh8fylg7j6q6nmi5zz3h28imd5kppmr";
+    };
+
+    dontBuild = true;
+    buildInputs = [ unzip ];
+
+    unpackPhase = ''
+      unzip $src
+    '';
+
+    installPhase = ''
+      fontDir=$out/share/fonts/truetype
+      mkdir -p $fontDir
+      cp *.ttf $fontDir
+    '';
+  };
+
+  tinos = with self; stdenv.mkDerivation rec {
+    name = "tinos";
+
+    src = fetchurl {
+      url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Tinos.zip";
+      # date = 2019-09-28T13:32:59+0900;
+      sha256 = "09i4jki7qhfg76f63lvlxa3ddxgi5kx7y8xzk049z0z709k31qfg";
+    };
+
+    dontBuild = true;
+    buildInputs = [ unzip ];
+
+    unpackPhase = ''
+      unzip $src
+    '';
+
+    installPhase = ''
+      fontDir=$out/share/fonts/truetype
+      mkdir -p $fontDir
+      cp *.ttf $fontDir
+    '';
+  };
+
+  hack-font = with self; stdenv.mkDerivation rec {
+    name = "hack-font";
+
+    src = fetchurl {
+      url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Hack.zip";
+      # date = 2019-09-28T13:33:37+0900;
+      sha256 = "076l1q4kz8hmgf3hkizx21846gsfcm3ryyg6zimzl403zn1p856i";
+    };
+
+    dontBuild = true;
+    buildInputs = [ unzip ];
+
+    unpackPhase = ''
+      unzip $src
+    '';
+
+    installPhase = ''
+      fontDir=$out/share/fonts/truetype
+      mkdir -p $fontDir
+      cp *.ttf $fontDir
+    '';
+  };
+
 }

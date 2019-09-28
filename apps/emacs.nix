@@ -119,7 +119,10 @@ with profile.path;
     # emacs-alt-icon
     # fonts
     google-fonts
-    fira-code
+    go-mono
+    hack-font
+    tinos
+    agave
     hannari-mincho-font
     adobe-chinese
     # ispell
