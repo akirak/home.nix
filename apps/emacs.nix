@@ -121,6 +121,7 @@ with profile.path;
     google-fonts
     go-mono
     hack-font
+    hasklig
     tinos
     agave
     hannari-mincho-font
