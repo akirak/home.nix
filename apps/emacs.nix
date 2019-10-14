@@ -102,6 +102,8 @@ with profile.path;
     gopass
     # Use dex to use counsel-linux-apps on NixOS
     dex
+    # org-babel
+    graphviz
     # gif-screencast
     scrot
     imagemagick
