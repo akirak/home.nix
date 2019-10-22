@@ -14,6 +14,7 @@ with profile.preferences;
   (import ./kbfs.nix attrs)
   (import ./exwm.nix attrs)
   (import ./polar.nix attrs)
+  (import ./calibre.nix attrs)
   (import ./myrepos.nix attrs)
   (import ./qutebrowser.nix attrs)
 ]
