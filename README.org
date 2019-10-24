@@ -247,7 +247,10 @@ chsh -s `command -v zsh`
 #+end_src
 *** Extra stuffs that are not installed by Nix
 **** Other configuration repositories (myrepos)
-I use [[https://myrepos.branchable.com/][myrepos]] to manage other configuration repositories:
+I use [[https://myrepos.branchable.com/][myrepos]] to manage other configuration repositories.
+
+With this make task, my repositories are automatically checked out.
+To skip the process, set =NO_MR_CHECKOUT= environment variable to a non-empty string:
 
 #+begin_src makefile
 myrepos-checkout:
