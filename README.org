@@ -235,8 +235,7 @@ Somehow this doesn't work.
 
 #+begin_src makefile
 chsh:
-# I won't run chsh inside Makefile until I find out a proper way to do this
-# 	scripts/chsh-zsh
+	scripts/chsh-zsh
 #+end_src
 
 Instead, you can install the shell to zsh using the following commands.

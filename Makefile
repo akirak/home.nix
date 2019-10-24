@@ -33,8 +33,7 @@ system-icons:
 	garcon-helper copy-icons
 
 chsh:
-# I won't run chsh inside Makefile until I find out a proper way to do this
-# 	scripts/chsh-zsh
+	scripts/chsh-zsh
 
 myrepos-checkout:
 	if [ ! -f "$(HOME)/.mrconfig" ]; then exit 1; fi
