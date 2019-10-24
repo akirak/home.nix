@@ -6,33 +6,44 @@
 #
 # Run this script as a normal user.
 
+# If SKIP_CHSH environment variable is set to 1,
+# skip this entire script.
 if [ "${SKIP_CHSH}" = 1 ]; then
     echo "Skipped chsh"
     exit 0
 fi
 
+# Exit if there is an error during the process
 set -e
 
+# Expected value of the default shell
 expected="$HOME/.nix-profile/bin/zsh"
 
+# Current value of the default shell
 current="$(getent passwd $USER | cut -d: -f7)"
 
+# Exit successfully if the default value is already set as expected
 if [ "$current" = "$expected" ]; then
     echo "The shell has been already set to zsh."
     echo "Quitting"
     exit 0
 fi
 
+# If no user password is set, create a new one.
+# This is necessary for Crostini on Chrome OS.
 password="$(sudo grep $USER /etc/shadow | cut -d: -f2)"
 if [ "$password" = "*" ]; then
     sudo passwd
 fi
 
+# If the target shell is not included in /etc/shells, add it using sed
 if ! grep -qxF "$expected" /etc/shells; then
     echo "Add $expected to /etc/shells"
     sudo sed "\$ a $expected" /etc/shells
 fi
 
+# Set the default shell using chsh
+# On Crostini on Chrome OS, sudo is required
 if uname -a | grep -P "^Linux penguin"; then
     sudo chsh -s "$expected" "$USER"
 else
