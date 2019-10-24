@@ -39,7 +39,7 @@ chsh:
 myrepos-checkout:
 	if [ ! -f "$(HOME)/.mrconfig" ]; then exit 1; fi
 	cd $(HOME)
-	if [ "$(NO_MR_CHECKOUT)" != 1 ]; then mr checkout; fi
+	if [ -z "$(NO_MR_CHECKOUT)" ]; then mr checkout; fi
 
 chemacs:
 	cd contrib/chemacs && bash install.sh

@@ -254,7 +254,7 @@ I use [[https://myrepos.branchable.com/][myrepos]] to manage other configuration
 myrepos-checkout:
 	if [ ! -f "$(HOME)/.mrconfig" ]; then exit 1; fi
 	cd $(HOME)
-	if [ "$(NO_MR_CHECKOUT)" != 1 ]; then mr checkout; fi
+	if [ -z "$(NO_MR_CHECKOUT)" ]; then mr checkout; fi
 #+end_src
 
 Since this depends on =mr= program and its configuration file, both of which are installed by home-manager, you have to run this task after running home-manager.
