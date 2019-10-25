@@ -1,11 +1,13 @@
 { profile, pkgs, lib, desktop, ... }:
 with profile.path;
 let
-  mountPoint = "${homeDirectory}/keybase";
+  runtimeDir = builtins.getEnv "XDG_RUNTIME_DIR";
+  mountPoint = "${runtimeDir}/keybase/kbfs";
 in
 {
   home.packages = with pkgs; [
     kbfs
+    keybase
     keybase-gui
   ];
 
@@ -74,7 +76,7 @@ in
 
       Service = {
         Type = "oneshot";
-        ExecStart ="/bin/sh -c '[ -e /keybase ] || sudo ln -s ${mountPoint} /keybase'";
+        ExecStart ="/bin/sh -c '[ -e /keybase ] || sudo ln -sf ${mountPoint} /keybase'";
       };
     };
 
