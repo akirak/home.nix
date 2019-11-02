@@ -110,6 +110,8 @@ with profile.path;
     gifsicle
     # for editing image files
     pinta
+    # compressing image files
+    pngquant
     # for document conversion
     unoconv
     pandoc
