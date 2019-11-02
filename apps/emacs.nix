@@ -81,7 +81,7 @@ with profile.path;
       # Temporarily override the recipe for the package.
       emacs-libvterm = lib.overrideDerivation super.emacs-libvterm (attrs: rec {
         name = "emacs-libvterm-${version}";
-        version = "unstable-2019-08-12";
+        version = "0.0.20190812";
         src = pkgs.fetchFromGitHub {
           owner = "akermu";
           repo = "emacs-libvterm";
