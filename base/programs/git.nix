@@ -14,6 +14,8 @@ with profile;
     github.user = profile.github.user;
 
     "url \"git@github.com:\"".pushInsteadOf = "https://github.com/";
+
+    core.autocrlf = "input";
   };
 
   ignores = [];
