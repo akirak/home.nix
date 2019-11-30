@@ -81,13 +81,13 @@ with profile.path;
       # Temporarily override the recipe for the package.
       emacs-libvterm = lib.overrideDerivation super.emacs-libvterm (attrs: rec {
         name = "emacs-libvterm-${version}";
-        version = "0.0.20190812";
+        version = "0.0.20191123";
         src = pkgs.fetchFromGitHub {
           owner = "akermu";
           repo = "emacs-libvterm";
-          rev = "81bd5d666d08a761153681f1b88ca60e3521fd60";
-          sha256 = "1aywrsk8ywff0v0q967961z7x8sivrjv73xz85aifrnv205nhb9k";
-          # date = 2019-08-17T18:32:27+08:00;
+          rev = "0feda596d541c17249a0dc78365e6733b1651d6c";
+          sha256 = "0grvmr07hfgiq7n6hzl3advb409mj3lsr9cvwy745jjldx8nhcxa";
+          # date = 2019-11-23T11:35:18+08:00;
         };
       });
      };
