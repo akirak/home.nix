@@ -182,7 +182,7 @@ with profile.path;
       ];
       OnFailure = [
         "notify-failure@emacs.service"
-        "emacs@debug.service"
+        "emacs-debug-init.service"
       ];
     };
     Service = {
