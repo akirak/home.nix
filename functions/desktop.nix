@@ -14,7 +14,7 @@ rec {
       mimeType = cfg.mimeType;
       startupWmClass = if cfg ? startupWmClass
                        then cfg.startupWmClass
-                       else false;
+                       else "";
       startupNotify = if cfg ? startupNotify
                       then cfg.startupNotify
                       else false;
