@@ -170,6 +170,15 @@ with profile.path;
       };
     };
 
+  home.file.".local/share/applications/emacs-custom-restart.desktop".text =
+    desktop.mkApplicationEntry {
+      name = "Restart the Emacs service";
+      exec = "systemctl --user restart emacs.service";
+      tryExec = "${binDir}/emacs";
+      startupWmClass = "Emacs";
+      icon = "emacs";
+    };
+
   # Based on https://askubuntu.com/questions/1105123/how-to-start-emacs-as-service
   systemd.user.services.emacs = {
     Unit = {
@@ -220,4 +229,13 @@ with profile.path;
       ];
     };
   };
+
+  home.file.".local/share/applications/emacs-debug-init.desktop".text =
+    desktop.mkApplicationEntry {
+      name = "Debug Emacs startup (--debug-init)";
+      exec = "systemctl --user restart emacs-debug-init.service";
+      tryExec = "${binDir}/emacs";
+      startupWmClass = "Emacs";
+      icon = "emacs";
+    };
 }
