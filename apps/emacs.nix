@@ -104,6 +104,7 @@ with profile.path;
     dex
     # org-babel
     graphviz
+    plantuml
     # gif-screencast
     scrot
     imagemagick
