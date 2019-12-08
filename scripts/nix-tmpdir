@@ -3,7 +3,7 @@
 # Return a tmpdir suitable for system
 
 is_crostini() {
-    uname -a | grep -E "^Linux penguin" >/dev/null
+    systemctl --user is-active cros-garcon.service >/dev/null
 }
 
 if is_crostini; then
