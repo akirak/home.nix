@@ -47,7 +47,10 @@ with profile.path;
       };
 
       Install = {
-        WantedBy = [ "sockets.target" ];
+        WantedBy = [
+          "sockets.target"
+          "default.target"
+        ];
       };
     };
   };
