@@ -17,7 +17,7 @@ build: tangle
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) build
 
-all: install-hooks chemacs cachix home-manager lorri myrepos-checkout
+all: install-hooks chemacs cachix home-manager myrepos-checkout
 
 deps: fuse
 
@@ -56,11 +56,6 @@ cachix:
 		nix-env -iA cachix -f https://cachix.org/api/v1/install; \
 	fi
 
-lorri:
-	if ! command -v lorri >/dev/null 2>&1; then \
-		scripts/install-lorri; \
-	fi
-
 install-hooks:
 	if [ -e .git ]; then nix-shell -p git --run 'git config core.hooksPath .githooks'; fi
 
@@ -68,5 +63,5 @@ clean:
 	sudo rm -rf /homeless-shelter
 
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-	chsh update-nix-channels init-home-manager lorri tangle \
+	chsh update-nix-channels init-home-manager tangle \
 	myrepos-checkout cachix
