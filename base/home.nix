@@ -6,6 +6,7 @@ with profile;
     locale
     gnumake
     gitAndTools.hub
+    # git-hammer
     nox
     nix-prefetch-git
     trash-cli
