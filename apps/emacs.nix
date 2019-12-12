@@ -202,7 +202,7 @@ with profile.path;
 
       ExecStartPost = "${binDir}/notify-desktop -u low -a Emacs 'Emacs service successfully started'";
 
-      ExecStop = "${binDir}/emacsclient --eval \"(progn (save-some-buffers t) (setq kill-emacs-hook nil) (kill-emacs))\"";
+      ExecStop = "${binDir}/emacsclient --eval \"(progn (save-some-buffers t) (kill-emacs))\"";
 
       Environment = [
         "DISPLAY=:0"
