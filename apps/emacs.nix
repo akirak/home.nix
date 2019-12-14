@@ -85,9 +85,9 @@ with profile.path;
         src = pkgs.fetchFromGitHub {
           owner = "akermu";
           repo = "emacs-libvterm";
-          rev = "0feda596d541c17249a0dc78365e6733b1651d6c";
-          sha256 = "0grvmr07hfgiq7n6hzl3advb409mj3lsr9cvwy745jjldx8nhcxa";
-          # date = 2019-11-23T11:35:18+08:00;
+          rev = "8a6e5fe3c95ba4a5520ef1cf7b31a2e45b420b8e";
+          sha256 = "1bbl2rdq5mq3kya31ppl14a7c3bvaqs3bn2aplmpvd4idlrbk5qh";
+          # date = 2019-12-09T21:15:47+08:00;
         };
       });
      };
