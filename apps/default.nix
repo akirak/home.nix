@@ -17,5 +17,5 @@ with profile.preferences;
   (import ./calibre.nix attrs)
   (import ./myrepos.nix attrs)
   (import ./qutebrowser.nix attrs)
-  (import ./recoll.nix attrs)
+  # (import ./recoll.nix attrs)
 ]
