@@ -27,6 +27,7 @@ However, a better example will be John Wiegley's [[https://github.com/jwiegley/n
         -  [[#other-configuration-repositories-myrepos][Other configuration repositories (myrepos)]]
         -  [[#chemacs][Chemacs]]
         -  [[#cachix][Cachix]]
+        -  [[#lorri][Lorri]]
       -  [[#maintenance][Maintenance]]
         -  [[#git-hooks][Git hooks]]
         -  [[#synchronising-the-configuration-repositories][Synchronising the configuration repositories]]
@@ -201,7 +202,7 @@ make all
 to install all the components.
 
 #+begin_src makefile
-all: install-hooks chemacs cachix home-manager myrepos-checkout
+all: install-hooks chemacs cachix home-manager lorri myrepos-checkout
 #+end_src
 *** Installing dependencies
 Some dependencies cannot be installed by Nix, so they need to be installed in advance.
@@ -279,6 +280,13 @@ cachix:
 		nix-env -iA cachix -f https://cachix.org/api/v1/install; \
 	fi
 #+end_src
+**** Lorri
+#+begin_src makefile
+lorri:
+	if ! command -v lorri >/dev/null 2>&1; then \
+		scripts/install-lorri; \
+	fi
+#+end_src
 *** Maintenance
 **** Git hooks
 #+begin_src makefile
@@ -307,7 +315,7 @@ clean:
 *** Phony                                                        :noexport:
 #+begin_src makefile
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
-	chsh update-nix-channels init-home-manager tangle \
+	chsh update-nix-channels init-home-manager lorri tangle \
 	myrepos-checkout cachix
 #+end_src
 ** Misc

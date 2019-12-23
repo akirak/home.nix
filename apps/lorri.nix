@@ -3,10 +3,6 @@
 # https://github.com/Gerschtli/home-manager-configurations/blob/b4390e68d50852f8006968d0fe57f07b3786b815/modules/config/development/lorri.nix
 with profile.path;
 {
-  home.packages = with pkgs; [
-    lorri
-  ];
-
   systemd.user = {
     services.lorri = {
       Unit = {
