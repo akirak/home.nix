@@ -29,13 +29,10 @@ else
     fi
 
     echo "Starting ${EMACS_SERVICE}..."
-    if systemctl --user start ${EMACS_SERVICE}; then
-        exec_new_frame
-    fi
+    systemctl --user start ${EMACS_SERVICE}
 
-    if [ -n "$TERM" ]; then
+    if [ $? -gt 0 -a -n "$TERM" ]; then
         systemctl --user status ${EMACS_SERVICE}
     fi
-    exit 1
 
 fi

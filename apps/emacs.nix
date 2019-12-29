@@ -192,7 +192,6 @@ with profile.path;
       ];
       OnFailure = [
         "notify-failure@emacs.service"
-        "emacs-debug-init.service"
       ];
     };
     Service = {
@@ -200,7 +199,7 @@ with profile.path;
 
       ExecStart = "${hmSessionBin} emacs --daemon";
 
-      ExecStartPost = "${binDir}/notify-desktop -u low -a Emacs 'Emacs service successfully started'";
+      ExecStartPost = "${binDir}/emacsclient -c";
 
       ExecStop = "${binDir}/emacsclient --eval \"(progn (save-some-buffers t) (kill-emacs))\"";
 
