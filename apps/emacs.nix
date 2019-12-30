@@ -110,6 +110,7 @@ with profile.path;
     imagemagick
     gifsicle
     gif-progress
+    mpv
     # for editing image files
     pinta
     # compressing image files
