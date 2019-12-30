@@ -109,6 +109,7 @@ with profile.path;
     scrot
     imagemagick
     gifsicle
+    gif-progress
     # for editing image files
     pinta
     # compressing image files

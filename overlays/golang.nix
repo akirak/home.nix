@@ -21,4 +21,24 @@ install -t $out/bin gitbatch
 '';
   };
 
+  gif-progress = with self; stdenv.mkDerivation rec {
+    name = "gif-progress";
+    version = "latest";
+    archive = "gif-progress-linux-amd64";
+
+    src = fetchurl {
+      url = "https://github.com/nwtgck/gif-progress/releases/download/release-fix-not-moving-progress-bar/gif-progress-linux-amd64.tar.gz";
+      sha256 = "139zm9bbmnayn52myfjrshmg5wagzvghqxagv4g1b2dznjrxd4vn";
+      # date = 2019-12-31T04:50:01+0900;
+    };
+
+    builder = builtins.toFile "builder.sh" ''
+source $stdenv/setup
+
+tar xvfz $src
+mkdir -p $out/bin
+install -t $out/bin $archive/gif-progress
+'';
+  };
+
 }
