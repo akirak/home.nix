@@ -197,11 +197,10 @@ with profile.path;
       ];
     };
     Service = {
-      Type = "forking";
+      Type = "simple";
 
-      ExecStart = "${hmSessionBin} emacs --daemon";
-
-      ExecStartPost = "${binDir}/emacsclient -c";
+      # https://www.reddit.com/r/emacs/comments/b8ksfs/psa_for_new_users_emacs_261_has_the_emacs_daemon/ejyhklq/
+      ExecStart = "${hmSessionBin} emacsclient -a '' -c";
 
       ExecStop = "${binDir}/emacsclient --eval \"(progn (save-some-buffers t) (kill-emacs))\"";
 
