@@ -133,6 +133,9 @@ with profile.path;
     agave
     hannari-mincho-font
     adobe-chinese
+    # Since nix clears the font cache, it's better to not install
+    # fonts as an Emacs package
+    emacs-all-the-icons-fonts
     # ispell
     ispell
     hunspell
