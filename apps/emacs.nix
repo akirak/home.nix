@@ -14,6 +14,7 @@ with profile.path;
         pdf-tools
         elisp-ffi
         exwm
+        beancount
       ];
     overrides = self: super: {
       mozc = with pkgs;
@@ -90,6 +91,26 @@ with profile.path;
           # date = 2019-12-09T21:15:47+08:00;
         };
       });
+
+      beancount = self.melpaBuild {
+        pname = "beancount";
+        version = "20191230";
+
+        src = pkgs.fetchFromBitbucket {
+          owner = "blais";
+          repo = "beancount";
+          rev = "master";
+          sha256 = "1wcp9kgz90xbp8hch555ip61pa094gw8p9iay92mvw35ysar55xi";
+        };
+
+        recipe = pkgs.writeText "recipe" ''
+(beancount
+  :fetcher bitbucket
+  :repo "blais/beancount"
+  :files ("editors/emacs/*.el" (:exclude "*-test.el")))
+'';
+      };
+
      };
   };
 
