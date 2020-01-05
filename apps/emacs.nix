@@ -141,6 +141,8 @@ with profile.path;
     pandoc
     # needed for helm-dash
     sqlite
+    # beancount
+    beancount
     # for some packages (e.g. treemacs)
     python3
     # icons
