@@ -94,13 +94,13 @@ with profile.path;
 
       beancount = self.melpaBuild {
         pname = "beancount";
-        version = "20191230";
+        version = "2.2.3";
 
         src = pkgs.fetchFromBitbucket {
           owner = "blais";
           repo = "beancount";
-          rev = "master";
-          sha256 = "1wcp9kgz90xbp8hch555ip61pa094gw8p9iay92mvw35ysar55xi";
+          rev = "2.2.3";
+          sha256 = "0k53kjs81kp12y7w8j54kbp5saxrrvpkhgydizylnnjbfxj9zl4l";
         };
 
         recipe = pkgs.writeText "recipe" ''
