@@ -20,6 +20,7 @@ However, a better example will be John Wiegley's [[https://github.com/jwiegley/n
         -  [[#installation][Installation]]
       -  [[#installing-dependencies][Installing dependencies]]
         -  [[#fuse-support][FUSE support]]
+        -  [[#required-root-configuration-files][Required root configuration files]]
       -  [[#post-installation][Post installation]]
         -  [[#system-icons-only-on-chrome-os][System icons (only on Chrome OS)]]
         -  [[#change-the-shell][Change the shell]]
@@ -208,7 +209,7 @@ all: install-hooks chemacs cachix home-manager lorri myrepos-checkout
 Some dependencies cannot be installed by Nix, so they need to be installed in advance.
 
 #+begin_src makefile
-deps: fuse
+deps: fuse etc
 #+end_src
 **** FUSE support
 =fusermount= must be installed.
@@ -219,6 +220,23 @@ fuse:
 		sudo apt-get install --yes fuse; \
 	fi
 #+end_src
+**** Required root configuration files
+Some configuration files are missing on Clear Linux, so you need to create them beforehand:
+
+#+begin_src makefile
+etc:
+	echo "Creating /etc/hosts with the following content"
+	if [ ! -f /etc/hosts ]; then \
+		echo "127.0.0.1	localhost $(uname -n)" | sudo tee /etc/hosts
+		echo "::1 localhost ip6-localhost ip6-loopback" | sudo tee -a /etc/hosts
+	fi
+
+	echo "Creating an empty /etc/services"
+	if [ ! -f /etc/services]; then \
+		sudo touch /etc/services; \
+	fi
+#+end_src
+
 *** Post installation
 Some tasks need to be run after home-manager.
 
