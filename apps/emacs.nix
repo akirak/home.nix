@@ -131,6 +131,7 @@ with profile.path;
     imagemagick
     gifsicle
     gif-progress
+    bashcaster
     mpv
     # for editing image files
     pinta

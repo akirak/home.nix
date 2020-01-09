@@ -45,4 +45,45 @@ mkdir -p $out/bin
 install -t $out/bin mr
 '';
   };
+
+  bashcaster =
+    let
+      pkgs = self.pkgs;
+      wrapped = with self; stdenv.mkDerivation rec {
+        name = "bashcaster";
+        version = "0.20190108";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "alphapapa";
+          repo = "bashcaster";
+          rev = "5c27de9b7f40ddb724dbfc52543d85c4a1f6c1dc";
+          sha256 = "0nap99qms5d1j0ny0ba5d49y4rvvyyxi959w5q7d704s507h10kn";
+          # date = 2019-01-17T10:16:45-06:00;
+        };
+
+        installPhase = ''
+mkdir -p $out/bin
+install -t $out/bin bashcaster.sh
+mv $out/bin/bashcaster.sh $out/bin/bashcaster
+'';
+      };
+    in pkgs.symlinkJoin {
+      name = "bashcaster";
+      paths = with pkgs; [
+        wrapped
+        ffmpeg
+        yad
+        slop
+        gifsicle
+        xorg.xprop
+        xorg.xwininfo
+      ];
+      buildInputs = with pkgs; [
+        makeWrapper
+      ];
+      postBuild = ''
+        wrapProgram $out/bin/bashcaster
+      '';
+    };
+
 }
