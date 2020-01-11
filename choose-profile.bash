@@ -2,7 +2,7 @@
 
 # Automatically choose a profile for the current environment
 
-has_executable() { which "$1" 2>&1 >/dev/null; }
+has_executable() { command -v "$1" 2>&1 >/dev/null; }
 
 if has_executable tput; then
     bold=$(tput bold)
@@ -35,7 +35,7 @@ ask_yes_no() {
     if [ "${always_yes}" = 1 ]; then
         echo y
     else
-        read -n1 answer
+        read -r -n1 answer
         echo $answer
     fi
 }
@@ -104,7 +104,7 @@ is_supported_linux() {
 
     if [ "$ID" = debian ]; then
         echo "The operating system is Debian."
-    elif [ "${ID_LIKE}" = *debian* ]; then
+    elif [[ "${ID_LIKE}" = *debian* ]]; then
         echo "The operating system is like Debian: $ID"
     elif [ "$ID" = nixos ]; then
         echo "The operating system is NixOS."
@@ -114,7 +114,7 @@ is_supported_linux() {
         echo "Continueing anyway"
     fi
 
-    if which systemctl; then
+    if command -v systemctl; then
         echo "systemctl exists."
     else
         error "systemctl does not exist."
