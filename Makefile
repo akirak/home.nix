@@ -30,8 +30,8 @@ fuse:
 etc:
 	echo "Creating /etc/hosts with the following content"
 	if [ ! -f /etc/hosts ]; then \
-		echo "127.0.0.1	localhost $(uname -n)" | sudo tee /etc/hosts
-		echo "::1 localhost ip6-localhost ip6-loopback" | sudo tee -a /etc/hosts
+		echo "127.0.0.1	localhost $(uname -n)" | sudo tee /etc/hosts; \
+		echo "::1 localhost ip6-localhost ip6-loopback" | sudo tee -a /etc/hosts; \
 	fi
 
 	echo "Creating an empty /etc/services"
