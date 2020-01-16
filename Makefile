@@ -39,7 +39,7 @@ etc:
 		sudo touch /etc/services; \
 	fi
 
-post-install: system-icons chsh
+post-install: system-icons
 
 system-icons:
 	garcon-helper copy-icons

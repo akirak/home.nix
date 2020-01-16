@@ -241,7 +241,7 @@ etc:
 Some tasks need to be run after home-manager.
 
 #+begin_src makefile
-post-install: system-icons chsh
+post-install: system-icons
 #+end_src
 **** System icons (only on Chrome OS)
 #+begin_src makefile
