@@ -15,7 +15,16 @@ with profile.path;
 
   home.file.".local/share/applications/exwm.desktop".text =
     desktop.mkApplicationEntry {
-      name = "EXWM";
+      name = "EXWM (Replace WM)";
+      exec = "${binDir}/hm-session emacs --exwm";
+      tryExec = "${binDir}/emacs";
+      startupWmClass = "Emacs";
+      icon = "xorg";
+    };
+
+  home.file.".local/share/applications/exwm-xephyr.desktop".text =
+    desktop.mkApplicationEntry {
+      name = "EXWM on Xephyr";
       exec = "systemctl --user start exwm.service";
       tryExec = "${binDir}/Xephyr";
       startupWmClass = "Xephyr";
