@@ -7,6 +7,7 @@ with profile;
     gnumake
     gitAndTools.hub
     gitbatch
+    bashcaster
     nox
     nix-prefetch-git
     trash-cli
