@@ -8,6 +8,21 @@ set -e
 
 export NIX_BUILD_SHELL=$(command -v bash)
 
+is_wsl() {
+    if grep -F Linux /proc/sys/kernel/ostype >/dev/null; then
+        return 1
+    fi
+    grep -P "(Microsoft|WSL)" /proc/sys/kernel/osrelease > /dev/null \
+        && grep -P "(Microsoft|WSL)" /proc/version >/dev/null
+}
+
+if is_wsl; then
+    echo <<EOF > $HOME/.config/nix/nix.conf
+sandbox = false
+use-sql-wal = false
+EOF
+fi
+
 if ! command -v nix-env >/dev/null 2>&1; then
     if ! command -v xz >/dev/null 2>&1; then
         if grep -P ^'ID(_LIKE)?=debian' /etc/os-release >/dev/null; then
