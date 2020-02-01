@@ -132,6 +132,7 @@ export SHELL=${profile.path.binDir}/zsh
         "cb" = "cd `lsbm.d | fzy -p 'cd to bookmark: '`";
         "cdp" = "cd `lsproj | fzy -p 'cd to project: '`";
         "v" = "vagrant";
+        "ncu-update" = "nix-shell -p nodePackages.npm-check-updates --command 'ncu -u'";
      };
    };
 
