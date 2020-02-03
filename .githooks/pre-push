@@ -18,14 +18,13 @@
 #
 #   <local ref> <local sha1> <remote ref> <remote sha1>
 
-remote="$1"
-url="$2"
-
 z40=0000000000000000000000000000000000000000
 
 IFS=' '
-while read local_ref local_sha remote_ref remote_sha
+while read -r local_ref local_sha remote_ref remote_sha
 do
+  echo "$remote_ref" > /dev/null
+
   if [ "$local_sha" = $z40 ]
   then
     # Ignore delete
@@ -41,23 +40,23 @@ do
     fi
 
     # Check for WIP commits
-    commit=`git rev-list -n 1 --grep '^WIP' "$range"`
-    if [ "${local_ref}" = refs/heads/master -a -n "$commit" ]
+    commit=$(git rev-list -n 1 --grep '^WIP' "$range")
+    if [ "${local_ref}" = refs/heads/master ] && [ -n "$commit" ]
     then
-        echo "\nPush rejected: WIP commit detected\n"
-        exit 1
+      printf "\nPush rejected: WIP commit detected\n\n"
+      exit 1
     fi
 
     # Check for autosquash commits
-    commit=`git rev-list -n 1 --grep '^\(fixup\|squash\)!' "$range"`
+    commit=$(git rev-list -n 1 --grep '^\(fixup\|squash\)!' "$range")
     if [ -n "$commit" ]
     then
-      echo "\nPush rejected: autosquash commit detected\n"
+      printf "\nPush rejected: autosquash commit detected\n\n"
       exit 1
     fi
   fi
 done
 
-# Skip tests for now
-echo "Tests has been skipped."
-# sh test/test-local.sh && test ! -f .errors.txt
+# Local Variables:
+# sh-basic-offset: 2
+# End:
