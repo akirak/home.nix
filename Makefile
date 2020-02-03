@@ -19,25 +19,8 @@ build: tangle
 
 all: install-hooks chemacs cachix home-manager lorri myrepos-checkout
 
-deps: fuse etc
-
-fuse:
-	if grep --silent -P "ID(_LIKE)?=debian" /etc/os-release \
-		&& ! which fusermount >/dev/null 2>&1; then \
-		sudo apt-get install --yes fuse; \
-	fi
-
-etc:
-	echo "Creating /etc/hosts with the following content"
-	if [ ! -f /etc/hosts ]; then \
-		echo "127.0.0.1	localhost $(uname -n)" | sudo tee /etc/hosts; \
-		echo "::1 localhost ip6-localhost ip6-loopback" | sudo tee -a /etc/hosts; \
-	fi
-
-	echo "Creating an empty /etc/services"
-	if [ ! -f /etc/services]; then \
-		sudo touch /etc/services; \
-	fi
+deps:
+	helpers/install-deps
 
 post-install: system-icons
 

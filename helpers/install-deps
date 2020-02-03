@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -e
+
+like_debian() {
+   grep --silent -P "ID(_LIKE)?=debian" /etc/os-release
+}
+
+has() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Install FUSE on Debian-like systems
+if like_debian && ! has fusermount; then
+    sudo apt-get install --yes fuse
+fi
+
+# On Clear Linux, some required files don't exist, so create them
+if [[ ! -f /etc/hosts ]]; then
+    echo "Creating /etc/hosts with the following content"
+    cat <<EOF | sudo tee /etc/hosts
+127.0.0.1	localhost $(uname -n)
+::1 localhost ip6-localhost ip6-loopback
+EOF
+fi
+
+if [[ ! -f /etc/services ]]; then
+    echo "Creating an empty /etc/services"
+    sudo touch /etc/services
+fi
