@@ -25,6 +25,9 @@
         Type = "simple";
         WorkingDirectory = repo;
         ExecStart = "${binDir}/backup-org-git";
+        Environment = [
+          "GIT_COMMAND=${profile.path.binDir}/git"
+        ];
       };
   };
 }

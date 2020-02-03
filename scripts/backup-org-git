@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 # Git branch on which a new commit is added
 branch=master
@@ -9,7 +9,7 @@ has() { command -v "$1" >/dev/null 2>/dev/null; }
 
 err() { echo "Error: $*" >&2; }
 
-if [[ ! -x ${GIT_COMMAND} ]] && ! has git; then
+if [[ ! -x ${GIT_COMMAND} ]] && ! has "${GIT_COMMAND}"; then
     err "git is unavailable"
     exit 1
 fi
