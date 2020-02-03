@@ -5,6 +5,7 @@ with profile;
   packages = with pkgs; [
     locale
     gnumake
+    gnupg
     gitAndTools.hub
     gitbatch
     bashcaster
