@@ -126,6 +126,7 @@ with profile.path;
     # org-babel
     graphviz
     plantuml
+    mermaid-cli
     # gif-screencast
     scrot
     imagemagick
