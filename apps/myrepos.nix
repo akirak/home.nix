@@ -30,9 +30,6 @@ update =
 
 [$HOME/lib/emacs]
 checkout = git clone https://github.com/akirak/emacs-config-library.git emacs
-
-[$HOME/lib/organiser]
-checkout = git clone https://github.com/akirak/organiser.git
 '';
 
 }
