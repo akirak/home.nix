@@ -17,7 +17,7 @@ build: tangle
 	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) build
 
-all: install-hooks chemacs cachix home-manager lorri myrepos-checkout
+all: install-hooks chemacs cachix home-manager lorri myrepos-checkout github-projects
 
 deps:
 	helpers/install-deps
@@ -56,6 +56,9 @@ lorri:
 		scripts/install-lorri; \
 	fi
 
+github-projects:
+	ln -sv $(shell readlink -f .)/dotfiles/projects/github/mrconfig ~/projects/github/.mrconfig
+
 install-hooks:
 	if [ -e .git ]; then nix-shell -p git --run 'git config core.hooksPath .githooks'; fi
 
@@ -64,4 +67,4 @@ clean:
 
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
 	chsh update-nix-channels init-home-manager lorri tangle \
-	myrepos-checkout cachix
+	myrepos-checkout cachix github-projects

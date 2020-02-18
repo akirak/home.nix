@@ -1,0 +1,2 @@
+[melpa]
+checkout = git clone https://github.com/akirak/melpa.git

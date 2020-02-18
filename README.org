@@ -27,6 +27,7 @@ However, a better example will be John Wiegley's [[https://github.com/jwiegley/n
     -  [[#chemacs][Chemacs]]
     -  [[#cachix][Cachix]]
     -  [[#lorri][Lorri]]
+    -  [[#mrconfig-for-my-github-repositories][.mrconfig for my GitHub repositories]]
   -  [[#maintenance][Maintenance]]
     -  [[#git-hooks][Git hooks]]
     -  [[#synchronising-the-configuration-repositories][Synchronising the configuration repositories]]
@@ -216,7 +217,7 @@ make all
 to install all the components.
 
 #+begin_src makefile
-all: install-hooks chemacs cachix home-manager lorri myrepos-checkout
+all: install-hooks chemacs cachix home-manager lorri myrepos-checkout github-projects
 #+end_src
 *** Installing dependencies
 Some dependencies cannot be installed by Nix, so they need to be installed in advance.
@@ -293,6 +294,11 @@ lorri:
 		scripts/install-lorri; \
 	fi
 #+end_src
+**** .mrconfig for my GitHub repositories
+#+begin_src makefile
+github-projects:
+	ln -sv $(shell readlink -f .)/dotfiles/projects/github/mrconfig ~/projects/github/.mrconfig
+#+end_src
 *** Maintenance
 **** Git hooks
 #+begin_src makefile
@@ -322,7 +328,7 @@ clean:
 #+begin_src makefile
 .PHONY: install-hooks all chemacs home-manager system-icons clean \
 	chsh update-nix-channels init-home-manager lorri tangle \
-	myrepos-checkout cachix
+	myrepos-checkout cachix github-projects
 #+end_src
 ** Misc
 *** Docker image
