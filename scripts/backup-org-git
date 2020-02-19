@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Git branch on which a new commit is added
 branch=master
 
@@ -10,14 +12,17 @@ has() { command -v "$1" >/dev/null 2>/dev/null; }
 err() { echo "Error: $*" >&2; }
 
 if [[ ! -x ${GIT_COMMAND} ]] && ! has git; then
-    err "git is unavailable"
-    exit 1
+    GIT_COMMAND="$HOME/.nix-profile/bin/git"
+    if [[ ! -x ${GIT_COMMAND} ]]; then
+        err "git is unavailable"
+        exit 20
+    fi
 fi
 
 # Ensure that this script is run at the root of a Git repository
 if [ ! -d .git ]; then
     err "This script must be run at the root of a Git repository"
-    exit 1
+    exit 21
 fi
 
 # Update the index from the working tree and retrieve its hash
@@ -28,11 +33,15 @@ tree=$("${GIT_COMMAND}" write-tree)
 
 # Compare the tree with the branch and update it if there are changes
 filelist=$(mktemp)
-"${GIT_COMMAND}" diff-tree --exit-code --name-only "$parent" "$tree" > "$filelist"
-if [ $? -eq 1 ]; then
+
+if "${GIT_COMMAND}" diff-tree --exit-code --name-only "$parent" "$tree" > "$filelist"; then
+    rm "$filelist"
+    echo "Not changed"
+else
     msg=$(mktemp)
     echo -n "Auto commit: " > "$msg"
     numfiles=$(wc -l "$filelist" | cut -d' ' -f1)
+    echo "$numfiles files changed"
     if [[ "$numfiles" -gt 1 ]]; then
         echo -n "($numfiles files) " >> "$msg"
     fi
@@ -41,7 +50,4 @@ if [ $? -eq 1 ]; then
     rm "$msg" "$filelist"
     "${GIT_COMMAND}" update-ref "$ref" "$commit" "$parent"
     echo "Created a new commit"
-else
-    rm "$filelist"
-    echo "Not changed"
 fi

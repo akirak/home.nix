@@ -24,7 +24,7 @@
       Service = {
         Type = "simple";
         WorkingDirectory = repo;
-        ExecStart = "${binDir}/backup-org-git";
+        ExecStart = "${binDir}/nix-shell -p coreutils git --run ${binDir}/backup-org-git";
       };
   };
 }
