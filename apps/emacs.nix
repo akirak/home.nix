@@ -79,19 +79,6 @@ with profile.path;
             '';
           };
 
-      # Temporarily override the recipe for the package.
-      emacs-libvterm = lib.overrideDerivation super.emacs-libvterm (attrs: rec {
-        name = "emacs-libvterm-${version}";
-        version = "0.0.20200115";
-        src = pkgs.fetchFromGitHub {
-          owner = "akermu";
-          repo = "emacs-libvterm";
-          rev = "9bff974f47e5f1bbe62566b66371e4df588ddb05";
-          sha256 = "1s3k8bjzahyzis933p3nizy3jlps1lavcb697q2a9068ib703sh7";
-          # date = 2020-01-15T23:47:05+08:00;
-        };
-      });
-
       beancount = self.melpaBuild {
         pname = "beancount";
         version = "2.2.3";
