@@ -118,10 +118,6 @@ with profile.path;
 
         buildInputs = [ self.emacs pkgs.cmake pkgs.librime ];
 
-        # cmakeFlags = [
-        #   "-DEMACS_SOURCE=${self.emacs.src}"
-        # ];
-
         # we need the proper out directory to exist, so we do this in the
         # postInstall instead of postBuild
         postInstall = ''
@@ -132,9 +128,7 @@ with profile.path;
             cd share/emacs/site-lisp/elpa/liberime-config-**
             mkdir build
             install -m 444 -v -t build $out/build/liberime.so
-            # ls -l build
-            # rm -rf $out/share/emacs/site-lisp/elpa/vterm-**/{CMake*,build,*.c,*.h}
-          '';
+        '';
       };
     };
   };
