@@ -30,14 +30,14 @@ fi
 
 # Update the index from the working tree and retrieve its hash
 ref=refs/heads/$branch
-parent=$("${GIT_COMMAND}" show-ref -s $branch)
-"${GIT_COMMAND}" add .
-tree=$("${GIT_COMMAND}" write-tree)
+parent=$(git show-ref -s $branch)
+git add .
+tree=$(git write-tree)
 
 # Compare the tree with the branch and update it if there are changes
 filelist=$(mktemp)
 
-if "${GIT_COMMAND}" diff-tree --exit-code --name-only "$parent" "$tree" > "$filelist"; then
+if git diff-tree --exit-code --name-only "$parent" "$tree" > "$filelist"; then
     rm "$filelist"
     echo "Not changed"
 else
@@ -49,8 +49,8 @@ else
         echo -n "($numfiles files) " >> "$msg"
     fi
     tr '\n' ' ' < "$filelist" >> "$msg"
-    commit=$("${GIT_COMMAND}" commit-tree -p "$parent" -F "$msg" "$tree")
+    commit=$(git commit-tree -p "$parent" -F "$msg" "$tree")
     rm "$msg" "$filelist"
-    "${GIT_COMMAND}" update-ref "$ref" "$commit" "$parent"
+    git update-ref "$ref" "$commit" "$parent"
     echo "Created a new commit"
 fi
