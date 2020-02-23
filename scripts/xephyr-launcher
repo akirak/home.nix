@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Start Xephyr with the correct DPI
 
-if [ $# -eq 0 ]; then
+if [[ $# -eq 0 ]]; then
     echo "Please specify the display as the first argument." >&2
     exit 1
 fi
@@ -25,7 +25,11 @@ fi
 
 spec="${widthInPixels}/${widthInMm}x${heightInPixels}/${heightInMm}"
 echo "Creating a new display $1 with screen $spec"
-exec Xephyr "$1" -screen "$spec" -resizeable
+Xephyr "$1" -screen "$spec" -resizeable &
+# pid=$!
+# disown $pid
+# sleep 1
+# systemd-notify --ready --pid=$BASHPID
 
 # resolution=$(xdpyinfo -display "$DISPLAY" | grep resolution:)
 # if [[ "$resolution" =~ ([[:digit:]]+)x[[:digit:]]+ ]]; then

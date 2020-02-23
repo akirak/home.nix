@@ -2,8 +2,6 @@
 with profile.path;
 {
   home.packages = with pkgs; [
-    xorg.xorgserver
-    xorg.xdpyinfo
     la-capitaine-icons
   ];
 
@@ -16,7 +14,7 @@ with profile.path;
   home.file.".local/share/applications/exwm.desktop".text =
     desktop.mkApplicationEntry {
       name = "EXWM (Replace WM)";
-      exec = "${binDir}/hm-session emacs --exwm";
+      exec = "${binDir}/nix-shell -p bash --command '${binDir}/hm-session emacs --exwm'";
       tryExec = "${binDir}/emacs";
       startupWmClass = "Emacs";
       icon = "xorg";
@@ -26,7 +24,7 @@ with profile.path;
     desktop.mkApplicationEntry {
       name = "EXWM on Xephyr";
       exec = "systemctl --user start exwm.service";
-      tryExec = "${binDir}/Xephyr";
+      tryExec = "${binDir}/nix-shell";
       startupWmClass = "Xephyr";
       icon = "xorg";
     };
@@ -38,13 +36,12 @@ with profile.path;
         StopWhenUnneeded = true;
       };
       Service = {
-        Type = "simple";
+        Type = "forking";
 
-        ExecStart = "${binDir}/xephyr-launcher :2";
+        ExecStart = "${binDir}/nix-shell -p bash gnugrep xorg.xdpyinfo xorg.xorgserver --command '${binDir}/xephyr-launcher :2'";
 
         Environment = [
           "DISPLAY=:0"
-          "PATH=${binDir}:/usr/bin:/bin"
         ];
       };
     };
