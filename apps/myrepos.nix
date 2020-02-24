@@ -4,6 +4,7 @@
     myrepos
   ];
 
+  # mrconfig for all machines
   home.file.".mrconfig".text = ''
 [DEFAULT]
 # Define global commands here
@@ -30,6 +31,20 @@ update =
 
 [$HOME/lib/emacs]
 checkout = git clone https://github.com/akirak/emacs-config-library.git emacs
+'';
+
+  # mrconfig for personal machines
+  home.file.".mrconfig.personal".text = ''
+[DEFAULT]
+include = cat ~/.mrconfig
+
+[$HOME/lib/organiser]
+checkout =
+      git clone git@github.com:akirak/organiser.git
+      cd organiser; make install-hooks
+
+[$HOME/lib/blog]
+checkout = git clone -b drafts --recursive git@github.com:akirak/jingsi-space-blog.git blog
 '';
 
 }
