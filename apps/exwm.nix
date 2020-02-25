@@ -1,5 +1,8 @@
 { profile, pkgs, lib, desktop, ... }:
 with profile.path;
+let
+  nixPath = "nixpkgs=${channelsDir}/nixpkgs";
+in
 {
   home.packages = with pkgs; [
     la-capitaine-icons
@@ -42,6 +45,7 @@ with profile.path;
 
         Environment = [
           "DISPLAY=:0"
+          "NIX_PATH=${nixPath}"
         ];
       };
     };
@@ -73,6 +77,7 @@ with profile.path;
 
         Environment = [
           "DISPLAY=:2"
+          "NIX_PATH=${nixPath}"
         ];
 
       };
