@@ -119,6 +119,7 @@ export SHELL=${profile.path.binDir}/zsh
         "ll" = "ls -l";
         "rm" = "rm -i";
         "e" = "emacs-server-open";
+        "j" = "journalctl -xe";
         "start" = "systemctl --user start";
         "stop" = "systemctl --user stop";
         "enable" = "systemctl --user enable";
