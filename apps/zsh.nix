@@ -103,6 +103,11 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 
+if [[ ! -v __HM_SESS_VARS_SOURCED ]]; then
+    source "$HOME/.nix-profile/profile.d/nix.sh"
+    source "$HOME/.nix-profile/profile.d/hm-session-vars.sh"
+fi
+
 # Support directory tracking on emacs-libvterm.
 # https://github.com/akermu/emacs-libvterm#directory-tracking
 function chpwd() {
