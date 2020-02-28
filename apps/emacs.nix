@@ -231,6 +231,15 @@ with profile.path;
       icon = "emacs";
     };
 
+  home.file.".local/share/applications/emacs-custom-stop.desktop".text =
+    desktop.mkApplicationEntry {
+      name = "Stop the Emacs service";
+      exec = "systemctl --user stop emacs.service";
+      tryExec = "${binDir}/emacs";
+      startupWmClass = "Emacs";
+      icon = "emacs";
+    };
+
   # Based on https://askubuntu.com/questions/1105123/how-to-start-emacs-as-service
   systemd.user.services.emacs = {
     Unit = {
