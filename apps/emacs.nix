@@ -135,6 +135,7 @@ with profile.path;
 
   home.packages = with pkgs; [
     ripgrep
+    ripgrep-all
     exa
     fd
     bat
