@@ -62,7 +62,9 @@ in
         Wants = [
           "default.target"
         ];
-
+        Conflicts = [
+          "emacs.service"
+        ];
         OnFailure = [
           "notify-failure@exwm.service"
         ];
