@@ -23,10 +23,10 @@ branch=$(git symbolic-ref --short HEAD)
 remote=origin
 
 # For now, abort if HEAD is not on master
-if [[ $branch != master ]]; then
-    err "Not on master branch."
-    exit 1
-fi
+# if [[ $branch != master ]]; then
+#     err "Not on master branch."
+#     exit 1
+# fi
 
 git fetch $remote
 if git diff-tree --quiet HEAD..$remote/$branch; then
