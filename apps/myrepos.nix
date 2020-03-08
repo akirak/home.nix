@@ -43,6 +43,10 @@ checkout =
       git clone git@github.com:akirak/organiser.git
       cd organiser; make install-hooks
 
+[$HOME/lib/programming]
+checkout =
+      git clone git@github.com:akirak/programming.git
+
 [$HOME/lib/blog]
 checkout = git clone -b drafts --recursive git@github.com:akirak/jingsi-space-blog.git blog
 '';
