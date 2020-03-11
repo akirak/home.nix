@@ -57,6 +57,16 @@ with profile;
           };
         }
         {
+          name = "zsh-fzy";
+          src = pkgs.fetchFromGitHub {
+            owner = "aperezdc";
+            repo = "zsh-fzy";
+            rev = "923364fabf5e8731f2f0d02c66946a7b6a4c3b13";
+            sha256 = "15kc5qcwfmi8p1nyykmnjp32lz8zn1ji8w6aly1pfcg0l62wm26q";
+            # date = 2019-09-25T15:40:28+03:00;
+          };
+        }
+        {
           name = "fast-syntax-highlighting";
           src = pkgs.fetchFromGitHub {
             owner = "zdharma";
@@ -107,6 +117,14 @@ if [[ ! -v __HM_SESS_VARS_SOURCED ]]; then
     source "$HOME/.nix-profile/profile.d/nix.sh"
     source "$HOME/.nix-profile/profile.d/hm-session-vars.sh"
 fi
+
+# Configuration for zsh-fzy plugin https://github.com/aperezdc/zsh-fzy
+bindkey '\eq' fzy-proc-widget
+bindkey '\ew' fzy-cd-widget
+bindkey '\ee' fzy-file-widget
+bindkey '\er' fzy-history-widget
+zstyle :fzy:file command fd -t f
+zstyle :fzy:cd command fd -t d
 
 # Support directory tracking on emacs-libvterm.
 # https://github.com/akermu/emacs-libvterm#directory-tracking
