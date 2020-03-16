@@ -4,6 +4,7 @@ with profile;
   home.packages = with pkgs; [
     nix-zsh-completions
     fzy
+    skim
     # You don't need this if you install google-fonts
     # powerline-fonts
 
