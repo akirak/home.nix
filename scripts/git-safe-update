@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -9,14 +9,27 @@ if [[ $(git rev-parse --is-inside-work-tree) != true ]]; then
     exit 1
 fi
 
-if ! git rev-parse --quiet --verify HEAD >/dev/null; then
-    err "The current HEAD is detached."
-    exit 1
-fi
+git_verify() {
+    if ! git rev-parse --quiet --verify HEAD >/dev/null; then
+        err "The current HEAD is detached."
+        return 1
+    fi
 
-if ! git diff-index --name-status --exit-code HEAD; then
-    err "The working tree is not clean."
-    exit 1
+    if ! git diff-index --name-status --exit-code HEAD; then
+        err "The working tree is not clean."
+        return 1
+    fi
+
+    return 0
+}
+
+if ! git_verify; then
+    echo "You've got a chance to fix it. Don't miss it."
+    "$SHELL"
+    if ! git_verify; then
+        echo "You've failed."
+        exit 1
+    fi
 fi
 
 branch=$(git symbolic-ref --short HEAD)
@@ -29,9 +42,9 @@ remote=origin
 # fi
 
 git fetch $remote
-if git diff-tree --quiet HEAD..$remote/$branch; then
+if git diff-tree --quiet "HEAD..$remote/$branch"; then
     echo "The branch is up-to-date."
     exit 2
 else
-    git rebase $remote/$branch
+    git rebase "$remote/$branch"
 fi
