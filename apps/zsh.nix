@@ -145,7 +145,6 @@ fi
         "la" = "ls -a";
         "ll" = "ls -l";
         "rm" = "rm -i";
-        "e" = "emacs-server-open";
         "j" = "journalctl -xe";
         "start" = "systemctl --user start";
         "stop" = "systemctl --user stop";
@@ -157,9 +156,6 @@ fi
         "list-units" = "systemctl --user list-units";
         "list-unit-files" = "systemctl --user list-unit-files";
         "reset" = "systemctl --user reset-failed";
-        "cb" = "cd `lsbm.d | fzy -p 'cd to bookmark: '`";
-        "cdp" = "cd `lsproj | fzy -p 'cd to project: '`";
-        "v" = "vagrant";
         "ncu-update" = "nix-shell -p nodePackages.npm-check-updates --command 'ncu -u'";
      };
    };
