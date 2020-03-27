@@ -156,7 +156,7 @@ fi
 
       profileExtra = ''
 emulate sh
-if [ -f /etc/profile ]; then
+if [ -f /etc/profile ] && [ ! -v __ETC_PROFILE_DONE ]; then
   . /etc/profile
 fi
 if [ -f ~/.profile ]; then
