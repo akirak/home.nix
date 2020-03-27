@@ -114,11 +114,6 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 
-if [[ ! -v __HM_SESS_VARS_SOURCED ]]; then
-    source "$HOME/.nix-profile/profile.d/nix.sh"
-    source "$HOME/.nix-profile/profile.d/hm-session-vars.sh"
-fi
-
 # Configuration for zsh-fzy plugin https://github.com/aperezdc/zsh-fzy
 bindkey '\eq' fzy-proc-widget
 bindkey '\ew' fzy-cd-widget
@@ -157,7 +152,20 @@ fi
         "list-unit-files" = "systemctl --user list-unit-files";
         "reset" = "systemctl --user reset-failed";
         "ncu-update" = "nix-shell -p nodePackages.npm-check-updates --command 'ncu -u'";
-     };
+      };
+
+      profileExtra = ''
+emulate sh
+if [ -f /etc/profile ]; then
+  . /etc/profile
+fi
+if [ -f ~/.profile ]; then
+  . ~/.profile
+fi
+emulate zsh
+
+source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+'';
    };
 
 }
