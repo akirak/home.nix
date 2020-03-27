@@ -29,15 +29,6 @@ update =
           exit 1
       fi
 
-[$HOME/lib/emacs]
-checkout = git clone https://github.com/akirak/emacs-config-library.git emacs
-'';
-
-  # mrconfig for personal machines
-  home.file.".mrconfig.personal".text = ''
-[DEFAULT]
-include = cat ~/.mrconfig
-
 [$HOME/lib/organiser]
 checkout =
       git clone git@github.com:akirak/organiser.git
@@ -46,6 +37,12 @@ checkout =
 [$HOME/lib/programming]
 checkout =
       git clone git@github.com:akirak/programming.git
+'';
+
+  # mrconfig for personal machines
+  home.file.".mrconfig.personal".text = ''
+[DEFAULT]
+include = cat ~/.mrconfig
 
 [$HOME/lib/blog]
 checkout = git clone -b drafts --recursive git@github.com:akirak/jingsi-space-blog.git blog
