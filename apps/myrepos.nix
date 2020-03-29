@@ -1,8 +1,19 @@
-{ profile, pkgs, lib, ... }:
+{ profile, desktop, pkgs, lib, ... }:
+with profile.path;
 {
   home.packages = with pkgs; [
     myrepos
   ];
+
+  home.file.".local/share/applications/mr-update.desktop".text =
+    desktop.mkApplicationEntry {
+      name = "mr update";
+      exec = "mr up";
+      terminal = True;
+      tryExec = "${binDir}/mr";
+      # TODO: Replace with an icon which better fits the app
+      icon = "alacritty-term";
+    };
 
   # mrconfig for all machines
   home.file.".mrconfig".text = ''
