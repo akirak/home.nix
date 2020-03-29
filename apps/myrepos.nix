@@ -1,5 +1,8 @@
 { profile, desktop, pkgs, lib, ... }:
 with profile.path;
+let
+  wmClass = "mr-update";
+in
 {
   home.packages = with pkgs; [
     myrepos
@@ -8,8 +11,9 @@ with profile.path;
   home.file.".local/share/applications/mr-update.desktop".text =
     desktop.mkApplicationEntry {
       name = "mr update";
-      exec = "mr up";
-      terminal = True;
+      exec = "alacritty --class ${wmClass} -e mr update";
+      terminal = False;
+      startupWmClass = wmClass;
       tryExec = "${binDir}/mr";
       # TODO: Replace with an icon which better fits the app
       icon = "alacritty-term";
