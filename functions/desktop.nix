@@ -12,28 +12,22 @@ rec {
       exec = cfg.exec;
       tryExec = cfg.tryExec;
       mimeType = cfg.mimeType;
-      startupWmClass = if cfg ? startupWmClass
-                       then cfg.startupWmClass
-                       else "";
-      startupNotify = if cfg ? startupNotify
-                      then cfg.startupNotify
-                      else false;
       dBusActivatable = if cfg ? dBusActivatable
                         then cfg.dBusActivatable
                         else false;
     };
     in ''
-[Desktop Entry]
-Version=1.0
-Name=${params.name}
-TryExec=${params.tryExec}
-Exec=${params.exec}
-Icon=${params.icon}
-Type=${params.type}
-Terminal=${boolToString params.terminal}
-StartupWMClass=${params.startupWmClass}
-StartupNotify=${boolToString params.startupNotify}
-DBusActivatable=${boolToString params.dBusActivatable}
+     [Desktop Entry]
+     Version=1.0
+     Name=${params.name}
+     TryExec=${params.tryExec}
+     Exec=${params.exec}
+     Icon=${params.icon}
+     Type=${params.type}
+     Terminal=${boolToString params.terminal}
+     DBusActivatable=${boolToString params.dBusActivatable}
+     ${if cfg ? startupWmClass then "StartupWMClass=" + cfg.startupWmClass else ""}
+     ${if cfg ? startupNotify then "StartupNotify=" + boolToString cfg.startupNotify else ""}
 '';
 
   mkApplicationEntry = cfg:
