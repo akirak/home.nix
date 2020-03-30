@@ -27,7 +27,7 @@ in
     desktop.mkApplicationEntry {
       name = "EXWM on Xephyr";
       exec = "systemctl --user start exwm.service";
-      tryExec = "${binDir}/nix-shell";
+      tryExec = "${nixBinDir}/nix-shell";
       startupWmClass = "Xephyr";
       icon = "xorg";
     };
@@ -41,7 +41,7 @@ in
       Service = {
         Type = "forking";
 
-        ExecStart = "${binDir}/nix-shell -p bash gnugrep xorg.xdpyinfo xorg.xorgserver --command '${binDir}/xephyr-launcher :2'";
+        ExecStart = "${nixBinDir}/nix-shell -p bash gnugrep xorg.xdpyinfo xorg.xorgserver --command '${binDir}/xephyr-launcher :2'";
 
         Environment = [
           "DISPLAY=:0"

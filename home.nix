@@ -1,17 +1,18 @@
 { pkgs, lib, ... }:
 with lib;
 let
-  profile = import ./functions/profile.nix {
+  profile = import ./functions/profile.nix rec {
     profile = import ./profile.nix {};
     path =
-      let
+      rec {
         homeDirectory = builtins.getEnv "HOME";
         channelsDir = "${homeDirectory}/.nix-defexpr/channels";
         binDir = "${homeDirectory}/.nix-profile/bin";
         hmSessionBin = "${binDir}/hm-session";
-      in
-      {
-        inherit homeDirectory channelsDir binDir hmSessionBin;
+        nixBinDir =
+          if profile.platform.isNixOS
+          then "/run/current-system/sw/bin"
+          else binDir;
       };
   };
   extendConfigWith = import ./functions/extend-config.nix { inherit lib; };
