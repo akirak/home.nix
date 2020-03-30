@@ -41,7 +41,7 @@ remote=origin
 #     exit 1
 # fi
 
-git fetch $remote
+git fetch --recurse-submodules=on-demand $remote
 if git diff-tree --quiet "HEAD..$remote/$branch"; then
     echo "The branch is up-to-date."
     exit 2
