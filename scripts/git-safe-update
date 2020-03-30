@@ -46,5 +46,7 @@ if git diff-tree --quiet "HEAD..$remote/$branch"; then
     echo "The branch is up-to-date."
     exit 2
 else
-    git rebase "$remote/$branch"
+    # Preserve merges when rebasing.
+    # See https://derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/
+    git rebase --preserve-merges "$remote/$branch"
 fi
