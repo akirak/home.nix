@@ -128,10 +128,10 @@ function chpwd() {
     print -Pn "\e]51;A$(pwd)\e\\";
 }
 
-zsh=${profile.path.binDir}/zsh
-if [[ -x "$zsh" ]]; then
-   export SHELL="$zsh"
-fi
+# zsh=${profile.path.binDir}/zsh
+# if [[ -x "$zsh" ]]; then
+#    export SHELL="$zsh"
+# fi
 '';
       shellAliases = {
         ".." = "cd ..";
