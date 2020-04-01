@@ -9,27 +9,40 @@ if [[ $(git rev-parse --is-inside-work-tree) != true ]]; then
     exit 1
 fi
 
-git_verify() {
-    if ! git rev-parse --quiet --verify HEAD >/dev/null; then
-        err "The current HEAD is detached."
-        return 1
-    fi
+# git_verify() {
+#     if ! git rev-parse --quiet --verify HEAD >/dev/null; then
+#         err "The current HEAD is detached."
+#         return 1
+#     fi
 
-    if ! git diff-index --name-status --exit-code HEAD; then
-        err "The working tree is not clean."
-        return 1
-    fi
+#     if ! git diff-index --name-status --exit-code HEAD; then
+#         err "The working tree is not clean."
+#         return 1
+#     fi
 
-    return 0
+#     return 0
+# }
+
+# if ! git_verify; then
+#     echo "You've got a chance to fix it. Don't miss it."
+#     "$SHELL"
+#     if ! git_verify; then
+#         echo "You've failed."
+#         exit 1
+#     fi
+# fi
+
+git_detached() {
+    ! git rev-parse --quiet --verify HEAD >/dev/null
 }
 
-if ! git_verify; then
-    echo "You've got a chance to fix it. Don't miss it."
-    "$SHELL"
-    if ! git_verify; then
-        echo "You've failed."
-        exit 1
-    fi
+git_dirty() {
+    ! git diff-index --name-status --exit-code HEAD
+}
+
+if git_detached; then
+    err "The current HEAD is detached."
+    exit 1
 fi
 
 branch=$(git symbolic-ref --short HEAD)
@@ -48,5 +61,17 @@ if git diff-tree --quiet "HEAD..$remote/$branch"; then
 else
     # Preserve merges when rebasing.
     # See https://derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/
-    git rebase --preserve-merges "$remote/$branch"
+    rebase=0
+    git rebase --autostash --preserve-merges "$remote/$branch" || rebase=$?
+
+    if [[ $rebase -gt 0 ]]; then
+        echo Rebasing failed.
+        "$SHELL"
+    elif git_dirty; then
+        echo <<<EOF
+        The working tree is not clean.
+        Maybe uncomitted changes have been restored from a stash.
+EOF
+        "$SHELL"
+    fi
 fi
