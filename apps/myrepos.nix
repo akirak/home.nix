@@ -6,14 +6,18 @@ with profile.path;
   ];
 
   home.file.".local/share/applications/mr-update.desktop".text =
-    desktop.mkApplicationEntry {
-      name = "mr update";
-      exec = "mr up";
-      terminal = True;
-      tryExec = "${binDir}/mr";
-      # TODO: Replace with an icon which better fits the app
-      icon = "alacritty-term";
-    };
+    let
+      wmClass = "mr-update";
+    in
+      desktop.mkApplicationEntry {
+        name = "mr update";
+        exec = "${binDir}/alacritty --class ${wmClass} -e sh -c 'cd ~; mr up; read'";
+        tryExec = "${binDir}/mr";
+        # TODO: Replace with an icon which better fits the app
+        icon = "alacritty-term";
+        startupWmClass = wmClass;
+        startupNotify = false;
+      };
 
   # mrconfig for all machines
   home.file.".mrconfig".text = ''
