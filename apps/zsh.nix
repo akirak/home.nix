@@ -41,9 +41,9 @@ with profile;
           src = pkgs.fetchFromGitHub {
              owner = "b4b4r07";
              repo = "enhancd";
-             rev = "4c6656201e3f70b2e9bc0b29a42fcfeda0109541";
-             sha256 = "0dx49rnfz68ij7v5bfjs651mnr63f18zjxzbq1aa68i4q6xp99p3";
-             # date = 2019-06-10T22:14:53+09:00;
+             rev = "f0f894029d12eecdc36c212fa3ad14f55468d1b7";
+             sha256 = "1qk2fa33jn4j3xxaljmm11d6rbng6d5gglrhwavb72jib4vmkwyb";
+             # date = 2020-02-11T14:27:32+09:00;
           };
         }
         {
@@ -72,9 +72,9 @@ with profile;
           src = pkgs.fetchFromGitHub {
             owner = "zdharma";
             repo = "fast-syntax-highlighting";
-            rev = "45b6516fad95c8bc35aea44eb7edc8ccbf642007";
-            sha256 = "1cf09rls81b00kkbabi562x9kkbwm9p31x9vcbpyz8sixfp5anv3";
-            # date = 2019-07-15T07:04:50+02:00;
+            rev = "c4c419edb98c54e442f743708f3f1159d6735241";
+            sha256 = "197qmbc35byqcs4rjf3vin2mbwsc3m4i6q9zd50q5jpk8bij2gd8";
+            # date = 2020-04-02T19:05:33+02:00;
           };
         }
         {
@@ -82,9 +82,9 @@ with profile;
           src =  pkgs.fetchFromGitHub {
             owner = "chisui";
             repo = "zsh-nix-shell";
-            rev = "b2609ca787803f523a18bb9f53277d0121e30389";
-            sha256 = "01w59zzdj12p4ag9yla9ycxx58pg3rah2hnnf3sw4yk95w3hlzi6";
-            # date = 2019-04-22T22:00:26+02:00;
+            rev = "a65382a353eaee5a98f068c330947c032a1263bb";
+            sha256 = "0l41ac5b7p8yyjvpfp438kw7zl9dblrpd7icjg1v3ig3xy87zv0n";
+            # date = 2019-12-20T12:15:36+01:00;
           };
         }
       ];
