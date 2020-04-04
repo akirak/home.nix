@@ -151,7 +151,6 @@ function chpwd() {
         "list-units" = "systemctl --user list-units";
         "list-unit-files" = "systemctl --user list-unit-files";
         "reset" = "systemctl --user reset-failed";
-        "ncu-update" = "nix-shell -p nodePackages.npm-check-updates --command 'ncu -u'";
       };
 
       profileExtra = ''
