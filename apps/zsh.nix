@@ -132,6 +132,11 @@ function chpwd() {
 # if [[ -x "$zsh" ]]; then
 #    export SHELL="$zsh"
 # fi
+
+
+# Use gpg-agent as ssh-agent.
+gpg-connect-agent /bye
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 '';
       shellAliases = {
         ".." = "cd ..";

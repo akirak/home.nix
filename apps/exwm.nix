@@ -80,6 +80,8 @@ in
         Environment = [
           "DISPLAY=:2"
           "NIX_PATH=${nixPath}"
+          # You should get this value by running `gpgconf --list-dirs agent-ssh-socket`
+          "SSH_AUTH_SOCK=/run/user/1000/gnupg/S.gpg-agent.ssh"
         ];
 
       };

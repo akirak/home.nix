@@ -20,8 +20,9 @@ with profile;
 
   ignores = [];
 
-  # TODO: Define programs.git.signing
-  # signing = null;
+  signing = {
+    key = "5B3390B01C01D3E";
+  };
 }
 //
 lib.optionalAttrs preferences.addGlobalGitIdentity {
