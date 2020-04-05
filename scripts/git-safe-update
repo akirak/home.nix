@@ -68,9 +68,9 @@ else
         echo Rebasing failed.
         "$SHELL"
     elif git_dirty; then
-        echo <<<EOF
-        The working tree is not clean.
-        Maybe uncomitted changes have been restored from a stash.
+        echo <<EOF
+The working tree is not clean.
+Maybe uncomitted changes have been restored from a stash.
 EOF
         "$SHELL"
     fi
