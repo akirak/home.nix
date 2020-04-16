@@ -16,6 +16,8 @@ with profile;
     "url \"git@github.com:\"".pushInsteadOf = "https://github.com/";
 
     core.autocrlf = "input";
+    # Only on WSL
+    # core.fileMode = false;
   };
 
   ignores = [];
