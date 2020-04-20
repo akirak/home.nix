@@ -165,7 +165,7 @@ with profile.path;
     # beancount
     beancount
     # for some packages (e.g. treemacs)
-    python3
+    # python3
     # Dhall
     easy-dhall-nix.dhall-simple
     easy-dhall-nix.dhall-lsp-simple
