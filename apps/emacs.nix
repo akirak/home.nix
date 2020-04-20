@@ -166,6 +166,9 @@ with profile.path;
     beancount
     # for some packages (e.g. treemacs)
     python3
+    # Dhall
+    easy-dhall-nix.dhall-simple
+    easy-dhall-nix.dhall-lsp-simple
     # icons
     # emacs-alt-icon
     # fonts
