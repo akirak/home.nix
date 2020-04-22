@@ -141,6 +141,7 @@ with profile.path;
     bat
     mlocate
     gopass
+    nixfmt
     # Use dex to use counsel-linux-apps on NixOS
     dex
     # org-babel
