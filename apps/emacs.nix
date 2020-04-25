@@ -16,6 +16,7 @@ with profile.path;
         exwm
         beancount
         liberime-config
+        eaf
       ];
     overrides = self: super: {
       mozc = with pkgs;
@@ -130,6 +131,48 @@ with profile.path;
             install -m 444 -v -t build $out/build/liberime.so
         '';
       };
+
+      eaf = self.melpaBuild rec {
+        pname = "eaf";
+        version = "0";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "manateelazycat";
+          repo = "emacs-application-framework";
+          rev = "523685f89759462c9be03585d4e8c20ea8ca9e17";
+          # date = 2020-04-18T14:45:35+08:00;
+          sha256 = "1ih9p6ycj8388pslgirr80jl8l4z22jh2m23znii47lcx8fzxl94";
+        };
+
+        recipe = pkgs.writeText "recipe" ''
+          (eaf :fetcher github :repo "manateelazycat/emacs-application/framework")
+        '';
+
+        nativeBuildInputs =
+          let
+            nixpkgs-unstable = import (pkgs.fetchFromGitHub {
+              owner = "NixOS";
+              repo = "nixpkgs";
+              rev = "002b553b14280e69f9f6654bc806c16002756b0b";
+              # date = 2020-04-25T15:50:38+02:00;
+              sha256 = "0fii2wg22slzw33r55r17svavwv37lw8yvqr0fgkqz9f8s8d0di5";
+            }) {};
+          in
+            with nixpkgs-unstable.pythonPackages; [
+              pyqt5
+              # pyqt5-sip
+              pyqtwebengine
+              pymupdf
+              grip
+              qrcode
+              feedparser
+              pyinotify
+              markdown
+              pkgs.nodejs
+            ];
+
+      };
+
     };
   };
 
