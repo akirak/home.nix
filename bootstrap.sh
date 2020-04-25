@@ -1,5 +1,5 @@
 #!/bin/sh
-NIX_OS_VERSION=19.09
+NIX_OS_VERSION=20.03
 HM_URL=https://github.com/rycee/home-manager/archive/release-${NIX_OS_VERSION}.tar.gz
 REPO_URL=https://github.com/akirak/home.nix.git
 REPO_DEST="$HOME/home.nix"
