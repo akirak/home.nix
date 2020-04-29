@@ -11,6 +11,7 @@ with profile;
     gitbatch
     bashcaster
     nox
+    niv
     nix-prefetch-git
     trash-cli
     my-scripts
