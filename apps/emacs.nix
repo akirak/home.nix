@@ -170,6 +170,7 @@ with profile.path;
     # Dhall
     easy-dhall-nix.dhall-simple
     easy-dhall-nix.dhall-lsp-simple
+    easy-dhall-nix.dhall-json-simple
     # icons
     # emacs-alt-icon
     # fonts
