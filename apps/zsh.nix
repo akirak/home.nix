@@ -145,6 +145,7 @@ function chpwd() {
 #    export SHELL="$zsh"
 # fi
 
+export NIX_BUILD_SHELL=bash
 
 # Use gpg-agent as ssh-agent.
 gpg-connect-agent /bye
