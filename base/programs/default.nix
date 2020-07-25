@@ -34,6 +34,7 @@ with profile;
     direnv = {
       enable = true;
       enableZshIntegration = true;
+      enableNixDirenvIntegration = true;
     };
 
     jq = {

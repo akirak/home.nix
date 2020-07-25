@@ -144,6 +144,11 @@ if is_wsl; then
 sandbox = false
 use-sql-wal = false
 EOF
+else
+    echo <<EOF > $HOME/.config/nix/nix.conf
+keep-derivations = true
+keep-outputs = true
+EOF
 fi
 
 if ! command -v nix-env >/dev/null 2>&1; then
