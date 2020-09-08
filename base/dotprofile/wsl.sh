@@ -21,5 +21,12 @@ clean_path
 export PATH
 
 # Set DISPLAY to 0 unless it has been already set
-DISPLAY=${DISPLAY:-:0}
+# DISPLAY=${DISPLAY:-:0}
+# export DISPLAY
+
+# Set the display for WSL 2
+DISPLAY=`grep -oP "(?<=nameserver ).+" /etc/resolv.conf`:0.0
 export DISPLAY
+
+LIBGL_ALWAYS_INDIRECT=1
+export LIBGL_ALWAYS_INDIRECT
