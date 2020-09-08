@@ -14,7 +14,7 @@ with profile.path;
         pdf-tools
         elisp-ffi
         exwm
-        beancount
+        # beancount
         liberime-config
       ];
     overrides = self: super: {
@@ -135,7 +135,7 @@ with profile.path;
 
   home.packages = with pkgs; [
     ripgrep
-    ripgrep-all
+    # ripgrep-all
     exa
     fd
     bat
