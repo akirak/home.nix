@@ -38,12 +38,17 @@ with profile;
   # Use the language settings from the profile.
   language = profile.language;
 
-  sessionVariables = {
-    NIX_PATH = "nixpkgs=${path.channelsDir}/nixpkgs:${path.channelsDir}";
-    HOME_MANAGER_CONFIG = builtins.getEnv "HOME_MANAGER_CONFIG";
-  }
-  # Apply the locale settings in the profile
-  // profile.locale;
+  sessionVariables =
+    (with profile.path;
+      {
+        NIX_PATH = "nixpkgs=${channelsDir}/nixpkgs:${channelsDir}";
+        HOME_MANAGER_CONFIG = builtins.getEnv "HOME_MANAGER_CONFIG";
+        XDG_CACHE_HOME = "${homeDirectory}/.cache";
+        XDG_CONFIG_HOME = "${homeDirectory}/.config";
+        XDG_DATA_HOME = "${homeDirectory}/.local/share";
+      })
+    # Apply the locale settings in the profile
+    // profile.locale;
 
 }
 //
