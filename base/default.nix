@@ -29,6 +29,11 @@
 
   gtk.enable = false;
 
+  gtk.font = {
+    package = pkgs.dejavu_fonts;
+    name = "DejaVu Sans 12";
+  };
+
   # The following configuration is used if you start an X session using xinit.
   # Configure ~/.xinitrc.
   # xsession = {
