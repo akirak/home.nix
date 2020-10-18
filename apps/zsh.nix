@@ -181,7 +181,9 @@ if [ -f ~/.profile ]; then
 fi
 emulate zsh
 
-source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
+  source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
 '';
    };
 
