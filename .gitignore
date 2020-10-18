@@ -1,4 +1,11 @@
+# For the older version (2019)
+# Remove these after migration is complete
 .errors.txt
-/result
 /profile.nix
 /identity.nix
+
+# Generic Nix
+result
+
+# pre-commit
+.pre-commit-config.yaml
