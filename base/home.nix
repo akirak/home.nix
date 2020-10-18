@@ -46,6 +46,7 @@ with profile;
         XDG_CACHE_HOME = "${homeDirectory}/.cache";
         XDG_CONFIG_HOME = "${homeDirectory}/.config";
         XDG_DATA_HOME = "${homeDirectory}/.local/share";
+        ZDOTDIR = "${homeDirectory}/.config/zsh";
       })
     # Apply the locale settings in the profile
     // profile.locale;
