@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -e "$HOME/.emacs" || -e "$HOME/.emacs.d" ]]; then
+    echo "Non-XDG Emacs init file is getting in the way." >&2
+    echo "You have to remove it first." >&2
+    exit 1
+fi
+
+xdgConfigMerged="$profileRoot/xdg_config.merged"
+xdgConfigUpper="$profileRoot/xdg_config.upper"
+xdgConfigWork="$profileRoot/xdg_config.work"
+
+isMounted() {
+    findmnt -M "$1" > /dev/null
+}
+
+revertFuseMount() {
+    if isMounted "$1"; then
+        echo "Unmounting $1"
+        fusermount3 -u "$1"
+    fi
+}
+
+revert() {
+    revertFuseMount "$xdgConfigMerged"
+}
+
+trap revert 1 2 6 15
+
+makeXdgConfigOverlay() {
+    mkdir -p "$xdgConfigMerged" "$xdgConfigUpper" "$xdgConfigWork"
+    
+    'fuse-overlayfs' \
+        -o "lowerdir=${XDG_CONFIG_HOME},upperdir=$xdgConfigUpper,workdir=$xdgConfigWork" \
+        "$xdgConfigMerged"
+
+    # White out ${XDG_CONFIG_HOME}/emacs
+    rm -rf "$xdgConfigMerged/emacs"
+
+    # Symlink from ${XDG_CONFIG_HOME}/emacs to the user emacs dir
+    ln -sf "$userEmacsDir" "$xdgConfigMerged/emacs"
+}
+
+if ! isMounted "$xdgConfigMerged"; then
+    if ! command -v fusermount3 >/dev/null; then
+        echo "fusermount3 executable is required in the PATH" >&2
+        exit 1
+    fi
+    makeXdgConfigOverlay
+fi
+
+XDG_CONFIG_HOME="$xdgConfigMerged" exec 'emacs' "$@"

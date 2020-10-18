@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+IFS=\n
+for mountpoint in $(findmnt -n -S fuse-overlayfs -o target | grep -F "$profileRoot/"); do
+    fusermount -u "$mountpoint"
+done
+
+if [[ -d "$profileRoot" ]]; then
+    rm -rf "$profileRoot"
+    echo "Removed $profileRoot"
+fi
