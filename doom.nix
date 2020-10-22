@@ -1,6 +1,4 @@
-{ pkgs ? import (import ./nix/sources.nix).nixpkgs-unstable {
-} }:
-with pkgs;
+with (import ./nix/pkgs.nix);
 with builtins;
 let
   configDir = "${builtins.getEnv "HOME"}/.config/doom-runner";
