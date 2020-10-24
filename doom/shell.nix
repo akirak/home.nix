@@ -1,10 +1,12 @@
-with (import ./nix/pkgs.nix);
+with (import ../nix/pkgs.nix);
 with builtins;
 let
   configDir = "${builtins.getEnv "HOME"}/.config/doom-runner";
 in
 mkShell {
   XDG_CONFIG_HOME = configDir;
+
+  DOOMDIR = toString ./.;
 
   buildInputs = [
     emacs
@@ -18,7 +20,7 @@ mkShell {
 
     configDir="''${XDG_CONFIG_HOME}"
     doomDir="$configDir/emacs"
-    privateDir="$configDir/doom"
+    privateDir="$DOOMDIR"
 
     mkdir -p $configDir
     if ! [[ -d $doomDir ]]; then
@@ -27,7 +29,7 @@ mkShell {
 
     export PATH="$doomDir/bin:$PATH"
 
-    if ! [[ -d $privateDir ]]; then
+    if ! [[ -d "$privateDir" ]]; then
       echo
       echo "The installation of Doom has not been completed yet."
       echo
