@@ -12,6 +12,22 @@ mkShell {
     emacs
   ];
 
+  # Set up symbolic links from inside XDG_CONFIG_HOME for some
+  # applications so they look at existing settings in ~/.config
+  initConfigDir = writeShellScript "init-xdg-config" ''
+    origin="$HOME/.config"
+    cd "''${XDG_CONFIG_HOME}"
+    if [[ "$origin" = "$PWD" ]]; then
+      exit
+    fi
+    for f in nix nixpkgs hub; do
+      [[ -e $f ]] && continue
+      dest="$origin/$f"
+      ! [[ -e "$dest" ]] && continue
+      ln -sv dest
+    done
+  '';
+
   shellHook = ''
     if [[ -f "$HOME/.emacs" || -d "$HOME/.emacs.d" ]]; then
       echo "Non-XDG user-emacs-directory is getting in the way."
@@ -22,7 +38,11 @@ mkShell {
     doomDir="$configDir/emacs"
     privateDir="$DOOMDIR"
 
-    mkdir -p $configDir
+    if ! [[ -d "$configDir" ]]; then
+      mkdir -p "$configDir"
+      $initConfigDir
+    fi
+
     if ! [[ -d $doomDir ]]; then
       git clone --depth 1 https://github.com/hlissner/doom-emacs $doomDir
     fi
