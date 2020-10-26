@@ -1,3 +1,0 @@
-[submodule "contrib/chemacs"]
-	path = contrib/chemacs
-	url = https://github.com/plexus/chemacs.git

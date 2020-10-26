@@ -24,7 +24,6 @@ However, a better example will be John Wiegley's [[https://github.com/jwiegley/n
     -  [[#change-the-shell][Change the shell]]
   -  [[#extra-stuffs-that-are-not-installed-by-nix][Extra stuffs that are not installed by Nix]]
     -  [[#other-configuration-repositories-myrepos][Other configuration repositories (myrepos)]]
-    -  [[#chemacs][Chemacs]]
     -  [[#cachix][Cachix]]
     -  [[#lorri][Lorri]]
     -  [[#mrconfig-for-my-github-repositories][.mrconfig for my GitHub repositories]]
@@ -222,7 +221,7 @@ make all
 to install all the components.
 
 #+begin_src makefile
-all: install-hooks chemacs cachix home-manager lorri myrepos-checkout github-projects
+all: install-hooks cachix home-manager lorri myrepos-checkout github-projects
 #+end_src
 *** Installing dependencies
 Some dependencies cannot be installed by Nix, so they need to be installed in advance.
@@ -272,19 +271,6 @@ myrepos-checkout:
 #+end_src
 
 Since this depends on =mr= program and its configuration file, both of which are installed by home-manager, you have to run this task after running home-manager.
-**** Chemacs
-#+begin_src makefile
-chemacs:
-	cd contrib/chemacs && bash install.sh
-
-	if [ ! -f "$(HOME)/.emacs-profiles.el" ]; then \
-		install -m 644 -t "$(HOME)" -v dotfiles/.emacs-profiles.el; \
-	fi
-
-	if [ ! -f "$(HOME)/.custom.el" ]; then \
-		touch "$(HOME)/.custom.el"; \
-	fi
-#+end_src
 **** Cachix
 #+begin_src makefile
 cachix:
@@ -331,7 +317,7 @@ clean:
 #+end_src
 *** Phony                                                        :noexport:
 #+begin_src makefile
-.PHONY: install-hooks all chemacs home-manager system-icons clean \
+.PHONY: install-hooks all home-manager system-icons clean \
 	chsh update-nix-channels init-home-manager lorri tangle \
 	myrepos-checkout cachix github-projects
 #+end_src
