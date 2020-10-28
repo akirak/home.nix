@@ -7,7 +7,7 @@ let
 in
 {
   name = "my-config";
-  applications.doom-emacs = {
+  xdg.menu.applications.doom-emacs = {
     Name = "Doom Emacs";
     Icon = "emacs";
     TryExec = "${builtins.getEnv "HOME"}/.config/doom-runner/emacs/bin/doom";
