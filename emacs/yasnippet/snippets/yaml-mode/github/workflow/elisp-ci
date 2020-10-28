@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: Elisp CI by elinter
+# key: elisp-ci
+# --
+name: 'CI'
+on:
+  pull_request:
+  push:
+    paths-ignore:
+    - '**.md'
+    - '**.org'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: cachix/install-nix-action@v11
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: actions/checkout@v2
+    - uses: akirak/elinter@v4
+    - run: elinter -t ${1:test type} -e latest

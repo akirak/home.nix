@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: cluster
+# key: cluster
+# --
+subgraph cluster_$1 {
+$0
+}

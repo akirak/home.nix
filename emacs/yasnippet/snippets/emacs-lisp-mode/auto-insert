@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: auto-insert
+# key: auto-insert
+# --
+;;; `(file-name-nondirectory (or buffer-file-name (buffer-name)))` --- ${1:synopsis} -*- lexical-binding: t -*-
+
+$0
+
+(provide '`(file-name-base (or buffer-file-name (buffer-name)))`)
+;;; `(file-name-nondirectory (or buffer-file-name (buffer-name)))` ends here
