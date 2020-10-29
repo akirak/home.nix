@@ -91,7 +91,7 @@ if ! has_executable nix-env; then
   install_dependencies
 
   # multi-user installation
-  sh "<(curl -L https://nixos.org/nix/install)" --daemon
+  sh <(curl -L https://nixos.org/nix/install) --daemon
 
   # Alternatively, you single-user installation
   # sh <(curl -L https://nixos.org/nix/install) --no-daemon
