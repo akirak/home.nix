@@ -6,5 +6,8 @@ in
 mkShell {
   buildInputs = [
     home-manager.home-manager
+
+    # Used for development
+    shellcheck
   ];
 }
