@@ -1,0 +1,36 @@
+name: 'CI'
+on:
+  pull_request:
+  push:
+    branches:
+    - master
+    paths-ignore:
+    - '**.md'
+    - '**.org'
+jobs:
+  migration:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: ! test -e overlays
+      name: overlays should be moved to my NUR repo
+    - run: ! test -d .gitmodules
+      name: Don't include Git submodules
+    - run: ! test -e tests
+    - run: ! test -d helpers
+    - run: ! test -e base
+    - run: ! test -e apps
+    - run: ! test -e .githooks
+      name: Use pre-commit.nix
+    - run: ! test -e choose-profile.bash
+      name: profile should be managed in local repo
+    - run: ! test -e identity.sample.nix
+      name: identity should be managed in local repo
+    - run: ! test -e bootstrap.sh
+      name: Use a simplified script for installing Nix
+    - run: ! test -e scripts
+      name: scripts should be renamed to bin
+    - run: ! test -e functions
+    - run: ! test -d profiles
+    - run: ! home.nix
+      name: home.nix should be part of dotfiles
