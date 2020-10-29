@@ -38,6 +38,7 @@ is_nixos() {
 
 create_initial_nix_conf() {
   if is_wsl_1; then
+    mkdir -p "$HOME/.config/nix"
     echo <<EOF > $HOME/.config/nix/nix.conf
 sandbox = false
 use-sql-wal = false
