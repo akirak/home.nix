@@ -6,7 +6,8 @@ set -euo pipefail
 NIXPKGS=https://nixos.org/channels/nixpkgs-unstable
 
 # Set the build shell to bash, not /bin/sh
-export NIX_BUILD_SHELL="$(command -v bash)"
+NIX_BUILD_SHELL="$(command -v bash)"
+export NIX_BUILD_SHELL
 
 #############
 # Utilities #
@@ -39,7 +40,7 @@ is_nixos() {
 create_initial_nix_conf() {
   if is_wsl_1; then
     mkdir -p "$HOME/.config/nix"
-    echo <<EOF > $HOME/.config/nix/nix.conf
+    cat <<EOF > "$HOME/.config/nix/nix.conf"
 sandbox = false
 use-sql-wal = false
 EOF
@@ -104,6 +105,8 @@ if ! has_executable nix-env; then
        "/nix/var/nix/profiles/per-user/$USER" \
        "/nix/var/nix/gcroots/per-user/$USER"
 
+  # This file is created in multi-user installation
+  # shellcheck disable=SC1091
   . /etc/profile.d/nix.sh
 fi
 
