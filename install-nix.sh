@@ -114,5 +114,8 @@ if ! has_executable systemctl; then
   nix_install_systemd
 fi
 
+# Show Nix version to check if it is installed
+nix-env --version
+
 # Enter a subshell where Nix is available
 exec "$SHELL"
