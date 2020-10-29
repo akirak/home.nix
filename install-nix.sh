@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-set -eou pipefail
+set -euo pipefail
 
 # Nixpkgs channel url to subscribe
 NIXPKGS=https://nixos.org/channels/nixpkgs-unstable
