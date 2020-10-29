@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: install-nix-action
+# key: install-nix
+# --
+- uses: cachix/install-nix-action@v11
+  with:
+    nix_path: nixpkgs=channel:${1:nixos-unstable}
