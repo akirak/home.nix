@@ -72,12 +72,12 @@ nix_install_systemd() {
 # Main #
 ########
 
-# Skip the following steps if not run interactively
+# Skip the following steps if run interactively
 case $- in
   *i*)
-  ;;
-  *)
     return
+    ;;
+  *)
     ;;
 esac
 
