@@ -97,9 +97,14 @@ if ! has_executable nix-env; then
   # sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
   # Because NixOS has nix-env by default, this will never be run on the platform
-  mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/$USER
+  sudo mkdir -m 0755 \
+       "/nix/var/nix/profiles/per-user/$USER" \
+       "/nix/var/nix/gcroots/per-user/$USER"
+  sudo chown "$USER" \
+       "/nix/var/nix/profiles/per-user/$USER" \
+       "/nix/var/nix/gcroots/per-user/$USER"
 
-  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+  . /etc/profile.d/nix.sh
 fi
 
 setup_channels
