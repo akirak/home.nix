@@ -8,7 +8,6 @@ home-manager:
 	home-manager -I $(shell pwd) switch
 
 build:
-	which home-manager >/dev/null 2>&1 || nix-shell '<home-manager>' -A install
 	home-manager -I $(shell pwd) build
 
 all: install-hooks cachix home-manager
