@@ -22,11 +22,9 @@ post-install: system-icons
 system-icons:
 	./scripts/garcon-helper copy-icons
 
-install-hooks:
-	if [ -e .git ]; then nix-shell -p git --run 'git config core.hooksPath .githooks'; fi
-
 clean:
 	sudo rm -rf /homeless-shelter
 
-.PHONY: install-hooks all home-manager system-icons clean \
+.PHONY: all home-manager system-icons clean \
+	post-install \
 	update-nix-channels init-home-manager
