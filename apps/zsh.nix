@@ -33,7 +33,13 @@ with profile;
         }
         {
           name = "pure";
-          src = pkgs.zsh-pure-prompt;
+          src = pkgs.fetchFromGitHub {
+            owner = "sindresorhus";
+            repo = "pure";
+            rev = "dfc8062c64df8821eaec7d741c75f3cee20d37e3";
+            sha256 = "0nylqkag4isa22z130z9pbvjakwqf047q8qgzkwbwjhfqh9fp1sv";
+            # date = 2020-10-05T10:52:46+03:00;
+          };
         }
         {
           name = "enhancd";
