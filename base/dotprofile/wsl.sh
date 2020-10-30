@@ -1,24 +1,42 @@
-function clean_path() {
-    local IFS=:
-    local newpath=""
-    for dir in $PATH; do
-        if [[ "$dir" == /mnt/c/@(Windows|Program Files|Program Files \(x86\))/* ]]; then
-            continue
-        fi
-        if [[ -z "$newpath" ]]; then
-            newpath="$dir"
-        else
-            newpath="$newpath:$dir"
-        fi
-    done
+origifs="$IFS"
+
+if [[ "$0" = zsh ]]; then
+    emulate bash
+fi
+
+IFS=:
+declare -a newpath
+for dir in $PATH; do
+    case "$dir" in
+        /mnt/c/WINDOWS) ;;
+        /mnt/c/Windows) ;;
+        /mnt/c/WINDOWS/*) ;;
+        /mnt/c/Windows/*) ;;
+        /mnt/c/Program\ Files/*) ;;
+        /mnt/c/Program\ Files\ \(x86\)/*) ;;
+        *)
+            newpath+=("$dir")
+            ;;
+    esac
+done
+
+if [[ "$PATH" != *:/mnt/c/Windows/System32/WindowsPowerShell/v1.0 ]]; then
     # Allow access to powershell.exe
-    newpath="$newpath:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
+    newpath+=("/mnt/c/Windows/System32/WindowsPowerShell/v1.0")
+fi
 
-    PATH="$newpath"
-}
+IFS="$origifs"
 
-clean_path
+PATH=
+
+for dir in ${newpath[*]}; do
+    PATH="$PATH${PATH:+:}$dir"
+done
+
 export PATH
+
+unset newpath
+unset origifs
 
 # Set DISPLAY to 0 unless it has been already set
 # DISPLAY=${DISPLAY:-:0}
@@ -30,3 +48,7 @@ export DISPLAY
 
 LIBGL_ALWAYS_INDIRECT=1
 export LIBGL_ALWAYS_INDIRECT
+
+if [[ "$0" = zsh ]]; then
+    emulate zsh
+fi
