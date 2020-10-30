@@ -43,8 +43,10 @@ unset origifs
 # export DISPLAY
 
 # Set the display for WSL 2
-DISPLAY=`grep -oP "(?<=nameserver ).+" /etc/resolv.conf`:0.0
-export DISPLAY
+if ! [[ -v DISPLAY ]]; then
+    DISPLAY=`grep -oP "(?<=nameserver ).+" /etc/resolv.conf`:0.0
+    export DISPLAY
+fi
 
 LIBGL_ALWAYS_INDIRECT=1
 export LIBGL_ALWAYS_INDIRECT
