@@ -40,19 +40,8 @@ with profile;
           # file = "init.sh";
           src = pkgs.nur.akirak.zsh-enhancd;
         }
-        # {
-        #   name = "solarized-man";
-        #   src = pkgs.fetchFromGitHub {
-        #     owner = "zlsun";
-        #     repo = "solarized-man";
-        #     rev = "e69d2cedc3a51031e660f2c3459b08ab62ef9afa";
-        #     sha256 = "1ljnqxfzhi26jfzm0nm2s9w43y545sj1gmlk6pyd9a8zc0hafdx8";
-        #     # date = ;
-        #     # date = 2019-07-01T11:22:24+08:00;
-        #   };
-        # }
         {
-          name = "zsh-fzy";
+          name = "fzy";
           src = pkgs.nur.akirak.zsh-fzy;
         }
         {
