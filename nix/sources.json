@@ -34,5 +34,17 @@
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs-channels/archive/75f4ba05c63be3f147bcc2f7bd4ba1f029cedcb1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nur-packages": {
+        "branch": "master",
+        "description": null,
+        "homepage": null,
+        "owner": "akirak",
+        "repo": "nur-packages",
+        "rev": "1c5f7b08f5fcb90c5b8ad14dd6c5d7141328eee8",
+        "sha256": "0y5zidsbv5r48c587vmpy7aj114qqn6izspr30jr70dx5gv2qjfc",
+        "type": "tarball",
+        "url": "https://github.com/akirak/nur-packages/archive/1c5f7b08f5fcb90c5b8ad14dd6c5d7141328eee8.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

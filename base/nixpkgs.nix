@@ -7,9 +7,24 @@
   };
 
   overlays =
-    let path = ../overlays; in with builtins;
-    map (n: import (path + ("/" + n)))
-        (filter (n: match ".*\\.nix" n != null ||
-                    pathExists (path + ("/" + n + "/default.nix")))
-                (attrNames (readDir path)));
+    let
+      path = ../overlays;
+      inRepoOverlays = with builtins;
+        map (n: import (path + ("/" + n)))
+          (filter (n: match ".*\\.nix" n != null ||
+                      pathExists (path + ("/" + n + "/default.nix")))
+            (attrNames (readDir path)));
+      nurOverlay = self: super:
+        {
+          nur.akirak =
+            import (import ../nix/sources.nix).nur-packages {
+              pkgs = self;
+            };
+        };
+    in
+      inRepoOverlays
+      ++
+      [
+        nurOverlay
+      ];
 }
