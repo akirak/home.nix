@@ -11,7 +11,7 @@ with profile.preferences;
   (optionalAttrs profile.platform.isWayland (import ./wayland.nix attrs))
   (import ./org.nix attrs)
   # (import ./lorri.nix attrs)
-  (import ./kbfs.nix attrs)
+  # (import ./kbfs.nix attrs)
   (import ./exwm.nix attrs)
   (import ./polar.nix attrs)
   (import ./calibre.nix attrs)
