@@ -9,6 +9,7 @@ with profile;
     gnumake
     gnupg
     gitAndTools.hub
+    gitAndTools.git-annex
     gitbatch
     bashcaster
     nox
