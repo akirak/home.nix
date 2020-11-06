@@ -15,7 +15,7 @@ with profile.preferences;
   (import ./exwm.nix attrs)
   (import ./polar.nix attrs)
   (import ./calibre.nix attrs)
-  (import ./myrepos.nix attrs)
+  # (import ./myrepos.nix attrs)
   (import ./haskell.nix attrs)
   # (import ./next.nix attrs)
   # (import ./qutebrowser.nix attrs)
