@@ -14,7 +14,7 @@ with profile.preferences;
   # (import ./kbfs.nix attrs)
   (import ./exwm.nix attrs)
   # (import ./polar.nix attrs)
-  (import ./calibre.nix attrs)
+  # (import ./calibre.nix attrs)
   # (import ./myrepos.nix attrs)
   (import ./haskell.nix attrs)
   # (import ./next.nix attrs)
