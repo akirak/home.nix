@@ -13,7 +13,7 @@ with profile.preferences;
   # (import ./lorri.nix attrs)
   # (import ./kbfs.nix attrs)
   (import ./exwm.nix attrs)
-  (import ./polar.nix attrs)
+  # (import ./polar.nix attrs)
   (import ./calibre.nix attrs)
   # (import ./myrepos.nix attrs)
   (import ./haskell.nix attrs)
