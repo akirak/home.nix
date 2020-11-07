@@ -12,6 +12,8 @@ updates:
     # You can choose a random time here
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     time: '00:00'
+    # The time zone should be either 'UTC' or a pretty name like
+    # 'Asia/Tokyo'.
     timezone: UTC
   open-pull-requests-limit: 10
   commit-message:
