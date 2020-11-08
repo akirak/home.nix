@@ -10,6 +10,7 @@ with profile;
     gnupg
     gitAndTools.hub
     gitAndTools.git-annex
+    gitAndTools.git-annex-utils
     gitbatch
     bashcaster
     nox
