@@ -4,9 +4,9 @@ let
   nixPath = "nixpkgs=${channelsDir}/nixpkgs";
 in
 {
-  home.packages = with pkgs; [
-    la-capitaine-icons
-  ];
+  # home.packages = with pkgs; [
+  #   la-capitaine-icons
+  # ];
 
   xsession = {
     enable = true;
