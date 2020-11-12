@@ -9,7 +9,6 @@ with profile.preferences;
   (import ./alacritty.nix attrs)
   (optionalAttrs profile.platform.isChromeOS (import ./garcon.nix attrs))
   (optionalAttrs profile.platform.isWayland (import ./wayland.nix attrs))
-  (import ./org.nix attrs)
   # (import ./lorri.nix attrs)
   # (import ./kbfs.nix attrs)
   (import ./exwm.nix attrs)
