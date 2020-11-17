@@ -38,8 +38,12 @@ if ! command -v nix-env >/dev/null 2>&1; then
         fi
     fi
 
-    curl https://nixos.org/nix/install | sh \
-        && . $HOME/.nix-profile/etc/profile.d/nix.sh
+    tmp=$(mktemp)
+    curl -L https://nixos.org/nix/install > $tmp
+    chmod +x $tmp
+    $tmp --no-daemon
+    rm $tmp
+    . $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
 
 nix-channel --add https://nixos.org/channels/nixos-${NIX_OS_VERSION} nixpkgs
