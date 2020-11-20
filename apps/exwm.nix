@@ -11,13 +11,13 @@ in
   xsession = {
     enable = true;
     scriptPath = ".xinitrc";
-    windowManager.command = "${binDir}/hm-session emacs --exwm";
+    windowManager.command = "${binDir}/emacs --exwm";
   };
 
   home.file.".local/share/applications/exwm.desktop".text =
     desktop.mkApplicationEntry {
       name = "EXWM (Replace WM)";
-      exec = "${binDir}/nix-shell -p bash --command '${binDir}/hm-session emacs --exwm'";
+      exec = "${binDir}/nix-shell -p bash --command '${binDir}/emacs --exwm'";
       tryExec = "${binDir}/emacs";
       startupWmClass = "Emacs";
       icon = "xorg";

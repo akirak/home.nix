@@ -8,7 +8,6 @@ let
         homeDirectory = builtins.getEnv "HOME";
         channelsDir = "${homeDirectory}/.nix-defexpr/channels";
         binDir = "${homeDirectory}/.nix-profile/bin";
-        hmSessionBin = "${binDir}/hm-session";
         nixBinDir =
           if profile.platform.isNixOS
           then "/run/current-system/sw/bin"
