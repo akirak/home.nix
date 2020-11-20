@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ ! -v XDG_DATA_DIRS_ADDED_HM ]]; then
-    if [[ ! -v XDG_DATA_DIRS ]]; then
-        XDG_DATA_DIRS="${XDG_DATA_HOME:-$HOME/.local}:/usr/share"
-    fi
-    XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS}"
-    export XDG_DATA_DIRS
-    export XDG_DATA_DIRS_ADDED_HM=1
-fi
-
-source_if_existing() {
+ource_if_existing() {
     for src; do
         if [ -e "$src" ]; then
             echo "$(basename \"$0\"): Sourcing $src..."
@@ -21,7 +12,6 @@ source_if_existing() {
 if [[ -v HOME ]] && [[ -v USER ]]; then
     source_if_existing "$HOME/.nix-profile/etc/profile.d/nix.sh"
     source_if_existing "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-    source_if_existing "$HOME/.profile"
 else
     echo "\$HOME and/or \$USER is not defined. This can go wrong."
 fi
