@@ -75,7 +75,7 @@ with profile.path;
       keywords = "Text;Editor;";
       comment = "GNU Emacs is an extensible, customizable text editor - and more";
       mimeType = "text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;";
-      exec = "${hmSessionBin} emacs-server-open %F";
+      exec = "${nixBinDir}/emacs-server-open %F";
       tryExec = "${binDir}/emacs-server-open";
       startupWmClass = "Emacs";
       categories = "Utility;Development;TextEditor;";
@@ -86,11 +86,11 @@ with profile.path;
           exec = "${binDir}/emacsclient -c";
         };
         new-session = {
-          exec = "${hmSessionBin} emacs";
+          exec = "${nixBinDir}/emacs";
           name = "New session without server";
         };
         debug-session = {
-          exec = "${hmSessionBin} emacs --debug-init";
+          exec = "${nixBinDir}/emacs --debug-init";
           name = "Start in debug mode";
         };
       };
@@ -132,7 +132,7 @@ with profile.path;
       Type = "simple";
 
       # https://www.reddit.com/r/emacs/comments/b8ksfs/psa_for_new_users_emacs_261_has_the_emacs_daemon/ejyhklq/
-      ExecStart = "${hmSessionBin} emacsclient -a '' -c";
+      ExecStart = "${nixBinDir}/emacsclient -a '' -c";
 
       ExecStop = "${binDir}/emacsclient --eval \"(progn (save-some-buffers t) (kill-emacs))\"";
 
@@ -156,7 +156,7 @@ with profile.path;
 
       ExecStartPre = "${binDir}/notify-desktop 'Starting emacs --debug-init'";
 
-      ExecStart = "${hmSessionBin} emacs --debug-init";
+      ExecStart = "${nixBinDir}/emacs --debug-init";
 
       Environment = [
         "DISPLAY=:0"

@@ -75,7 +75,7 @@ in
 
         # TODO: Save all buffers in existing Emacs sessions
 
-        ExecStart = "${hmSessionBin} emacs --exwm";
+        ExecStart = "${nixBinDir}/emacs --exwm";
 
         Environment = [
           "DISPLAY=:2"
