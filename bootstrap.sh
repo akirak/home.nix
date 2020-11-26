@@ -1,5 +1,5 @@
 #!/bin/sh
-NIX_OS_VERSION=20.03
+NIX_OS_VERSION=20.09
 HM_URL=https://github.com/rycee/home-manager/archive/release-${NIX_OS_VERSION}.tar.gz
 REPO_URL=https://github.com/akirak/home.nix.git
 REPO_DEST="$HOME/home.nix"
@@ -20,11 +20,15 @@ if is_wsl; then
     echo <<EOF > $HOME/.config/nix/nix.conf
 sandbox = false
 use-sql-wal = false
+keep-derivations = true
+keep-outputs = true
+pexperimental-features = nix-command flakes
 EOF
 else
     echo <<EOF > $HOME/.config/nix/nix.conf
 keep-derivations = true
 keep-outputs = true
+pexperimental-features = nix-command flakes
 EOF
 fi
 
