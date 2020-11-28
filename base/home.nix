@@ -21,6 +21,7 @@ with profile;
     my-scripts
     xclip
     (lib.mkIf profile.platform.isWsl wsl-open)
+    rclone
   ];
 
   extraOutputsToInstall = [
