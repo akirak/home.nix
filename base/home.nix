@@ -12,6 +12,7 @@ with profile;
     gitAndTools.hub
     gitAndTools.git-annex
     gitAndTools.git-annex-utils
+    gitAndTools.git-remote-hg
     gitbatch
     bashcaster
     nox
