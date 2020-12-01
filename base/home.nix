@@ -14,7 +14,6 @@ with profile;
     gitAndTools.git-annex-utils
     gitAndTools.git-remote-hg
     gitbatch
-    bashcaster
     nox
     niv
     nix-prefetch-git
@@ -23,6 +22,8 @@ with profile;
     xclip
     (lib.mkIf profile.platform.isWsl wsl-open)
     rclone
+    nur.akirak.myrepos
+    nur.akirak.bashcaster
   ];
 
   extraOutputsToInstall = [

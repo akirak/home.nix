@@ -33,77 +33,35 @@ with profile;
         }
         {
           name = "pure";
-          src = pkgs.fetchFromGitHub {
-            owner = "sindresorhus";
-            repo = "pure";
-            rev = "dfc8062c64df8821eaec7d741c75f3cee20d37e3";
-            sha256 = "0nylqkag4isa22z130z9pbvjakwqf047q8qgzkwbwjhfqh9fp1sv";
-            # date = 2020-10-05T10:52:46+03:00;
-          };
+          src = pkgs.nur.akirak.zsh-pure-prompt;
         }
         {
           name = "enhancd";
-          file = "init.sh";
-          src =
-            let
-              origSrc = pkgs.fetchFromGitHub {
-                owner = "b4b4r07";
-                repo = "enhancd";
-                rev = "f0f894029d12eecdc36c212fa3ad14f55468d1b7";
-                sha256 = "1qk2fa33jn4j3xxaljmm11d6rbng6d5gglrhwavb72jib4vmkwyb";
-                # date = 2020-02-11T14:27:32+09:00;
-              };
-              drv = pkgs.stdenv.mkDerivation {
-                name = "copy-enhancd";
-                src = origSrc;
-                buildPhase = "";
-                installPhase = ''
-                mkdir -p $out
-                cp -ra -t $out $src/src $src/lib $src/config.ltsv $src/init.sh
-                '';
-              };
-            in drv;
+          # file = "init.sh";
+          src = pkgs.nur.akirak.zsh-enhancd;
         }
-        {
-          name = "solarized-man";
-          src = pkgs.fetchFromGitHub {
-            owner = "zlsun";
-            repo = "solarized-man";
-            rev = "e69d2cedc3a51031e660f2c3459b08ab62ef9afa";
-            sha256 = "1ljnqxfzhi26jfzm0nm2s9w43y545sj1gmlk6pyd9a8zc0hafdx8";
-            # date = ;
-            # date = 2019-07-01T11:22:24+08:00;
-          };
-        }
+        # {
+        #   name = "solarized-man";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "zlsun";
+        #     repo = "solarized-man";
+        #     rev = "e69d2cedc3a51031e660f2c3459b08ab62ef9afa";
+        #     sha256 = "1ljnqxfzhi26jfzm0nm2s9w43y545sj1gmlk6pyd9a8zc0hafdx8";
+        #     # date = ;
+        #     # date = 2019-07-01T11:22:24+08:00;
+        #   };
+        # }
         {
           name = "zsh-fzy";
-          src = pkgs.fetchFromGitHub {
-            owner = "aperezdc";
-            repo = "zsh-fzy";
-            rev = "923364fabf5e8731f2f0d02c66946a7b6a4c3b13";
-            sha256 = "15kc5qcwfmi8p1nyykmnjp32lz8zn1ji8w6aly1pfcg0l62wm26q";
-            # date = 2019-09-25T15:40:28+03:00;
-          };
+          src = pkgs.nur.akirak.zsh-fzy;
         }
         {
           name = "fast-syntax-highlighting";
-          src = pkgs.fetchFromGitHub {
-            owner = "zdharma";
-            repo = "fast-syntax-highlighting";
-            rev = "c4c419edb98c54e442f743708f3f1159d6735241";
-            sha256 = "197qmbc35byqcs4rjf3vin2mbwsc3m4i6q9zd50q5jpk8bij2gd8";
-            # date = 2020-04-02T19:05:33+02:00;
-          };
+          src = pkgs.nur.akirak.zsh-fast-syntax-highlighting;
         }
         {
           name = "nix-shell";
-          src =  pkgs.fetchFromGitHub {
-            owner = "chisui";
-            repo = "zsh-nix-shell";
-            rev = "a65382a353eaee5a98f068c330947c032a1263bb";
-            sha256 = "0l41ac5b7p8yyjvpfp438kw7zl9dblrpd7icjg1v3ig3xy87zv0n";
-            # date = 2019-12-20T12:15:36+01:00;
-          };
+          src =  pkgs.nur.akirak.zsh-nix-shell;
         }
       ];
       sessionVariables = {
