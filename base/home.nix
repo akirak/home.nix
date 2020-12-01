@@ -24,6 +24,7 @@ with profile;
     rclone
     nur.akirak.myrepos
     nur.akirak.bashcaster
+    nur.akirak.git-safe-update
   ];
 
   extraOutputsToInstall = [
