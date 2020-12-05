@@ -24,7 +24,7 @@ mkShell {
       [[ -e $f ]] && continue
       dest="$origin/$f"
       ! [[ -e "$dest" ]] && continue
-      ln -sv dest
+      ln -sv "$dest"
     done
   '';
 
