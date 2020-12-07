@@ -114,6 +114,14 @@ export NIX_BUILD_SHELL=bash
 # Use gpg-agent as ssh-agent.
 gpg-connect-agent /bye
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+function mr-all() {
+  for d in ~ /public /private; do
+    [[ -d $d ]] || continue
+    cd $d && mr "$@"
+  done
+}
+
 '';
       shellAliases = {
         ".." = "cd ..";
