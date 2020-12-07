@@ -141,6 +141,9 @@ function mr-all() {
         "list-units" = "systemctl --user list-units";
         "list-unit-files" = "systemctl --user list-unit-files";
         "reset" = "systemctl --user reset-failed";
+        "nrun" = "nix run --no-update-lock-file";
+        "epub2json" = "nrun github:akirak/epub2json --";
+        "pdftotext" = "nrun github:akirak/haskell-pdftotext --";
       };
 
       profileExtra = ''
