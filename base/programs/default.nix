@@ -13,11 +13,6 @@ with profile;
       enable = true;
     };
 
-    # TODO: Configure autorandr (possibly unnecessary?)
-    # autorandr = {
-    #   enable = true;
-    # };
-
     browserpass = {
       enable = preferences.useBrowserPass;
       browsers = ["chrome" "chromium"];
@@ -45,22 +40,5 @@ with profile;
     man = {
       enable = true;
     };
-
-    # TODO: Configure mbsync
-    # mbsync = {};
-
-    # TODO: Configure msmtp
-    # msmtp = {};
-
-    # TODO: Configure obs-studio
-    # obs-studio = {};
-
-    # TODO: Configure rofi for Chrome OS, WSL, and NixOS
-    # rofi = {};
-
-    # I used termite before, but not now. It's a decent term app anyway.
-    # termite = {};
-
-    # vscode = {};
 
 }
