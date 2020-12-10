@@ -1,7 +1,7 @@
 x:
 {
   # You have to configure an identity
-  identity = x.identity or import ../identity.nix;
+  identity = x.identity or import ~/local/identity.nix;
   github = { user = "akirak"; } // (x.github or {});
   language = {
     base = "en";
