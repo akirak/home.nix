@@ -35,7 +35,7 @@ let
           };
       };
     in
-      (mkProfile (import ./profile.nix {})) //
+      (mkProfile identity) //
     {
       inherit identity;
 

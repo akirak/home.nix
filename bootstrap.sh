@@ -86,7 +86,7 @@ if nix-env -q 'git.*' >/dev/null 2>&1; then
 fi
 
 echo <<EOF
-Choose a profile and run
+Run
 
   make all
 

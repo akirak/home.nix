@@ -204,7 +204,7 @@ The following is the full source code of the script:
   fi
 
   echo <<EOF
-  Choose a profile and run
+  Run
 
     make all
 
@@ -214,9 +214,8 @@ The following is the full source code of the script:
       nix-shell -p gnumake -p git
   fi
 #+end_src
-**** Choosing a profile
 **** Installation
-After configuring your profile, run
+Run
 
 #+begin_src shell
 make all
