@@ -25,10 +25,7 @@ deps:
 post-install: system-icons
 
 system-icons:
-	garcon-helper copy-icons
-
-chsh:
-	scripts/chsh-zsh
+	./scripts/garcon-helper copy-icons
 
 myrepos-checkout:
 	if [ ! -f "$(HOME)/.mrconfig" ]; then exit 1; fi
@@ -55,5 +52,5 @@ clean:
 	sudo rm -rf /homeless-shelter
 
 .PHONY: install-hooks all home-manager system-icons clean \
-	chsh update-nix-channels init-home-manager lorri tangle \
+	update-nix-channels init-home-manager lorri tangle \
 	myrepos-checkout cachix github-projects

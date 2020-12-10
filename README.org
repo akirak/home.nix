@@ -242,20 +242,10 @@ post-install: system-icons
 #+end_src
 **** System icons (only on Chrome OS)
 #+begin_src makefile
-system-icons:
-	garcon-helper copy-icons
+  system-icons:
+          ./scripts/garcon-helper copy-icons
 #+end_src
 **** Change the shell
-Somehow this doesn't work.
-
-#+begin_src makefile
-chsh:
-	scripts/chsh-zsh
-#+end_src
-
-Instead, you can install the shell to zsh using the following commands.
-Of course, you have to install zsh beforehand:
-
 #+begin_src shell :tangle no
 command -v zsh | sudo tee -a /etc/shells
 chsh -s `command -v zsh`

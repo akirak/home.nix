@@ -13,9 +13,9 @@ in
     akirak = import (super.fetchFromGitHub {
       owner = "akirak";
       repo = "nur-packages";
-      rev = "5dab4bfb44e7526b5deb017175b8ec184cde6cda";
-      # date = 2020-12-02T01:14:34+09:00;
-      sha256 = "1qhn0yaql7zknmrifp6pdn5bj54hn291j0shl92fjdcqrdvbqnbz";
+      rev = "c19d9b88a00447ce014a60bbf9a7b6007e36317f";
+      # date = 2020-12-10T05:01:11+09:00;
+      sha256 = "1qac2zck0bjckmcflgni5jv20ydv08f33v28wni6gbcgmdhjqh1x";
     }) { pkgs = super; };
   };
 }

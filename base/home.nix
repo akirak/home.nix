@@ -13,14 +13,12 @@ with profile;
     gitAndTools.git-annex
     gitAndTools.git-annex-utils
     gitAndTools.git-remote-hg
-    gitbatch
-    nox
     niv
     nix-prefetch-git
     trash-cli
-    my-scripts
+    nur.akirak.xephyr-launcher
     xclip
-    (lib.mkIf profile.platform.isWsl wsl-open)
+    (lib.mkIf profile.platform.isWsl nur.akirak.wsl-open)
     rclone
     nur.akirak.myrepos
     nur.akirak.bashcaster
@@ -40,13 +38,13 @@ with profile;
     # emacs-alt-icon
     # fonts
     google-fonts
-    go-mono
-    hack-font
+    nur.akirak.go-mono-nerd-font
+    nur.akirak.hack-nerd-font
     hasklig
-    tinos
+    nur.akirak.tinos-nerd-font
     agave
-    hannari-mincho-font
-    adobe-chinese
+    nur.akirak.hannari-mincho-font
+    nur.akirak.adobe-chinese-font
     # Since nix clears the font cache, it's better to not install
     # fonts as an Emacs package
     emacs-all-the-icons-fonts
