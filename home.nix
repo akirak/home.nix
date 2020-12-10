@@ -1,8 +1,10 @@
 { pkgs, lib, ... }:
+with builtins;
 with lib;
 let
   profile =
     let
+      identity = import ~/local/identity.nix;
       mkProfile = x: rec {
         # You have to configure an identity
         github = { user = "akirak"; } // (x.github or {});
@@ -13,23 +15,29 @@ let
         # in sessionVariables.
         locale = x.locale or {};
         preferences = {
-          useBrowserPass = true;
-          addGlobalGitIdentity = false;
+          addGlobalGitIdentity = identity.globalGitIdentity or false;
         } // (x.preferences or {});
         platform =
           let
-            that = x.platform;
+            hasEnv = name: getEnv name != "";
+            osRelease = readFile "/etc/os-release";
+            osLines = filter isString (split "\n" osRelease);
+            getOsField = key:
+              head (filter (x: x != null) (map (match key) osLines));
+            osName = getOsField "NAME=(.+)";
+            osId = getOsField "ID=(.+)";
           in rec {
-            isWsl = that.isWsl or false;
-            isChromeOS = that.isChromeOS or false;
-            isNixOS = that.isNixOS or false;
-            isWayland = that.isWayland or isChromeOS;
+            # TODO: Detect Windows Subsystem for Linux
+            isWsl = false;
+            isChromeOS = hasEnv "SOMMELIER_VERSION";
+            isNixOS = osId == "nixos";
+            isWayland = isChromeOS || hasEnv "WAYLAND_DISPLAY";
           };
       };
     in
       (mkProfile (import ./profile.nix {})) //
     {
-      identity = import ~/local/identity.nix;
+      inherit identity;
 
       path =
         rec {

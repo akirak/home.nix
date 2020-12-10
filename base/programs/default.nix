@@ -14,7 +14,7 @@ with profile;
     };
 
     browserpass = {
-      enable = preferences.useBrowserPass;
+      enable = false;
       browsers = ["chrome" "chromium"];
     };
 
