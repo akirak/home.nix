@@ -22,8 +22,9 @@ let
             hasEnv = name: getEnv name != "";
             osRelease = readFile "/etc/os-release";
             osLines = filter isString (split "\n" osRelease);
+            safeHead = xs: if length xs == 0 then null else head xs;
             getOsField = key:
-              head (filter (x: x != null) (map (match key) osLines));
+              safeHead (head (filter (x: x != null) (map (match key) osLines)));
             osName = getOsField "NAME=(.+)";
             osId = getOsField "ID=(.+)";
           in rec {
