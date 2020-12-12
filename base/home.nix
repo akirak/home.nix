@@ -3,7 +3,7 @@ with profile;
 {
   # The set of packages to appear in the user environment.
   packages = with pkgs; [
-    # (lib.mkIf (! profile.platform.isNixOS) nixFlakes)
+    (lib.mkIf (! profile.platform.isNixOS) nixFlakes)
     dejavu_fonts
     killall
     locale
