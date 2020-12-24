@@ -38,6 +38,8 @@ with profile;
     # emacs-alt-icon
     # fonts
     google-fonts
+    symbola
+    noto-fonts-emoji
     nur.akirak.go-mono-nerd-font
     nur.akirak.hack-nerd-font
     hasklig
