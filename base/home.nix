@@ -24,6 +24,9 @@ with profile;
     nur.akirak.bashcaster
     nur.akirak.git-safe-update
 
+    ripgrep
+    fd
+
     # ripgrep-all
     exa
     bat
