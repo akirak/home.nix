@@ -13,6 +13,7 @@ with profile;
     gitAndTools.git-annex
     gitAndTools.git-annex-utils
     gitAndTools.git-remote-hg
+    git-crypt
     niv
     nix-prefetch-git
     trash-cli
