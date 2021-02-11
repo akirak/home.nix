@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: auto-insert
+# key: auto-insert
+
+# --
+defmodule `(akirak/elixir-module-name-from-file)` do
+  $0
+end
