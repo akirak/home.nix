@@ -6,7 +6,6 @@
 
 ;; Author: `(magit-git-string "config" "user.name")` <`(magit-git-string "config" "user.email")`>
 ;; Version: 0.1
-;; Package-Requires: ((emacs "${1:26.1}"))
 ;; URL: https://github.com/`(akirak/github-repo-path-with-default)`
 
 ;; This file is not part of GNU Emacs.
