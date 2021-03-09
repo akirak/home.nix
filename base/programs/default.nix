@@ -30,6 +30,24 @@ with profile;
       enable = true;
       enableZshIntegration = true;
       enableNixDirenvIntegration = true;
+      stdlib = ''
+        # https://medium.com/analytics-vidhya/best-practice-for-using-poetry-608ab6feaaf
+        layout_poetry() {
+          if [[ ! -f pyproject.toml ]]; then
+            log_status 'No pyproject.toml found. Will initialize poetry in no-interactive mode'
+            poetry init -n -q
+            poetry run pip install -U pip wheel setuptools
+          fi
+          poetry run echo >> /dev/null
+          local VENV=$(dirname $(poetry run which python))
+          export VIRTUAL_ENV=$(echo "$VENV" | rev | cut -d'/' -f2- | rev)
+          export POETRY_ACTIVE=1
+          PATH_add "$VENV"
+          if [ ! -L .venv ]; then
+            ln -ns $VIRTUAL_ENV .venv
+          fi
+        }
+      '';
     };
 
     jq = {
