@@ -34,7 +34,10 @@ with profile;
     gopass
     mpv
     # for editing image files
-    pinta
+
+    # Pinta fails to build, so I'll disable it for now
+    # pinta
+
     # compressing image files
     # beancount
     beancount
