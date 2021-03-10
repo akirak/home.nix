@@ -18,8 +18,11 @@ with profile;
       browsers = ["chrome" "chromium"];
     };
 
+    # Web browsers needs regular security patches.
+    # Don't install a browser using Nix.
+    # Install it as a separate package.
     chromium = {
-      enable = true;
+      enable = false;
     };
 
     command-not-found = {
