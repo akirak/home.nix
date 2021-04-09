@@ -36,8 +36,7 @@ with profile;
     mpv
     # for editing image files
 
-    # Pinta fails to build, so I'll disable it for now
-    # pinta
+    pinta
 
     # compressing image files
     # beancount
