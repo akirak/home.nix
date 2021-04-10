@@ -62,4 +62,11 @@ with profile;
       enable = true;
     };
 
+    go = {
+      enable = true;
+      # This doesn't seem to take effect now.
+      # For now, I will configure the variable in zsh.
+      goPath = "misc/go";
+    };
+
 }

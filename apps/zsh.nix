@@ -83,7 +83,7 @@ with profile;
         LC_TIME = "en_DK.UTF-8";
 
         STARDICT_DATA_DIR = "${profile.path.homeDirectory}/.nix-profile/share/stardict";
-
+        "GOPATH" = "${builtins.getEnv "HOME"}/misc/go";
       };
       initExtra = ''
 setopt auto_cd

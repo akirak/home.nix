@@ -38,6 +38,10 @@ with profile;
 
     pinta
 
+    # kubernetes
+    kubernetes-helm
+    kind
+
     # compressing image files
     # beancount
     beancount
