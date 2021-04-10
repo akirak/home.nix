@@ -81,6 +81,9 @@ with profile;
         LC_MESSAGES="en_GB";
         # Use ISO 8601 (YYYY-MM-DD) date format
         LC_TIME = "en_DK.UTF-8";
+
+        STARDICT_DATA_DIR = "${profile.path.homeDirectory}/.nix-profile/share/stardict";
+
       };
       initExtra = ''
 setopt auto_cd
