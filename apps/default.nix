@@ -9,4 +9,5 @@ with profile.preferences;
   (optionalAttrs profile.platform.isWayland (import ./wayland.nix attrs))
   # (import ./kbfs.nix attrs)
   (import ./exwm.nix attrs)
+  (import ./stardict.nix attrs)
 ]
