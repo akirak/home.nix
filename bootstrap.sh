@@ -1,6 +1,5 @@
 #!/bin/sh
-NIX_OS_VERSION=20.09
-HM_URL=https://github.com/rycee/home-manager/archive/release-${NIX_OS_VERSION}.tar.gz
+HM_URL=https://github.com/rycee/home-manager/archive/master.tar.gz
 REPO_URL=https://github.com/akirak/home.nix.git
 REPO_DEST="$HOME/home.nix"
 
@@ -50,7 +49,7 @@ if ! command -v nix-env >/dev/null 2>&1; then
     . $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
 
-nix-channel --add https://nixos.org/channels/nixos-${NIX_OS_VERSION} nixpkgs
+nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs
 nix-channel --add "${HM_URL}" home-manager
 nix-channel --update
 
