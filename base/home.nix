@@ -33,6 +33,7 @@ with profile;
     exa
     bat
     gopass
+    gopass-jsonapi
     mpv
     # for editing image files
 
