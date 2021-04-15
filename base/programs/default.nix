@@ -64,6 +64,7 @@ with profile;
 
     go = {
       enable = true;
+      goBin = "misc/go/bin";
       # This doesn't seem to take effect now.
       # For now, I will configure the variable in zsh.
       goPath = "misc/go";
