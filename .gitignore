@@ -3,3 +3,4 @@
 /profile.nix
 /identity.nix
 .direnv
+.pre-commit-config.yaml
