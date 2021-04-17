@@ -20,7 +20,9 @@ with profile;
     # core.fileMode = false;
   };
 
-  ignores = [];
+  ignores = [
+    ".direnv"
+  ];
 
   signing = {
     key = "5B3390B01C01D3E";
