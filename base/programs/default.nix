@@ -11,6 +11,8 @@ with profile;
 
     ssh = {
       enable = true;
+      controlMaster = "auto";
+      controlPersist = "10m";
     };
 
     browserpass = {
