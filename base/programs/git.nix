@@ -18,6 +18,10 @@ with profile;
     core.autocrlf = "input";
     # Only on WSL
     # core.fileMode = false;
+
+    # Increase the size of post buffers to prevent hung ups of git-push.
+    # https://stackoverflow.com/questions/6842687/the-remote-end-hung-up-unexpectedly-while-git-cloning#6849424
+    http.postBuffer = "524288000";
   };
 
   ignores = [
