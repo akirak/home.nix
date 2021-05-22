@@ -58,7 +58,8 @@ in
 {
   home.packages = with pkgs; [
     sdcv
-    goldendict
+    # goldendict depends on ffmpeg, which is now considered insecure.
+    # goldendict
     dicts
   ];
 }
