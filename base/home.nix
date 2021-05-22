@@ -18,6 +18,7 @@ with profile;
     niv
     nix-prefetch-git
     manix
+    nix-tree
     trash-cli
     nur.akirak.xephyr-launcher
     xclip
