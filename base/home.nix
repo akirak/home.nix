@@ -17,6 +17,7 @@ with profile;
     git-crypt
     niv
     nix-prefetch-git
+    manix
     trash-cli
     nur.akirak.xephyr-launcher
     xclip
