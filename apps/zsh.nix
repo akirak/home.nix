@@ -125,9 +125,9 @@ function mr-all() {
   done
 }
 
-if [[ -f ~/.asdf/asdf.sh ]]; then
-   source ~/.asdf/asdf.sh
-fi
+# if [[ -f ~/.asdf/asdf.sh ]]; then
+#    source ~/.asdf/asdf.sh
+# fi
 '';
       shellAliases = {
         ".." = "cd ..";
