@@ -28,7 +28,8 @@ with profile;
     };
 
     command-not-found = {
-      enable = true;
+      # Use nix-index.
+      # enable = true;
     };
 
     direnv = {
@@ -70,6 +71,12 @@ with profile;
       # This doesn't seem to take effect now.
       # For now, I will configure the variable in zsh.
       goPath = "misc/go";
+    };
+
+    nix-index = {
+      enable = true;
+      enableBashIntegration = false;
+      enableZshIntegration = true;
     };
 
 }
