@@ -18,7 +18,7 @@
         {
           nur.akirak =
             import (import ../nix/sources.nix).nur-packages {
-              pkgs = self;
+              system = builtins.currentSystem;
             };
         };
     in
