@@ -5,16 +5,20 @@ export NIX_BUILD_SHELL = $(shell nix-build --no-out-link '<nixpkgs>' -A bash)/bi
 
 home-manager:
 	home-manager -I $(shell pwd) switch
+.PHONY: home-manager
 
 build:
 	home-manager -I $(shell pwd) build
+.PHONY: build
 
-all: install-hooks cachix home-manager
+init:
+	home-manager -I $(shell pwd) install
+.PHONY: init
 
 deps:
 	helpers/install-deps
+.PHONY: deps
 
 clean:
 	sudo rm -rf /homeless-shelter
-
-.PHONY: all home-manager build all clean
+.PHONY: clean
