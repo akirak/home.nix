@@ -1,12 +1,10 @@
-name: 'CI'
+name: 'Check the structure'
 on:
-  push:
-    paths-ignore:
-    - '**.md'
-    - '**.org'
+  pull_request:
 jobs:
-  migration:
+  deprecation:
     runs-on: ubuntu-latest
+    allow-failure: true
     steps:
     - uses: actions/checkout@v2
     - run: '! test -e overlays'
