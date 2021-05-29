@@ -1,8 +1,6 @@
 name: Test the Nix installation script
 
 on:
-  # Remove this after checking
-  push:
   schedule:
   - cron: '2 0 5 * *'
 
