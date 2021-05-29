@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+has_error=0
+
+deprecate() {
+  local file="$1"
+  shift
+  local message="$*"
+  if [[ -e "$file" ]]; then
+    has_error=1
+    if [[ -z "$message" ]]; then
+      echo "WARN: $file still exists" >&2
+    else
+      echo "WARN: $file still exists: $message" >&2
+    fi
+  fi
+}
+
+deprecate overlays "Overlay packages should be moved to my NUR repo"
+deprecate .gitmodules "Don't use submodules"
+deprecate helpers
+deprecate base
+deprecate apps
+deprecate .githooks "Use pre-commit.nix"
+deprecate choose-profile.bash "Profiles should be managed in local repo"
+deprecate bootstrap.sh "Use a simplified script for installing Nix"
+deprecate scripts "scripts should be renamed to bin"
+deprecate functions
+deprecate profiles
+
+if [[ ${has_error} -gt 0 ]]; then
+  exit 1
+fi
