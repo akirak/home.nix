@@ -1,0 +1,22 @@
+name: 'Lint and build the configuration'
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: make lint-structure
+      continue-on-error: true
+
+  # TODO: Add a build job
+  # build-configuration:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: cachix/install-nix-action@v13

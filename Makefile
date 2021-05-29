@@ -22,3 +22,7 @@ deps:
 clean:
 	sudo rm -rf /homeless-shelter
 .PHONY: clean
+
+lint-structure:
+	./helpers/lint-structure
+.PHONY: lint-structure
