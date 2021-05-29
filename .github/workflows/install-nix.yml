@@ -1,0 +1,15 @@
+name: Test the Nix installation script
+
+on:
+  # Remove this after checking
+  push:
+  schedule:
+  - cron: '2 0 5 * *'
+
+jobs:
+  test-nix-installation-script
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Nix using the in-repository bash script
+      run: ./install.bash
