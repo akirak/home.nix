@@ -27,6 +27,7 @@ with profile;
     nur.akirak.myrepos
     nur.akirak.bashcaster
     nur.akirak.git-safe-update
+    nur.akirak.linguist-wrapper
 
     ripgrep
     fd
