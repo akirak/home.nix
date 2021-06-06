@@ -27,7 +27,9 @@ with profile;
     nur.akirak.myrepos
     nur.akirak.bashcaster
     nur.akirak.git-safe-update
-    nur.akirak.linguist-wrapper
+    (if preferences.useDocker
+     then nur.akirak.linguist-wrapper-docker
+     else nur.akirak.linguist-wrapper-podman)
 
     ripgrep
     fd

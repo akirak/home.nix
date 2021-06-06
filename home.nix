@@ -16,6 +16,7 @@ let
         locale = x.locale or {};
         preferences = {
           addGlobalGitIdentity = identity.globalGitIdentity or false;
+          useDocker = false;
         } // (x.preferences or {});
         platform =
           let
