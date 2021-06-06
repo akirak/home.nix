@@ -79,4 +79,10 @@ with profile;
       enableZshIntegration = true;
     };
 
+    broot = {
+      enable = true;
+      enableBashIntegration = false;
+      enableZshIntegration = true;
+    };
+
 }
