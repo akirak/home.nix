@@ -31,6 +31,10 @@ with profile;
      then nur.akirak.linguist-wrapper-docker
      else nur.akirak.linguist-wrapper-podman)
 
+    lsof
+    # fuser, killall, and pstree
+    psmisc
+
     ripgrep
     fd
 
