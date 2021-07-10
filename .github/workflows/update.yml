@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: niv-updater-action
-        uses: knl/niv-updater-action@master
+        uses: knl/niv-updater-action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
