@@ -37,6 +37,7 @@ with profile;
 
     ripgrep
     fd
+    xh
 
     gifski
 
