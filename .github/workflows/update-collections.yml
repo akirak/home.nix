@@ -1,7 +1,7 @@
-name: Update Niv dependencies
+name: Update Niv package databases
 on:
   schedule:
-    - cron:  '0 18 * * 3,6'
+    - cron:  '0 19 13 * *'
 
 jobs:
   niv-updater:
@@ -13,4 +13,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          blacklist: 'home-manager,nixpkgs'
+          whitelist: 'home-manager,nixpkgs'
