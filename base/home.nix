@@ -38,6 +38,8 @@ with profile;
     ripgrep
     fd
 
+    gifski
+
     # ripgrep-all
     exa
     bat
