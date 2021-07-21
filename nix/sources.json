@@ -41,10 +41,10 @@
         "homepage": null,
         "owner": "akirak",
         "repo": "nur-packages",
-        "rev": "17e7dbcc4086303319450f03edd632cbf5730c6a",
-        "sha256": "1g00aj2xm7jbm72fnqz1x9bmls1hzxgwlmfqi89fpanqxy5kf5b7",
+        "rev": "3af11bf1eaa421bf190c5f4696fd0a23e7fb0067",
+        "sha256": "1iq373pp58pwfahsflpzp8wix88zfmhhyx7g091y5r7mqzw9zi33",
         "type": "tarball",
-        "url": "https://github.com/akirak/nur-packages/archive/17e7dbcc4086303319450f03edd632cbf5730c6a.tar.gz",
+        "url": "https://github.com/akirak/nur-packages/archive/3af11bf1eaa421bf190c5f4696fd0a23e7fb0067.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
