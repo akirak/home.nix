@@ -6,4 +6,12 @@ with profile.path;
   configHome = "${homeDirectory}/.config";
   dataHome = "${homeDirectory}/.local/share";
   cacheHome = "${homeDirectory}/.cache";
+
+  mimeApps = {
+    defaultApplications = {
+      "application/epub+zip" = [
+        "foliate"
+      ];
+    };
+  };
 }
