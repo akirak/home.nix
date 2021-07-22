@@ -35,7 +35,7 @@ with profile;
     direnv = {
       enable = true;
       enableZshIntegration = true;
-      enableNixDirenvIntegration = true;
+      nix-direnv.enable = true;
       stdlib = ''
         # https://medium.com/analytics-vidhya/best-practice-for-using-poetry-608ab6feaaf
         layout_poetry() {
