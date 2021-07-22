@@ -78,6 +78,9 @@ with profile;
     # Data for rime (Chinese input)
     # This somehow causes conflicts. I will review it later.
     # brise
+
+    # Reading epub
+    foliate
   ];
 
   extraOutputsToInstall = [
