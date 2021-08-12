@@ -10,7 +10,7 @@ with profile.path;
       name = "Alacritty (nixGLIntel)";
       keywords = "shell;prompt;command;commandline;cmd;";
       comment = "GPU-enabled terminal emulator";
-      exec = "${pkgs.nur.akirak.nixGL.nixGLIntel}/bin/nixGLIntel ${pkgs.alacritty}/bin/alacritty";
+      exec = "${pkgs.nixGL.nixGLIntel}/bin/nixGLIntel ${pkgs.alacritty}/bin/alacritty";
       tryExec = "${pkgs.alacritty}/bin/alacritty";
       startupNotify = true;
       startupWmClass = "Alacritty";
