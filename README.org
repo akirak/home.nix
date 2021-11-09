@@ -1,4 +1,6 @@
 * My home-manager configuration
+*I no longer maintain this repository.*
+I have switched to [[https://github.com/akirak/flk][a flake-based configuration]].
 ** Installation
 :PROPERTIES:
 :CREATED_TIME: [2021-05-26 Wed 00:17]
